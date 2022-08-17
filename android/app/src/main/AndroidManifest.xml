@@ -36,7 +36,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="kakao73aa8e8861b0a012190261ea46f0bfd0" android:host="oauth"/>
+                <data android:scheme="kakao8c7b05953960c527e38fabb76c758817" android:host="oauth"/>
             </intent-filter>
         </activity>
 
