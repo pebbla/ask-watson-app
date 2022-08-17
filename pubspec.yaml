@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.3
 
+  ## http 통신
+  http: ^0.13.5
+  dio: ^4.0.6
   ## 카카오
   kakao_flutter_sdk_user: ^1.2.1
 

@@ -1,7 +1,9 @@
+
+import 'package:ask_watson_app/src/presentation/auth/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
-import 'auth/sign_up_view.dart';
+
 
 void main() {
   KakaoSdk.init(nativeAppKey: '8c7b05953960c527e38fabb76c758817');
