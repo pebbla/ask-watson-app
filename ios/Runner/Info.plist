@@ -27,12 +27,14 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+				<string>ios</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<!-- 카카오 로그인 -->
 				<string>kakao8c7b05953960c527e38fabb76c758817</string>
 				<!-- 네이버 로그인 -->
-				<string>[UrlScheme]</string>
+				<string>ios</string>
 			</array>
 		</dict>
 	</array>
@@ -100,5 +102,10 @@
           </dict>
        </dict>
     </dict>
+
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_dartobservatory._tcp</string>
+	</array>
 </dict>
 </plist>

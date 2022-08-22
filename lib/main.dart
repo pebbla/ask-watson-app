@@ -1,4 +1,3 @@
-
 import 'package:ask_watson_app/src/presentation/auth/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';

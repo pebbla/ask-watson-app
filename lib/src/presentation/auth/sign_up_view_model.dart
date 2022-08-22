@@ -27,7 +27,7 @@ class SignUpViewModel extends ChangeNotifier {
    */
   void getKakaoAccessToken () async {
     var tokenManager = await TokenManagerProvider.instance.manager.getToken();
-    print(tokenManager?.accessToken);
+    print('kakao access token : ${tokenManager?.accessToken}');
   }
 
 
@@ -35,13 +35,15 @@ class SignUpViewModel extends ChangeNotifier {
   /**
    * 네이버 로그인
    */
-  void tabSignUpNaverBtn(BuildContext context) async {
-    NaverLoginResult res = await FlutterNaverLogin.logIn();
-    final NaverLoginResult result = await FlutterNaverLogin.logIn();
-    NaverAccessToken resa = await FlutterNaverLogin.currentAccessToken;
-    print(resa.accessToken);
-    print(resa.tokenType);
+  void tabSignUpNaverBtn(BuildContext context) async {  
+    NaverLoginResult loginResult = await FlutterNaverLogin.logIn();
+
+    print(loginResult.account.email);
+    print(loginResult.account.birthday);
+    print(loginResult.account.nickname);
+    print(loginResult.account.mobile);
+
+    NaverAccessToken accessToken = await FlutterNaverLogin.currentAccessToken;
+    print(accessToken.accessToken);
   }
-
-
 } 

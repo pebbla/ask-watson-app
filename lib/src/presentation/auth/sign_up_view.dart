@@ -21,9 +21,18 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
-      child: Center(child: _signUpKakaoBtn(context)),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _signUpKakaoBtn(context),
+          Padding(padding: EdgeInsets.all(16)),
+          _signUpNaverBtn(context),
+        ],
+      ),
     );
   }
+
 
   /**
    * 카카오 로그인하기 버튼
@@ -51,6 +60,7 @@ class SignUpView extends StatelessWidget {
     );
   }
 
+
   /**
    * 네이버 로그인하기 버튼
    */
@@ -59,17 +69,20 @@ class SignUpView extends StatelessWidget {
       onTap: () => Provider.of<SignUpViewModel>(context, listen: false).tabSignUpNaverBtn(context),
       child: Container(
         decoration: const BoxDecoration(
-          color: Color.fromRGBO(255, 234, 0, 1),
+          color: Color.fromRGBO(3, 199, 90, 1),
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
         child: Row(
           children: [
-            Image.asset('assets/auth/kakao_logo_icon.png'),
+            SizedBox(
+              width: 40,
+              child: Image.asset('assets/auth/naver_logo_icon.png')
+            ),
             const Padding(padding: EdgeInsets.all(4)),
             const Text(
               '네이버로 로그인하기',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, color: Colors.white),
             ),
           ],
         ),
