@@ -36,6 +36,7 @@ class SignUpViewModel extends ChangeNotifier {
    * 네이버 로그인
    */
   void tabSignUpNaverBtn(BuildContext context) async {  
+    // 정보 가져오기
     NaverLoginResult loginResult = await FlutterNaverLogin.logIn();
 
     print(loginResult.account.email);
@@ -43,6 +44,7 @@ class SignUpViewModel extends ChangeNotifier {
     print(loginResult.account.nickname);
     print(loginResult.account.mobile);
 
+    // 토근 가져오기 
     NaverAccessToken accessToken = await FlutterNaverLogin.currentAccessToken;
     print(accessToken.accessToken);
   }
