@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class SignUpViewModel extends ChangeNotifier {
@@ -28,4 +29,19 @@ class SignUpViewModel extends ChangeNotifier {
     var tokenManager = await TokenManagerProvider.instance.manager.getToken();
     print(tokenManager?.accessToken);
   }
+
+
+
+  /**
+   * 네이버 로그인
+   */
+  void tabSignUpNaverBtn(BuildContext context) async {
+    NaverLoginResult res = await FlutterNaverLogin.logIn();
+    final NaverLoginResult result = await FlutterNaverLogin.logIn();
+    NaverAccessToken resa = await FlutterNaverLogin.currentAccessToken;
+    print(resa.accessToken);
+    print(resa.tokenType);
+  }
+
+
 } 

@@ -43,6 +43,8 @@ dependencies:
   
   ## 카카오
   kakao_flutter_sdk_user: ^1.2.1
+  ## 네이버
+  flutter_naver_login: ^1.6.0
 
 
 dev_dependencies:

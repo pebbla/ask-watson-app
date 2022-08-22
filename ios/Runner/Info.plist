@@ -29,7 +29,10 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<!-- 카카오 로그인 -->
 				<string>kakao8c7b05953960c527e38fabb76c758817</string>
+				<!-- 네이버 로그인 -->
+				<string>[UrlScheme]</string>
 			</array>
 		</dict>
 	</array>
@@ -39,6 +42,9 @@
 		<array>
 			<!-- 카카오 로그인 -->
 			<string>kakaokompassauth</string>
+			<!-- 네이버 로그인 -->
+			<string>naversearchapp</string>
+            <string>naversearchthirdlogin</string>
 		</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -61,5 +67,38 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+    <key>naverServiceAppUrlScheme</key>
+    <string>ios</string>
+    <key>naverConsumerKey</key>
+    <string>3gtvwzljbdRnobTbeKwG</string>
+    <key>naverConsumerSecret</key>
+    <string>BbAjtY1kBe</string>
+    <key>naverServiceAppName</key>
+    <string>왓슨에게 물어보세요</string>
+
+	<!-- http allows configurations -->
+	<key>NSAppTransportSecurity</key>
+    <dict>
+       <key>NSAllowsArbitraryLoads</key>
+       <true/>
+       <key>NSExceptionDomains</key>
+       <dict>
+          <key>naver.com</key>
+          <dict>
+             <key>NSExceptionRequiresForwardSecrecy</key>
+             <false/>
+             <key>NSIncludesSubdomains</key>
+             <true/>
+          </dict>
+          <key>naver.net</key>
+          <dict>
+             <key>NSExceptionRequiresForwardSecrecy</key>
+             <false/>
+             <key>NSIncludesSubdomains</key>
+             <true/>
+          </dict>
+       </dict>
+    </dict>
 </dict>
 </plist>
