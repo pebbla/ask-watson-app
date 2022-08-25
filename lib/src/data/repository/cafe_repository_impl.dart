@@ -1,6 +1,8 @@
 import 'package:ask_watson_app/src/data/data_source/http_client.dart';
+import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/domain/repository/cafe_repository.dart';
 import 'package:ask_watson_app/util/enum/api_response.dart';
+import 'package:ask_watson_app/util/enum/api_status.dart';
 
 class CafeRepositoryImpl extends CafeRepository {
 
@@ -10,6 +12,9 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeList() async {
     var response = await _httpClient.getRequest('/v1/cafes');
+    if(response[ApiResponse.Result] == ApiResult.Success) {
+      response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
+    }
     return response;
   }
 
@@ -18,6 +23,9 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeById(int cafeId) async {
     var response = await _httpClient.getRequest('/v1/cafes/$cafeId');
+    if(response[ApiResponse.Result] == ApiResult.Success) {
+      response[ApiResponse.Data] = Cafe.fromJson(response[ApiResponse.Data]);
+    }
     return response;
   }
 
