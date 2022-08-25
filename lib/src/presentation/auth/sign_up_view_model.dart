@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class SignUpViewModel extends ChangeNotifier {
@@ -26,6 +27,25 @@ class SignUpViewModel extends ChangeNotifier {
    */
   void getKakaoAccessToken () async {
     var tokenManager = await TokenManagerProvider.instance.manager.getToken();
-    print(tokenManager?.accessToken);
+    print('kakao access token : ${tokenManager?.accessToken}');
+  }
+
+
+
+  /**
+   * 네이버 로그인
+   */
+  void tabSignUpNaverBtn(BuildContext context) async {  
+    // 정보 가져오기
+    NaverLoginResult loginResult = await FlutterNaverLogin.logIn();
+
+    print(loginResult.account.email);
+    print(loginResult.account.birthday);
+    print(loginResult.account.nickname);
+    print(loginResult.account.mobile);
+
+    // 토근 가져오기 
+    NaverAccessToken accessToken = await FlutterNaverLogin.currentAccessToken;
+    print(accessToken.accessToken);
   }
 } 
