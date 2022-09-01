@@ -11,21 +11,5 @@ abstract class EscapeCompleteRepository {
 
   // 탈출 완료 삭제 
   Future<Map<ApiResponse, dynamic>> deleteEscapeComplete(int escapeCompleteId);
-
-
-
   
-
 }
-
-/**
- * GET
-​/v1​/user​/{userId}​/escape-completes
-getEscapeCompletesByUser
-POST
-​/v1​/user​/{userId}​/themes​/{themeId}​/escape-completes
-createEscapeComplete
-DELETE
-​/v1​/user​/escape-completes​/{escapeCompleteId}
-cancelEscapeComplete
- */
