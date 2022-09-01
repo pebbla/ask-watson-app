@@ -1,9 +1,3 @@
-import 'package:ask_watson_app/src/data/repository/faq_repository_impl.dart';
-import 'package:ask_watson_app/src/data/repository/location_repository_impl.dart';
-import 'package:ask_watson_app/src/data/repository/notice_repository_impl.dart';
-import 'package:ask_watson_app/src/domain/use_case/faq_use_case.dart';
-import 'package:ask_watson_app/src/domain/use_case/location_user_case.dart';
-import 'package:ask_watson_app/src/domain/use_case/notice_use_case.dart';
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,12 +33,6 @@ class MainView extends StatelessWidget {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
-
-              TextButton(onPressed: (){
-                 var usecase =  LocationUseCase(LocationRepositoryImpl());
-                 usecase.getLocationList();
-              }, child: Text('테스트를 위해서 눌러주세요')),
-
               _buildSearchBar(context),
               _buildBody(context),
             ],
