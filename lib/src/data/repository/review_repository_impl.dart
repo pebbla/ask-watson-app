@@ -67,14 +67,3 @@ class ReivewRepositoryImpl extends ReivewRepository {
   }
 
 }
-
-/**
- * 
-
-POST
-​/v1​/user​/{userId}​/themes​/{themeId}​/reviews
-createReview
-PUT
-​/v1​/user​/reviews​/{reviewId}
-modifyReview
- */
