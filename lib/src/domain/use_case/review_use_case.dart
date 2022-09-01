@@ -1,8 +1,10 @@
 import 'package:ask_watson_app/src/data/model/review.dart';
+import 'package:ask_watson_app/src/data/repository/review_repository_impl.dart';
 import 'package:ask_watson_app/util/enum/api_response.dart';
 
 class ReviewUseCase {
-  final ReviewUseCase _repository;
+  
+  final ReivewRepositoryImpl _repository;
 
   ReviewUseCase(this._repository);
 
