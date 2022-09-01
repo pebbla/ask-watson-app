@@ -24,7 +24,7 @@ class MainView extends StatelessWidget {
 
   const MainView({super.key, required this.viewModel, required this.viewModelWatch});
 
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,4 +67,4 @@ class MainView extends StatelessWidget {
 
   }
 
-}
+} 

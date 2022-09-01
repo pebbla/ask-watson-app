@@ -21,7 +21,15 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(24),
-      child: Center(child: _signUpKakaoBtn(context)),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _signUpKakaoBtn(context),
+          Padding(padding: EdgeInsets.all(16)),
+          _signUpNaverBtn(context),
+        ],
+      ),
     );
   }
 
@@ -51,4 +59,34 @@ class SignUpView extends StatelessWidget {
     );
   }
 
+
+
+  /**
+   * 네이버 로그인하기 버튼
+   */
+  Widget _signUpNaverBtn(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Provider.of<SignUpViewModel>(context, listen: false).tabSignUpNaverBtn(context),
+      child: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(3, 199, 90, 1),
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 40,
+              child: Image.asset('assets/auth/naver_logo_icon.png')
+            ),
+            const Padding(padding: EdgeInsets.all(4)),
+            const Text(
+              '네이버로 로그인하기',
+              style: TextStyle(fontSize: 16, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
