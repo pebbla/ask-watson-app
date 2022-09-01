@@ -11,7 +11,7 @@ class CafeRepositoryImpl extends CafeRepository {
   // 카페 리스트 조회
   @override
   Future<Map<ApiResponse, dynamic>> getCafeList() async {
-    var response = await _httpClient.getRequest('/v1/cafes');
+    var response = await _httpClient.getRequest('/cafes');
     if(response[ApiResponse.Result] == ApiResult.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
     }
@@ -22,7 +22,7 @@ class CafeRepositoryImpl extends CafeRepository {
   // 카페 개별 조회
   @override
   Future<Map<ApiResponse, dynamic>> getCafeById(int cafeId) async {
-    var response = await _httpClient.getRequest('/v1/cafes/$cafeId');
+    var response = await _httpClient.getRequest('/cafes/$cafeId');
     if(response[ApiResponse.Result] == ApiResult.Success) {
       response[ApiResponse.Data] = Cafe.fromJson(response[ApiResponse.Data]);
     }
