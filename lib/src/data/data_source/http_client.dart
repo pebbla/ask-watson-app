@@ -9,7 +9,7 @@ import 'package:logger/logger.dart';
 
 class HttpClient {
 
-  static final baseUrl = 'http://5756-2001-2d8-ee67-1550-6d62-5ea5-7ca4-92db.ngrok.io/v1';
+  static final baseUrl = 'localhost:8080/v1';
   Logger _logger = Logger();
 
 
