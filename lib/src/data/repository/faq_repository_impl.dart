@@ -11,7 +11,7 @@ class FaqRepositoryImpl extends FaqRepository {
   // 자주묻는질문 리스트 조회
   @override
   Future<Map<ApiResponse, dynamic>> getFaqList() async {
-        var response = await _httpClient.getRequest('/faqs');
+    var response = await _httpClient.getRequest('/faqs');
     if(response[ApiResponse.Result] == ApiResult.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Faq>((json) => Faq.fromJson(json)).toList();
     }
