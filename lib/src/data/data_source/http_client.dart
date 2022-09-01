@@ -106,7 +106,7 @@ class HttpClient {
     return {
       ApiResponse.StatusCode: response.statusCode,
       ApiResponse.Result : convertApiResult(response.statusCode),
-      ApiResponse.Data: response.data['data'],
+      ApiResponse.Data: response.data['data'] == null ? response.data['dataList'] : response.data['data'],
       ApiResponse.StatusMessage: response.statusMessage
     };
   }
