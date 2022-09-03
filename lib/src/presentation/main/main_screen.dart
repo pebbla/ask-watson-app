@@ -26,14 +26,17 @@ class MainView extends StatelessWidget {
   final viewModel;
   final viewModelWatch;
 
-  const MainView(
-      {super.key, required this.viewModel, required this.viewModelWatch});
+  const MainView({
+    super.key,
+    required this.viewModel,
+    required this.viewModelWatch,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: (){
+        onTap: () {
           FocusScope.of(context).unfocus();
         },
         child: SafeArea(
@@ -55,8 +58,7 @@ class MainView extends StatelessWidget {
     );
   }
 
-
-  // 검색창 
+  // 검색창
   Widget _buildSearchBar(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,8 +67,9 @@ class MainView extends StatelessWidget {
           width: 90,
           height: 120,
           child: Container(
-            //TODO : 사진 넣기
-          ),),
+              //TODO : 사진 넣기
+              ),
+        ),
         Flexible(
           child: Container(
             height: 56,
@@ -74,31 +77,30 @@ class MainView extends StatelessWidget {
               onChanged: (text) => viewModelWatch.onChanged(),
               controller: viewModel.controller,
               focusNode: viewModel.focusNode,
-              cursorColor: MyColor.lightGrey,
+              cursorColor: MyColor.grey,
               decoration: InputDecoration(
                   isDense: true,
                   prefixIcon: Icon(
                     Icons.search,
-                    color: MyColor.lightGrey,
+                    color: MyColor.grey,
                   ),
                   hintText: '검색어를 입력하세요',
-                  hintStyle: MyTextStyle.lightGrey14w500,
+                  hintStyle: MyTextStyle.grey14w500,
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide:BorderSide(color: MyColor.lightGrey)),
+                      borderSide: BorderSide(color: MyColor.grey)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide:BorderSide(color: MyColor.lightGrey)),
+                      borderSide: BorderSide(color: MyColor.grey)),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide:BorderSide(color: MyColor.lightGrey))),
+                      borderSide: BorderSide(color: MyColor.grey))),
             ),
           ),
         ),
       ],
     );
   }
-
 
   // 카테고리 리스트
   Widget _buildCategoryList(BuildContext context) {
@@ -109,16 +111,18 @@ class MainView extends StatelessWidget {
         children: [
           Text('카테고리', style: MyTextStyle.black18w600),
           Padding(padding: EdgeInsets.all(4)),
-          Row(
-            children: [
-              _categoryItem('', '스릴러'),
-              Padding(padding: EdgeInsets.all(8)),
-              _categoryItem('', '공포'),
-              Padding(padding: EdgeInsets.all(8)),
-              _categoryItem('', '스릴러'),
-              Padding(padding: EdgeInsets.all(8)),
-              _categoryItem('', '스릴러'),
-            ],
+          Container(
+            height: 80,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return _categoryItem('', '스릴러');
+              },
+              itemCount: 10,
+              separatorBuilder: (BuildContext context, int index) {
+                return SizedBox(width: 8);
+              },
+            ),
           ),
         ],
       ),
@@ -135,19 +139,19 @@ class MainView extends StatelessWidget {
             width: 55,
             height: 55,
             decoration: BoxDecoration(
-              border: Border.all(),
-              borderRadius: BorderRadius.all(Radius.circular(50))
-            ),
+                border: Border.all(),
+                borderRadius: BorderRadius.all(Radius.circular(50))),
             // child: Image.asset('assets/auth/kakao_logo_icon.png'),
           ),
           Padding(padding: EdgeInsets.all(4)),
-          Text(categoryName, style: MyTextStyle.black12w500,)
+          Text(
+            categoryName,
+            style: MyTextStyle.black12w500,
+          )
         ],
       ),
     );
   }
-
-
 
   // 카페 리스트
   Widget _buildCafeList(BuildContext context) {
@@ -209,7 +213,10 @@ class MainView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${cafe.name ?? '키이스케이프 강남점' }', style: MyTextStyle.black16w600,),
+                  Text(
+                    '${cafe.name ?? '키이스케이프 강남점'}',
+                    style: MyTextStyle.black16w600,
+                  ),
                   // TODO : star widget
                   Padding(padding: EdgeInsets.all(2)),
                   Row(
@@ -218,7 +225,8 @@ class MainView extends StatelessWidget {
                       // star widget,
                       StarWidget(rating: cafe.rating ?? 4.0),
                       Padding(padding: EdgeInsets.all(2)),
-                      Text('${cafe.rating ?? 0.0}', style: MyTextStyle.grey14w500)
+                      Text('${cafe.rating ?? 0.0}',
+                          style: MyTextStyle.grey14w500)
                     ],
                   ),
                 ],
@@ -229,7 +237,6 @@ class MainView extends StatelessWidget {
       ),
     );
   }
-
 
   // 테마 리스트
   Widget _buildThemeList(BuildContext context) {
@@ -253,18 +260,17 @@ class MainView extends StatelessWidget {
               )
             ],
           ),
-          Row(children: [
-            _themeItem(theme),
-            Padding(padding: EdgeInsets.all(4)),
-            _themeItem(theme),
-
-          ],)
+          Row(
+            children: [
+              _themeItem(theme),
+              Padding(padding: EdgeInsets.all(4)),
+              _themeItem(theme),
+            ],
+          )
         ],
       ),
     );
   }
-
-
 
   // 테마 아이템
   Widget _themeItem(m.Theme theme) {
@@ -292,7 +298,10 @@ class MainView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${theme.name ?? '키이스케이프 강남점' }', style: MyTextStyle.black16w600,),
+                  Text(
+                    '${theme.name ?? '키이스케이프 강남점'}',
+                    style: MyTextStyle.black16w600,
+                  ),
                   // TODO : star widget
                   Padding(padding: EdgeInsets.all(2)),
                   Row(
@@ -301,7 +310,8 @@ class MainView extends StatelessWidget {
                       // star widget,
                       StarWidget(rating: theme.rating ?? 0.0),
                       Padding(padding: EdgeInsets.all(2)),
-                      Text('${theme.rating ?? 0.0}', style: MyTextStyle.grey14w500)
+                      Text('${theme.rating ?? 0.0}',
+                          style: MyTextStyle.grey14w500)
                     ],
                   ),
                 ],
