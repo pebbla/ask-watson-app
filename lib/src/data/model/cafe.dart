@@ -4,18 +4,18 @@ import 'package:ask_watson_app/src/data/model/location.dart';
 
 class Cafe {
   int? id;
-  String? cafeName;
+  String? name;
   String? cafePhoneNum;
   Location? location;
   Company? company;
   Geography? geography;
   int? reviewCount;
-  int? rating;
+  double? rating;
   bool? englishPossible;
 
   Cafe(
       {this.id,
-      this.cafeName,
+      this.name,
       this.cafePhoneNum,
       this.location,
       this.company,
@@ -26,7 +26,7 @@ class Cafe {
 
   Cafe.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    cafeName = json['cafeName'];
+    name = json['cafeName'];
     cafePhoneNum = json['cafePhoneNum'];
     location = json['location'] != null
         ? new Location.fromJson(json['location'])
@@ -44,7 +44,7 @@ class Cafe {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['cafeName'] = this.cafeName;
+    data['cafeName'] = this.name;
     data['cafePhoneNum'] = this.cafePhoneNum;
     if (this.location != null) {
       data['location'] = this.location!.toJson();

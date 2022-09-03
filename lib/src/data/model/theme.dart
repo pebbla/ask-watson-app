@@ -14,11 +14,11 @@ class Theme {
   int? minNumPeople;
   String? modifiedAt;
   int? price;
-  int? rating;
+  double? rating;
   String? reservationUrl;
   int? reviewCount;
-  String? themeExplanation;
-  String? themeName;
+  String? explanation;
+  String? name;
   int? timeLimit;
 
   Theme(
@@ -37,8 +37,8 @@ class Theme {
       this.rating,
       this.reservationUrl,
       this.reviewCount,
-      this.themeExplanation,
-      this.themeName,
+      this.explanation,
+      this.name,
       this.timeLimit});
 
   Theme.fromJson(Map<String, dynamic> json) {
@@ -61,8 +61,8 @@ class Theme {
     rating = json['rating'];
     reservationUrl = json['reservationUrl'];
     reviewCount = json['reviewCount'];
-    themeExplanation = json['themeExplanation'];
-    themeName = json['themeName'];
+    explanation = json['themeExplanation'];
+    name = json['themeName'];
     timeLimit = json['timeLimit'];
   }
 
@@ -87,8 +87,8 @@ class Theme {
     data['rating'] = this.rating;
     data['reservationUrl'] = this.reservationUrl;
     data['reviewCount'] = this.reviewCount;
-    data['themeExplanation'] = this.themeExplanation;
-    data['themeName'] = this.themeName;
+    data['themeExplanation'] = this.explanation;
+    data['themeName'] = this.name;
     data['timeLimit'] = this.timeLimit;
     return data;
   }
