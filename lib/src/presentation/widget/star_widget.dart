@@ -10,16 +10,14 @@ class StarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          star(rating - 0),
-          star(rating - 1),
-          star(rating - 2),
-          star(rating - 3),
-          star(rating - 4),
-        ],
-      ),
+    return Row(
+      children: [
+        star(rating - 0),
+        star(rating - 1),
+        star(rating - 2),
+        star(rating - 3),
+        star(rating - 4),
+      ],
     );
   }
 
