@@ -1,6 +1,7 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
+import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
@@ -34,11 +35,10 @@ class MainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
+        onTap: () => FocusScope.of(context).unfocus(),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Container(
@@ -116,9 +116,9 @@ class MainView extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                return _categoryItem('', '스릴러');
+                return _categoryItem(viewModel.categoryList[index]);
               },
-              itemCount: 10,
+              itemCount: viewModel.categoryList.length,
               separatorBuilder: (BuildContext context, int index) {
                 return SizedBox(width: 8);
               },
@@ -130,7 +130,7 @@ class MainView extends StatelessWidget {
   }
 
   // 카테고리 아이템
-  Widget _categoryItem(String image_url, String categoryName) {
+  Widget _categoryItem(Category category) {
     return Container(
       child: Column(
         children: [
@@ -144,8 +144,7 @@ class MainView extends StatelessWidget {
             // child: Image.asset('assets/auth/kakao_logo_icon.png'),
           ),
           Padding(padding: EdgeInsets.all(4)),
-          Text(
-            categoryName,
+          Text(category.name ?? '',
             style: MyTextStyle.black12w500,
           )
         ],
