@@ -2,24 +2,24 @@ import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 
 class Theme {
-  int? activity;
+  num? activity;
   Category? category;
   Cafe? cafe;
   String? createdAt;
-  int? deviceRatio;
-  int? difficulty;
-  int? escapeCount;
-  int? heartCount;
-  int? id;
-  int? minNumPeople;
+  num? deviceRatio;
+  num? difficulty;
+  num? escapeCount;
+  num? heartCount;
+  num? id;
+  num? minNumPeople;
   String? modifiedAt;
-  int? price;
+  num? price;
   double? rating;
   String? reservationUrl;
-  int? reviewCount;
+  num? reviewCount;
   String? explanation;
   String? name;
-  int? timeLimit;
+  num? timeLimit;
 
   Theme(
       {this.activity,

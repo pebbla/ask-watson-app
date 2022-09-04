@@ -8,4 +8,9 @@ abstract class CafeRepository {
   // 카페 개별 조회
   Future<Map<ApiResponse, dynamic>> getCafeById(int cafeId);
 
+  // 카페 키워드 검색
+  // TODO : 추후 수정
+  Future<Map<ApiResponse, dynamic>> getCafeListBySearch(String word);
+  
+
 }

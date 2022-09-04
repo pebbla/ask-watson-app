@@ -40,5 +40,14 @@ class ThemeRepositoryImpl extends ThemeRepository {
     }
     return response;
   }
+  
+  @override
+  Future<Map<ApiResponse, dynamic>> getThemeListBySearch(String word) async {
+    var response = await _httpClient.getRequest('/themes?searchWord=$word');
+    if(response[ApiResponse.Result] == ApiResult.Success) {
+      response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
+    }
+    return response;
+  }
 
 }

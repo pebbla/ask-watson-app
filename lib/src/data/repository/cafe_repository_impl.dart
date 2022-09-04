@@ -29,5 +29,13 @@ class CafeRepositoryImpl extends CafeRepository {
     return response;
   }
 
-
+  
+  @override
+  Future<Map<ApiResponse, dynamic>> getCafeListBySearch(String word) async {
+    var response = await _httpClient.getRequest('/cafes?searchWord=$word');
+    if(response[ApiResponse.Result] == ApiResult.Success) {
+      response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
+    }
+    return response;
+  }
 }

@@ -12,4 +12,6 @@ abstract class ThemeRepository {
   // 테마 단건 조회
   Future<Map<ApiResponse, dynamic>> getThemeById(int themeId);
 
+  // 테마 키워드 검색
+  Future<Map<ApiResponse, dynamic>> getThemeListBySearch(String word);
 }
