@@ -26,4 +26,11 @@ class ThemeUseCase {
     return result;
   }
 
+    Future<Map<ApiResponse, dynamic>> getThemeListBySearch(String word) async {
+    var result = await _repository.getThemeListBySearch(word);
+    return result;
+  }
+
+
+
 }

@@ -20,4 +20,11 @@ class CafeUseCase {
     return result;
   }
 
+  
+  // 카페 키워드 조회
+    Future<Map<ApiResponse, dynamic>> getCafeListBySearch(String word) async {
+    var result = await _repository.getCafeListBySearch(word);
+    return result;
+  }
+
 }
