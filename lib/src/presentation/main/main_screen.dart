@@ -4,7 +4,8 @@ import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
-import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
+import 'package:ask_watson_app/src/presentation/widget/cafe_widget.dart';
+import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -151,6 +152,7 @@ class MainView extends StatelessWidget {
       ),
     );
   }
+  
 
   // 카페 리스트
   Widget _buildCafeList(BuildContext context) {
@@ -176,9 +178,9 @@ class MainView extends StatelessWidget {
           ),
           Row(
             children: [
-              _cafeItem(cafe),
+              CafeWidget(cafe : cafe),
               Padding(padding: EdgeInsets.all(4)),
-              _cafeItem(cafe),
+              CafeWidget(cafe : cafe),
             ],
           ),
         ],
@@ -186,56 +188,6 @@ class MainView extends StatelessWidget {
     );
   }
 
-  // 카페 아이템
-  Widget _cafeItem(Cafe cafe) {
-    return Flexible(
-      child: Container(
-        padding: EdgeInsets.only(bottom: 8),
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
-        width: double.maxFinite,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              width: double.maxFinite,
-              height: 160,
-              //TODO : 사진 넣기
-              child: Container(
-                decoration: BoxDecoration(
-                    color: MyColor.lightlightGrey,
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${cafe.name ?? '키이스케이프 강남점'}',
-                    style: MyTextStyle.black16w600,
-                  ),
-                  // TODO : star widget
-                  Padding(padding: EdgeInsets.all(2)),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // star widget,
-                      StarWidget(rating: cafe.rating ?? 4.0),
-                      Padding(padding: EdgeInsets.all(2)),
-                      Text('${cafe.rating ?? 0.0}',
-                          style: MyTextStyle.grey14w500)
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   // 테마 리스트
   Widget _buildThemeList(BuildContext context) {
@@ -261,63 +213,12 @@ class MainView extends StatelessWidget {
           ),
           Row(
             children: [
-              _themeItem(theme),
+              ThemeWidget(theme : theme),
               Padding(padding: EdgeInsets.all(4)),
-              _themeItem(theme),
+              ThemeWidget(theme : theme),
             ],
           )
         ],
-      ),
-    );
-  }
-
-  // 테마 아이템
-  Widget _themeItem(m.Theme theme) {
-    return Flexible(
-      child: Container(
-        padding: EdgeInsets.only(bottom: 8),
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
-        width: double.maxFinite,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              width: double.maxFinite,
-              height: 160,
-              //TODO : 사진 넣기
-              child: Container(
-                decoration: BoxDecoration(
-                    color: MyColor.lightlightGrey,
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${theme.name ?? '키이스케이프 강남점'}',
-                    style: MyTextStyle.black16w600,
-                  ),
-                  // TODO : star widget
-                  Padding(padding: EdgeInsets.all(2)),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // star widget,
-                      StarWidget(rating: theme.rating ?? 0.0),
-                      Padding(padding: EdgeInsets.all(2)),
-                      Text('${theme.rating ?? 0.0}',
-                          style: MyTextStyle.grey14w500)
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
