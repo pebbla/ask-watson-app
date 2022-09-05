@@ -46,7 +46,7 @@ class MypageView extends StatelessWidget {
             child: Column(
               children: [
                 _buildUserInfo(),
-                Expanded(child: _buildTabBar()),
+                _buildTabBar(),
               ],
             ),
           ),
@@ -93,32 +93,39 @@ class MypageView extends StatelessWidget {
 
   // 탭바
   Widget _buildTabBar() {
-    return Column(
-      children: [
-        Padding(padding: EdgeInsets.all(4)),
-        TabBar(
-          labelColor: MyColor.black,
-          unselectedLabelColor: MyColor.lightlightGrey,
-          indicatorColor: MyColor.black,
-          tabs: [
-            Tab(child: Icon(Icons.heart_broken)),
-            Tab(child: Icon(Icons.heart_broken)),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(4)),
-        Expanded(
-          child: TabBarView(
-            children: [
-              _buildEscapeCompleteTab(),
-              _buildHeartTab(),
+    //TODO : grid togle 설정
+    bool grideView = false;
+
+    return Expanded(
+      child: Column(
+        children: [
+          Padding(padding: EdgeInsets.all(4)),
+          TabBar(
+            labelColor: MyColor.black,
+            unselectedLabelColor: MyColor.lightlightGrey,
+            indicatorColor: MyColor.black,
+            tabs: [
+              Tab(child: Icon(Icons.heart_broken)),
+              Tab(child: Icon(Icons.heart_broken)),
             ],
           ),
-        ),
-      ],
+          Padding(padding: EdgeInsets.all(4)),
+          Expanded(
+            child: TabBarView(
+              children: [
+                grideView
+                    ? _buildEscapeCompleteTab()
+                    : _buildEscapeCompleteListTab(),
+                _buildHeartTab(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  // 탈출 완료 탭
+  // 탈출 완료 그리드 탭
   Widget _buildEscapeCompleteTab() {
     m.Theme theme = m.Theme();
     return GridView.builder(
@@ -131,7 +138,18 @@ class MypageView extends StatelessWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return ThemeWidget(theme: theme);
+        return ThemeGridWidget(theme: theme);
+      },
+    );
+  }
+
+  // 탈출 완료 리스트 탭
+  Widget _buildEscapeCompleteListTab() {
+    m.Theme theme = m.Theme();
+    return ListView.builder(
+      itemCount: 5,
+      itemBuilder: (BuildContext context, int index) {
+        return ThemeListWidget(theme: theme);
       },
     );
   }
@@ -149,7 +167,17 @@ class MypageView extends StatelessWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return ThemeWidget(theme: theme);
+        return ThemeGridWidget(theme: theme);
+      },
+    );
+  }
+
+  // 좋아요 리스트 탭
+  Widget _buildHeartListTab() {
+    m.Theme theme = m.Theme();
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        return ThemeListWidget(theme: theme);
       },
     );
   }
