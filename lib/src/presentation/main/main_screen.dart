@@ -61,57 +61,58 @@ class MainView extends StatelessWidget {
 
   // 검색창
   Widget _buildSearchBar(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Container(
-          width: 90,
-          height: 120,
-          child: Container(
-              //TODO : 사진 넣기
+    return Container(
+      padding: EdgeInsets.only(bottom: 18),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            width: 90,
+            height: 100,
+            child: Image.asset('assets/character/watson_raise_left_hand.png')
+          ),
+          Flexible(
+            child: Container(
+              height: 56,
+              child: TextField(
+                onChanged: (text) => viewModelWatch.onChanged(),
+                controller: viewModel.controller,
+                focusNode: viewModel.focusNode,
+                cursorColor: MyColor.grey,
+                decoration: InputDecoration(
+                    isDense: true,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: MyColor.grey,
+                    ),
+                    hintText: '검색어를 입력하세요',
+                    hintStyle: MyTextStyle.grey14w500,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: MyColor.grey)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: MyColor.grey)),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                        borderSide: BorderSide(color: MyColor.grey))),
               ),
-        ),
-        Flexible(
-          child: Container(
-            height: 56,
-            child: TextField(
-              onChanged: (text) => viewModelWatch.onChanged(),
-              controller: viewModel.controller,
-              focusNode: viewModel.focusNode,
-              cursorColor: MyColor.grey,
-              decoration: InputDecoration(
-                  isDense: true,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: MyColor.grey,
-                  ),
-                  hintText: '검색어를 입력하세요',
-                  hintStyle: MyTextStyle.grey14w500,
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: MyColor.grey)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: MyColor.grey)),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      borderSide: BorderSide(color: MyColor.grey))),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
   // 카테고리 리스트
   Widget _buildCategoryList(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(bottom: 18, top: 12),
+      padding: const EdgeInsets.only(bottom: 18, top: 18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('카테고리', style: MyTextStyle.black18w600),
-          Padding(padding: EdgeInsets.all(4)),
+          const Text('카테고리', style: MyTextStyle.black18w600),
+          const Padding(padding: EdgeInsets.all(4)),
           Container(
             height: 80,
             child: ListView.separated(
@@ -132,24 +133,22 @@ class MainView extends StatelessWidget {
 
   // 카테고리 아이템
   Widget _categoryItem(Category category) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(8),
-            width: 55,
-            height: 55,
-            decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.all(Radius.circular(50))),
-            // child: Image.asset('assets/auth/kakao_logo_icon.png'),
-          ),
-          Padding(padding: EdgeInsets.all(4)),
-          Text(category.name ?? '',
-            style: MyTextStyle.black12w500,
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          width: 55,
+          height: 55,
+          decoration: BoxDecoration(
+              border: Border.all(),
+              borderRadius: const BorderRadius.all(Radius.circular(50))),
+          child: Image.asset('${category.getImageUrl()}'),
+        ),
+        const Padding(padding: EdgeInsets.all(4)),
+        Text(category.name ?? '',
+          style: MyTextStyle.black12w500,
+        )
+      ],
     );
   }
   
