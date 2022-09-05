@@ -212,9 +212,9 @@ class MainView extends StatelessWidget {
           ),
           Row(
             children: [
-              ThemeWidget(theme : theme),
+              ThemeGridWidget(theme : theme),
               Padding(padding: EdgeInsets.all(4)),
-              ThemeWidget(theme : theme),
+              ThemeGridWidget(theme : theme),
             ],
           )
         ],
