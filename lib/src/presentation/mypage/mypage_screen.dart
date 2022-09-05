@@ -41,11 +41,14 @@ class MypageView extends StatelessWidget {
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              _buildUserInfo(),
-              _buildTabBar(),
-            ],
+          child: DefaultTabController(
+            length: 2,
+            child: Column(
+              children: [
+                _buildUserInfo(),
+                Expanded(child: _buildTabBar()),
+              ],
+            ),
           ),
         ),
       ),
@@ -59,10 +62,14 @@ class MypageView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(width: 50, height: 150),
+        SizedBox(
+          width: 50,
+          child: Image.asset('assets/character/watson_raise_left_hand.png'),
+        ),
         Container(
-          padding: EdgeInsets.only(top: 16, bottom: 16),
+          padding: EdgeInsets.only(bottom: 16),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('룰루랄라 셜록홈즈님', style: MyTextStyle.black18w600),
@@ -71,11 +78,14 @@ class MypageView extends StatelessWidget {
             ],
           ),
         ),
-        IconButton(
-          onPressed: () {
-            print('할로할로');
-          },
-          icon: Icon(Icons.settings),
+        Container(
+          alignment: Alignment.topRight,
+          child: IconButton(
+            onPressed: () {
+              print('할로할로');
+            },
+            icon: Icon(Icons.settings),
+          ),
         ),
       ],
     );
@@ -83,72 +93,64 @@ class MypageView extends StatelessWidget {
 
   // 탭바
   Widget _buildTabBar() {
-    return DefaultTabController(
-      length: 2,
-      child: Expanded(
-        child: Column(
-          children: [
-            const TabBar(
-              labelColor: MyColor.black,
-              unselectedLabelColor: MyColor.lightlightGrey,
-              indicatorColor: MyColor.black,
-              tabs: [
-                Tab(child: Icon(Icons.heart_broken)),
-                Tab(child: Icon(Icons.heart_broken)),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                children: [
-                  _buildEscapeCompleteTab(),
-                  _buildHeartTab()
-                ],
-              ),
-            ),
+    return Column(
+      children: [
+        Padding(padding: EdgeInsets.all(4)),
+        TabBar(
+          labelColor: MyColor.black,
+          unselectedLabelColor: MyColor.lightlightGrey,
+          indicatorColor: MyColor.black,
+          tabs: [
+            Tab(child: Icon(Icons.heart_broken)),
+            Tab(child: Icon(Icons.heart_broken)),
           ],
         ),
-      ),
+        Padding(padding: EdgeInsets.all(4)),
+        Expanded(
+          child: TabBarView(
+            children: [
+              _buildEscapeCompleteTab(),
+              _buildHeartTab(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
-  // 탈출 완료 탭 
+  // 탈출 완료 탭
   Widget _buildEscapeCompleteTab() {
     m.Theme theme = m.Theme();
-    return Container(
-      padding: EdgeInsets.only(top: 12),
-      child: GridView.builder(
-        itemCount: 11, //item 개수
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, //1 개의 행에 보여줄 item 개수
-          childAspectRatio: 0.65, //item 의 가로 1, 세로 2 의 비율
-          mainAxisSpacing: 10, //수평 Padding
-          crossAxisSpacing: 10, //수직 Padding
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return ThemeWidget(theme: theme);
-        },
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: 11,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.65,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
       ),
+      itemBuilder: (BuildContext context, int index) {
+        return ThemeWidget(theme: theme);
+      },
     );
   }
 
   // 좋아요 탭
   Widget _buildHeartTab() {
     m.Theme theme = m.Theme();
-    return Container(
-      padding: EdgeInsets.only(top: 12),
-      child: GridView.builder(
-        itemCount: 11,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 0.65,
-          mainAxisSpacing: 10,
-          crossAxisSpacing: 10,
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return ThemeWidget(theme: theme);
-        },
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: 11,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 0.65,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
       ),
+      itemBuilder: (BuildContext context, int index) {
+        return ThemeWidget(theme: theme);
+      },
     );
   }
-
 }
