@@ -1,6 +1,8 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/presentation/mypage/mypage_view_model.dart';
+import 'package:ask_watson_app/src/presentation/provider/app_set_up.dart';
+import 'package:ask_watson_app/src/presentation/setting/setting_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:flutter/material.dart';
@@ -13,7 +15,7 @@ class MypageScreen extends StatelessWidget {
       create: (context) => MypageViewModel(),
       builder: (context, child) {
         return MypageView(
-          viewModel: Provider.of<MypageViewModel>(context),
+        viewModel: Provider.of<MypageViewModel>(context),
           viewModelWatch: Provider.of<MypageViewModel>(context, listen: false),
         );
       },
@@ -45,8 +47,8 @@ class MypageView extends StatelessWidget {
             length: 2,
             child: Column(
               children: [
-                _buildUserInfo(),
-                _buildTabBar(),
+                _buildUserInfo(context),
+                _buildTabBar(context),
               ],
             ),
           ),
@@ -56,7 +58,7 @@ class MypageView extends StatelessWidget {
   }
 
   // user 정보
-  Widget _buildUserInfo() {
+  Widget _buildUserInfo(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +84,9 @@ class MypageView extends StatelessWidget {
           alignment: Alignment.topRight,
           child: IconButton(
             onPressed: () {
-              print('할로할로');
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SettingScreen();
+              }));
             },
             icon: Icon(Icons.settings),
           ),
@@ -92,9 +96,8 @@ class MypageView extends StatelessWidget {
   }
 
   // 탭바
-  Widget _buildTabBar() {
-    //TODO : grid togle 설정
-    bool grideView = false;
+  Widget _buildTabBar(BuildContext context) {
+    bool grideView = Provider.of<SetUp>(context).isGridView;
 
     return Expanded(
       child: Column(
@@ -116,7 +119,9 @@ class MypageView extends StatelessWidget {
                 grideView
                     ? _buildEscapeCompleteTab()
                     : _buildEscapeCompleteListTab(),
-                _buildHeartTab(),
+                grideView
+                    ? _buildHeartGridTab()
+                    : _buildHeartListTab(),
               ],
             ),
           ),
@@ -155,7 +160,7 @@ class MypageView extends StatelessWidget {
   }
 
   // 좋아요 탭
-  Widget _buildHeartTab() {
+  Widget _buildHeartGridTab() {
     m.Theme theme = m.Theme();
     return GridView.builder(
       shrinkWrap: true,
@@ -176,6 +181,7 @@ class MypageView extends StatelessWidget {
   Widget _buildHeartListTab() {
     m.Theme theme = m.Theme();
     return ListView.builder(
+      itemCount: 5,
       itemBuilder: (BuildContext context, int index) {
         return ThemeListWidget(theme: theme);
       },
