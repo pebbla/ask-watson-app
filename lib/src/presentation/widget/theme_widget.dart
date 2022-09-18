@@ -7,8 +7,9 @@ import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 // grid 버전
 class ThemeGridWidget extends StatelessWidget {
   final m.Theme theme;
+  final bool isItGrid;
 
-  const ThemeGridWidget({super.key, required this.theme});
+  const ThemeGridWidget({super.key, required this.theme, this.isItGrid = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class ThemeGridWidget extends StatelessWidget {
         children: [
           SizedBox(
             width: double.maxFinite,
-            height: 160,
+            height: isItGrid ? 110 : 160,
             //TODO : 사진 넣기
             child: Stack(
               children: [
@@ -39,7 +40,7 @@ class ThemeGridWidget extends StatelessWidget {
                     onPressed: () {
                       // TODO : 하트 좋아요 넣기
                     },
-                    icon: Icon(Icons.heart_broken, color: Colors.red),
+                    icon: Icon(Icons.heart_broken,),
                   ),
                 ),
               ],
@@ -57,26 +58,24 @@ class ThemeGridWidget extends StatelessWidget {
                         '${theme.name ?? '학교 탈출'}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: MyTextStyle.black14w600,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)
                       ),
                     ),
-                    Padding(padding: EdgeInsets.all(2)),
-                    Text('|'),
-                    Padding(padding: EdgeInsets.all(2)),
-                    Flexible(child: Text('${theme.category?.name ?? '공포'}'))
                   ],
                 ),
                 Padding(padding: EdgeInsets.all(2)),
                 Text('${theme.cafe?.name ?? '포인트 나인 안양점'}',
-                    style: MyTextStyle.black14w500),
+                    style: TextStyle(fontSize: 12)),
                 Padding(padding: EdgeInsets.all(2)),
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    StarWidget(rating: theme.rating ?? 0.0),
+                    Text('내별점', style: TextStyle(fontSize: 12),),
+
+                    Icon(Icons.star, color : MyColor.yellow, size: 16),
+
                     Padding(padding: EdgeInsets.all(2)),
-                    Text('${theme.rating ?? 0.0}',
-                        style: MyTextStyle.grey14w500)
+                    Text('${theme.rating ?? 0.0}', style: TextStyle(fontSize: 12),)
                   ],
                 ),
               ],
@@ -125,12 +124,12 @@ class ThemeListWidget extends StatelessWidget {
                           '${theme.name ?? '학교 탈출'}',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: MyTextStyle.black14w600,
+                          style: MyTextStyle.black16w500,
                         ),
                         Padding(padding: EdgeInsets.all(2)),
                         Text('|'),
                         Padding(padding: EdgeInsets.all(2)),
-                        Text('${theme.category?.name ?? '공포'}')
+                        Text('${theme.category?.name ?? '공포'}', style: TextStyle(color: Colors.black),)
                       ],
                     ),
                     Padding(padding: EdgeInsets.all(2)),

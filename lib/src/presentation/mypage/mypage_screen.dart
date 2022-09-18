@@ -42,7 +42,7 @@ class MypageView extends StatelessWidget {
       ),
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.only(left: 24, right: 24, top: 24),
           child: DefaultTabController(
             length: 2,
             child: Column(
@@ -69,11 +69,11 @@ class MypageView extends StatelessWidget {
           child: Image.asset('assets/character/watson_raise_left_hand.png'),
         ),
         Container(
-          padding: EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.only(bottom: 16),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               Text('룰루랄라 셜록홈즈님', style: MyTextStyle.black18w600),
               Padding(padding: EdgeInsets.all(2)),
               Text('지금까지 27번 탈출하셨습니다.', style: MyTextStyle.grey14w500)
@@ -102,8 +102,8 @@ class MypageView extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          Padding(padding: EdgeInsets.all(4)),
-          TabBar(
+          const Padding(padding: EdgeInsets.all(4)),
+          const TabBar(
             labelColor: MyColor.black,
             unselectedLabelColor: MyColor.lightlightGrey,
             indicatorColor: MyColor.black,
@@ -137,13 +137,13 @@ class MypageView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: 11,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.65,
+        crossAxisCount: 3,
+        childAspectRatio: 0.54,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return ThemeGridWidget(theme: theme);
+        return ThemeGridWidget(theme: theme, isItGrid: true);
       },
     );
   }
@@ -166,13 +166,13 @@ class MypageView extends StatelessWidget {
       shrinkWrap: true,
       itemCount: 11,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.65,
+        crossAxisCount: 3,
+        childAspectRatio: 0.54,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return ThemeGridWidget(theme: theme);
+        return ThemeGridWidget(theme: theme, isItGrid: true);
       },
     );
   }
