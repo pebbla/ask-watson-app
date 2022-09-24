@@ -36,7 +36,7 @@ class ThemeRepositoryImpl extends ThemeRepository {
   Future<Map<ApiResponse, dynamic>> getThemeById(int themeId) async {
     var response = await _httpClient.getRequest('/themes/${themeId}');
     if(response[ApiResponse.Result] == ApiResult.Success) {
-      response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
+      response[ApiResponse.Data] = Theme.fromJson(response[ApiResponse.Data]);
     }
     return response;
   }
