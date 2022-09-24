@@ -1,23 +1,21 @@
+import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
+import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
+import 'package:ask_watson_app/util/enum/api_response.dart';
+import 'package:ask_watson_app/util/enum/api_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 class SignUpViewModel extends ChangeNotifier {
 
+  final UserUseCase userUseCase = UserUseCase(UserRepositoryImpl());
+
   /**
-   * 카카오톡 열기
+   * 카카오톡 버튼 선택 시 동작
    */
   void tabSignUpKakaoBtn(BuildContext context) async {
-    try {
-      if (await isKakaoTalkInstalled()) {
-        await UserApi.instance.loginWithKakaoTalk();
-      } else {
-        await UserApi.instance.loginWithKakaoAccount();
-      }
-      getKakaoAccessToken();
-    } catch (error) {
-      print(error.toString());
-    }
+    String kakaoToken = await getKakaoAccessToken();
+    signInByKakaoToken(context, kakaoToken);
   }
 
 
@@ -25,10 +23,37 @@ class SignUpViewModel extends ChangeNotifier {
   /**
    *  kakao accessToken 받아오기
    */
-  void getKakaoAccessToken () async {
-    var tokenManager = await TokenManagerProvider.instance.manager.getToken();
-    print('kakao access token : ${tokenManager?.accessToken}');
+  Future<String> getKakaoAccessToken() async {
+    try {
+      if (await isKakaoTalkInstalled()) {
+        await UserApi.instance.loginWithKakaoTalk();
+      } else {
+        await UserApi.instance.loginWithKakaoAccount();
+      }
+      var tokenManager = await TokenManagerProvider.instance.manager.getToken();
+      return tokenManager!.accessToken;
+    } catch (error) {
+      print(error.toString());
+      return '';
+    }
   }
+
+
+  /**
+   *  회원가입 or 로그인 by kakao token
+   */
+  void signInByKakaoToken(BuildContext context, String kakaoToken) async {
+        var response = await userUseCase.signInByKakaoToken(kakaoToken);
+    if (response[ApiResponse.Result] == ApiResult.Success) {
+      // TODO : 메인 화면으로 이동
+      print('메인화면으로 이동');
+    } else if (response[ApiResponse.Result] == ApiResult.NotFound) {
+
+    }
+  }
+
+
+
 
 
 
