@@ -1,5 +1,6 @@
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
+import 'package:ask_watson_app/src/presentation/auth/accept_term_screen.dart';
 import 'package:ask_watson_app/util/enum/api_response.dart';
 import 'package:ask_watson_app/util/enum/api_status.dart';
 import 'package:flutter/material.dart';
@@ -43,12 +44,12 @@ class SignUpViewModel extends ChangeNotifier {
    *  회원가입 or 로그인 by kakao token
    */
   void signInByKakaoToken(BuildContext context, String kakaoToken) async {
-        var response = await userUseCase.signInByKakaoToken(kakaoToken);
+    var response = await userUseCase.signInByKakaoToken(kakaoToken);
     if (response[ApiResponse.Result] == ApiResult.Success) {
       // TODO : 메인 화면으로 이동
       print('메인화면으로 이동');
     } else if (response[ApiResponse.Result] == ApiResult.NotFound) {
-
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
     }
   }
 
