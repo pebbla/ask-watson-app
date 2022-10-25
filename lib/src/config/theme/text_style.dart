@@ -9,9 +9,7 @@ class MyTextStyle {
   static const TextStyle black16w600 = TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: MyColor.black);
   static const TextStyle black16w500 = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: MyColor.black);
   static const TextStyle black14w600 = TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: MyColor.black);
-
   static const TextStyle black14w500 = TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: MyColor.black);
-
   static const TextStyle black12w500 = TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: MyColor.black);
 
 
