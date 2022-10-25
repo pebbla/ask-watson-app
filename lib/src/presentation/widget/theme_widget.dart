@@ -58,24 +58,24 @@ class ThemeGridWidget extends StatelessWidget {
                         '${theme.name ?? '학교 탈출'}',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600)
+                        style: MyTextStyle.black14w600
                       ),
                     ),
                   ],
                 ),
                 Padding(padding: EdgeInsets.all(2)),
                 Text('${theme.cafe?.name ?? '포인트 나인 안양점'}',
-                    style: TextStyle(fontSize: 12)),
+                    style: MyTextStyle.black12w500),
                 Padding(padding: EdgeInsets.all(2)),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('내별점', style: TextStyle(fontSize: 12),),
+                    Text('내별점', style: MyTextStyle.black12w500),
 
                     Icon(Icons.star, color : MyColor.yellow, size: 16),
 
                     Padding(padding: EdgeInsets.all(2)),
-                    Text('${theme.rating ?? 0.0}', style: TextStyle(fontSize: 12),)
+                    Text('${theme.rating ?? 0.0}', style: MyTextStyle.black12w500)
                   ],
                 ),
               ],
