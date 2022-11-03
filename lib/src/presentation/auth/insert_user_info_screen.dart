@@ -1,25 +1,33 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
-import 'package:ask_watson_app/src/presentation/auth/finish_sign_up_screen.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
+import 'package:ask_watson_app/src/data/model/user.dart';
+import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
+import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
 import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:ask_watson_app/src/presentation/widget/outline_input_border.dart';
+import 'package:ask_watson_app/util/date_time.dart';
+import 'package:ask_watson_app/util/enum/gender.dart';
 import 'package:flutter/material.dart';
 
-enum Gender {women, men}
-
 class InsertUserInfoScreen extends StatefulWidget {
+  final String phoneNum;
+
+  const InsertUserInfoScreen({super.key, required this.phoneNum});
 
   @override
   State<InsertUserInfoScreen> createState() => _InsertUserInfoScreenState();
 }
 
 class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
+  final TextEditingController _textControllerBirth = TextEditingController();
+  final TextEditingController _textControllerNickName = TextEditingController();
+
+  final FocusNode _focusNodeBirth = FocusNode();
 
   bool canTapNext = true;
   Gender _gender = Gender.women;
-
-  final TextEditingController _textControllerBirth = TextEditingController();
-  final TextEditingController _textControllerNickName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +102,7 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
               Flexible(
                 flex: 3,
                 child: RadioListTile(
-                  contentPadding: EdgeInsets.all(0),
+                    contentPadding: EdgeInsets.all(0),
                     title: Text('남자'),
                     value: Gender.men,
                     groupValue: _gender,
@@ -104,9 +112,7 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
                       });
                     }),
               ),
-              Flexible(
-                flex: 1,
-                child: Container())
+              Flexible(flex: 1, child: Container())
             ],
           ),
         ],
@@ -116,51 +122,75 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
 
   // 생년월일 입력
   Widget _inputBirthWidget() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('생년월일', style: MyTextStyle.black17w500),
-          Padding(padding: EdgeInsets.all(6)),
-          TextField(
-            controller: _textControllerNickName,
-            cursorColor: MyColor.grey,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                enabledBorder: enabledBorder(), focusedBorder: focusedBorder()),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('생년월일', style: MyTextStyle.black17w500),
+        const Padding(padding: EdgeInsets.all(6)),
+        TextField(
+          onTap: () => MyDateTime.showDatePicker(
+            context: context,
+            onDateTimeChanged: (newDate) {
+              _textControllerBirth.text = newDate.toString();
+            },
           ),
-        ],
-      ),
+          focusNode: _focusNodeBirth,
+          readOnly: true,
+          controller: _textControllerBirth,
+          cursorColor: MyColor.grey,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            enabledBorder: enabledBorder(),
+            focusedBorder: focusedBorder(),
+          ),
+        ),
+      ],
     );
   }
 
-
   // 닉네임 입력
   Widget _inputNickNameWidget() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('닉네임', style: MyTextStyle.black17w500),
-          Padding(padding: EdgeInsets.all(6)),
-          TextField(
-            controller: _textControllerBirth,
-            cursorColor: MyColor.grey,
-            decoration: InputDecoration(
-                enabledBorder: enabledBorder(), focusedBorder: focusedBorder()),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('닉네임', style: MyTextStyle.black17w500),
+        const Padding(padding: EdgeInsets.all(6)),
+        TextField(
+          controller: _textControllerNickName,
+          cursorColor: MyColor.grey,
+          decoration: InputDecoration(
+            enabledBorder: enabledBorder(),
+            focusedBorder: focusedBorder(),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   // 다음으로 버튼
   Widget _nextBtn() {
     return canTapNext == true
-        ? ButtonPrimaryWidget(text: '다음으로', onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
-        })
+        ? ButtonPrimaryWidget(
+            text: '다음으로',
+            onPressed: () async {
+              UserUseCase _useCase = UserUseCase(UserRepositoryImpl());
+              User user = User(
+                  nickname: _textControllerNickName.text,
+                  phoneNum: widget.phoneNum,
+                  birth: _textControllerBirth.text,
+                  marketingAgreeYn: false,
+                  gender: _gender.convertString);
+
+              Map<ApiResponse, dynamic> response =await _useCase.createUser(user);
+              if (ApiResponse.Status == ApiStatus.Success) {
+                // Navigator.push(context, MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
+              } else {
+                print('회원가입 도중 에러가 발생하였습니다.');
+                throw Error();
+              }
+            })
         : ButtonDisabledWidget(text: '다음으로');
   }
-  
+
+
 }

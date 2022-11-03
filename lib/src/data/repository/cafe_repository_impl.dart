@@ -12,7 +12,7 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeList() async {
     var response = await _httpClient.getRequest('/cafes');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
     }
     return response;
@@ -23,7 +23,7 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeById(int cafeId) async {
     var response = await _httpClient.getRequest('/cafes/$cafeId');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = Cafe.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -33,7 +33,7 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeListBySearch(String word) async {
     var response = await _httpClient.getRequest('/cafes?searchWord=$word');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
     }
     return response;

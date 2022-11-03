@@ -12,7 +12,7 @@ class EscapeCompleteRepositoryImpl extends EscapeCompleteRepository {
   // 탈출 완료 테마 조회
   Future<Map<ApiResponse, dynamic>> getEscapeCompletesByUserId(int userId) async {
     var response = await _httpClient.getRequest('/user​/${userId}​/escape-completes');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<EscapeComplete>((json) => EscapeComplete.fromJson(json)).toList();
     }
     return response;

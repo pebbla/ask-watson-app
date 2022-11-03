@@ -13,7 +13,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> singInByKakaoToken(String token) async {
     var response = await _httpClient.postRequest('/kakao/signin', {"accessToken" : token});
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -24,7 +24,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> createUser(User user) async {
     var response = await _httpClient.postRequest('/users', user);
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -35,7 +35,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> modifyUser(User user) async {
     var response = await _httpClient.putRequest('/users/${user.id}', user);
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;

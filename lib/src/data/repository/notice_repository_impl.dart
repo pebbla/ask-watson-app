@@ -13,7 +13,7 @@ class NoticeRepositoryImpl extends NoticeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getNoticeList() async {
     var response = await _httpClient.getRequest('/notices');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Notice>((json) => Notice.fromJson(json)).toList();
     }
     return response;
@@ -24,7 +24,7 @@ class NoticeRepositoryImpl extends NoticeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getNoticeById(int noticeId) async {
     var response = await _httpClient.getRequest('/notices/$noticeId');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = Notice.fromJson(response[ApiResponse.Data]);
     }
     return response;
