@@ -5,6 +5,7 @@ import 'colors.dart';
 class MyTextStyle {
 
   // 검정색
+  static const TextStyle black21w600 = TextStyle(fontSize: 21, fontWeight: FontWeight.w600, color: MyColor.black);
   static const TextStyle black18w600 = TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: MyColor.black);
   static const TextStyle black16w600 = TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: MyColor.black);
   static const TextStyle black16w500 = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: MyColor.black);
