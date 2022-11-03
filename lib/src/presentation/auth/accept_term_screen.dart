@@ -155,6 +155,7 @@ class AcceptTermView extends StatelessWidget {
         children: [
           Text(item.title, style: MyTextStyle.black18w600),
           const Padding(padding: EdgeInsets.all(12)),
+          // TODO : Html viewer 사용
           Flexible(
             child: SingleChildScrollView(
               child: Text(item.text, style: MyTextStyle.black14w500),
