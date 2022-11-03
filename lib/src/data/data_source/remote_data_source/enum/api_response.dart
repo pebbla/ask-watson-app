@@ -8,7 +8,7 @@ enum ApiResponse {
 }
 
 class ApiResponseHelper {
-  Future<Map<ApiResponse, dynamic>> buildResult(response) async {
+  static Future<Map<ApiResponse, dynamic>> buildResult(response) async {
     return {
       ApiResponse.StatusCode: response.statusCode,
       ApiResponse.Result : ApiStatusHelper.convertApiStatus(response.statusCode),
