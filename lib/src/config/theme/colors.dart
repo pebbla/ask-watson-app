@@ -14,6 +14,7 @@ class MyColor {
 
 
   // 밝은 회색
+  static const Color unselectedGrey = Color.fromRGBO(204, 204, 204, 1);
   static const Color lightGrey = Color.fromRGBO(217, 217, 217, 1);
   static const Color lightlightGrey = Color.fromRGBO(226, 226, 226, 1);
 
