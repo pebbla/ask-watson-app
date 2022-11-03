@@ -1,5 +1,6 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
+import 'package:ask_watson_app/src/presentation/auth/insert_user_info_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:ask_watson_app/src/presentation/widget/outline_input_border.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
       TextEditingController();
 
   bool canInput = false;
-  bool canTapNext = false;
+  bool canTapNext = true;
 
   @override
   void dispose() {
@@ -29,6 +30,7 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: InkWell(
               onTap: () => Navigator.pop(context),
@@ -128,7 +130,9 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
   // 다음으로 버튼
   Widget _nextBtn() {
     return canTapNext == true
-        ? ButtonPrimaryWidget(text: '다음으로', onPressed: () {})
+        ? ButtonPrimaryWidget(text: '다음으로', onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => InsertUserInfoScreen()));
+        })
         : ButtonDisabledWidget(text: '다음으로');
   }
 }

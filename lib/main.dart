@@ -1,3 +1,4 @@
+import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/presentation/provider/app_set_up.dart';
 import 'package:ask_watson_app/src/presentation/tab/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +25,10 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         title: 'Flutter Demo',
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-        ),
+            scaffoldBackgroundColor: Colors.white,
+            radioTheme: RadioThemeData(
+              fillColor: MaterialStateColor.resolveWith((states) => MyColor.black)
+            )),
         home: MyStatefulWidget(),
       ),
     );
