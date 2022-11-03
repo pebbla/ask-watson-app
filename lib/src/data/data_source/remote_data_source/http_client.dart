@@ -11,7 +11,6 @@ class HttpClient {
   static final baseUrl = 'http://b550-2001-2d8-e714-7284-1169-cf87-712f-2bcf.ngrok.io/v1';
   // static final baseUrl = 'http://localhost:8080/v1';
   Logger _logger = Logger();
-  ApiResponseHelper _apiResponseHelper = ApiResponseHelper();
 
 
 
@@ -26,7 +25,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return _apiResponseHelper.buildResult(response);
+    return ApiResponseHelper.buildResult(response);
   }
 
 
@@ -42,7 +41,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return _apiResponseHelper.buildResult(response);
+    return ApiResponseHelper.buildResult(response);
   }
 
 
@@ -58,7 +57,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return _apiResponseHelper.buildResult(response);
+    return ApiResponseHelper.buildResult(response);
   }
 
 
@@ -74,7 +73,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return _apiResponseHelper.buildResult(response);
+    return ApiResponseHelper.buildResult(response);
   }
 
 }
