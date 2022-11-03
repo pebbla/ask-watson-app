@@ -1,8 +1,8 @@
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
 import 'package:ask_watson_app/src/presentation/auth/accept_term_screen.dart';
-import 'package:ask_watson_app/util/enum/api_response.dart';
-import 'package:ask_watson_app/util/enum/api_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -45,10 +45,10 @@ class SignUpViewModel extends ChangeNotifier {
    */
   void signInByKakaoToken(BuildContext context, String kakaoToken) async {
     var response = await userUseCase.signInByKakaoToken(kakaoToken);
-    if (response[ApiResponse.Result] == ApiResult.Success) {
+    if (response[ApiResponse.Result] == ApiStatus.Success) {
       // TODO : 메인 화면으로 이동
       print('메인화면으로 이동');
-    } else if (response[ApiResponse.Result] == ApiResult.NotFound) {
+    } else if (response[ApiResponse.Result] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
     }
   }
