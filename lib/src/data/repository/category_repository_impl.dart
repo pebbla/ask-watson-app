@@ -13,7 +13,7 @@ class CategoryRepositoryImpl extends CategoryRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCategoryList() async {
     var response = await _httpClient.getRequest('/categories');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Category>((json) => Category.fromJson(json)).toList();
     }
     return response;

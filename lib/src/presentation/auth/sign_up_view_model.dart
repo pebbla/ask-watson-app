@@ -45,10 +45,10 @@ class SignUpViewModel extends ChangeNotifier {
    */
   void signInByKakaoToken(BuildContext context, String kakaoToken) async {
     var response = await userUseCase.signInByKakaoToken(kakaoToken);
-    if (response[ApiResponse.Result] == ApiStatus.Success) {
+    if (response[ApiResponse.Status] == ApiStatus.Success) {
       // TODO : 메인 화면으로 이동
       print('메인화면으로 이동');
-    } else if (response[ApiResponse.Result] == ApiStatus.NotFound) {
+    } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
     }
   }

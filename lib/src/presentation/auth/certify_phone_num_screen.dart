@@ -15,8 +15,8 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
   final TextEditingController _textControllerCertifyNum =
       TextEditingController();
 
-  bool canInput = false;
-  bool canTapNext = true;
+  bool insertCertifyNum = false;
+  bool tapNext = false;
 
   @override
   void dispose() {
@@ -82,8 +82,24 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
   Widget _inputPhoneNumWidget() {
     return TextField(
       controller: _textControllerPhoneNum,
+      keyboardType: TextInputType.number,
       cursorColor: MyColor.grey,
+      maxLength: 11,
+      onChanged: (value) {
+        setState(() {
+          insertCertifyNum = false;
+          tapNext = false;
+        });
+
+        if(value.length == 11) {
+          FocusScope.of(context).unfocus();
+          _textControllerCertifyNum.text = "";
+        }
+
+      },
       decoration: InputDecoration(
+          hintText: "'-' 없이 번호만 입력",
+          counterText: "",
           enabledBorder: enabledBorder(), focusedBorder: focusedBorder()),
     );
   }
@@ -93,25 +109,38 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
     return ButtonWhiteWidget(
       text: '인증문자 받기',
       onPressed: () {
-        setState(() {
-          canInput = !canInput;
-        });
+        // TODO 타이머 시작
+        if(_textControllerPhoneNum.text.length == 11) {
+          setState(() {
+            insertCertifyNum = true;
+          });
+        } else {
+          // TODO : 전화번호 입력 칸에 진동
+        }
       },
     );
   }
 
   // 인증번호 입력 text field
   Widget _inputCertifyNumWidget() {
-    return canInput == false
-        ? AnimatedContainer(
+    return 
+        AnimatedContainer(
             duration: Duration(milliseconds: 500),
-            child: Column(
+            child: insertCertifyNum == true ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextField(
                   controller: _textControllerCertifyNum,
                   cursorColor: MyColor.grey,
                   keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    if(_textControllerCertifyNum.text.length >= 5){
+                      FocusScope.of(context).unfocus();
+                      setState(() {
+                        tapNext = true;
+                      });
+                    }
+                  },
                   decoration: InputDecoration(
                       enabledBorder: enabledBorder(),
                       focusedBorder: focusedBorder()),
@@ -122,16 +151,23 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
                   style: MyTextStyle.grey14w500,
                 ),
               ],
-            ),
-          )
-        : Container();
+            )
+            : Container()
+          );
+
   }
 
   // 다음으로 버튼
   Widget _nextBtn() {
-    return canTapNext == true
+    return tapNext == true
         ? ButtonPrimaryWidget(text: '다음으로', onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => InsertUserInfoScreen()));
+          Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => InsertUserInfoScreen(
+                      phoneNum: _textControllerPhoneNum.text),
+                ),
+              );
         })
         : ButtonDisabledWidget(text: '다음으로');
   }

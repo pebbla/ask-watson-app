@@ -14,7 +14,7 @@ class ThemeRepositoryImpl extends ThemeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getThemeList() async {
     var response = await _httpClient.getRequest('/themes');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
     }
     return response;
@@ -25,7 +25,7 @@ class ThemeRepositoryImpl extends ThemeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getThemeListByCafeId(int cafeId) async {
     var response = await _httpClient.getRequest('/cafes/${cafeId}/themes');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
     }
     return response;
@@ -36,7 +36,7 @@ class ThemeRepositoryImpl extends ThemeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getThemeById(int themeId) async {
     var response = await _httpClient.getRequest('/themes/${themeId}');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = Theme.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -45,7 +45,7 @@ class ThemeRepositoryImpl extends ThemeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getThemeListBySearch(String word) async {
     var response = await _httpClient.getRequest('/themes?searchWord=$word');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
     }
     return response;
