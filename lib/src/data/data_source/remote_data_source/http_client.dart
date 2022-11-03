@@ -1,8 +1,7 @@
-import 'package:ask_watson_app/src/data/data_source/my_dio.dart';
-import 'package:ask_watson_app/util/enum/api_response.dart';
-import 'package:ask_watson_app/util/enum/api_status.dart';
-import 'package:ask_watson_app/util/enum/content_type.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/my_dio.dart';
 import 'package:logger/logger.dart';
+import 'enum/content_type.dart';
 
 
 
@@ -12,6 +11,7 @@ class HttpClient {
   static final baseUrl = 'http://b550-2001-2d8-e714-7284-1169-cf87-712f-2bcf.ngrok.io/v1';
   // static final baseUrl = 'http://localhost:8080/v1';
   Logger _logger = Logger();
+  ApiResponseHelper _apiResponseHelper = ApiResponseHelper();
 
 
 
@@ -26,7 +26,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return buildResult(response);
+    return _apiResponseHelper.buildResult(response);
   }
 
 
@@ -42,7 +42,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return buildResult(response);
+    return _apiResponseHelper.buildResult(response);
   }
 
 
@@ -58,7 +58,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return buildResult(response);
+    return _apiResponseHelper.buildResult(response);
   }
 
 
@@ -74,41 +74,7 @@ class HttpClient {
 
     _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
 
-    return buildResult(response);
+    return _apiResponseHelper.buildResult(response);
   }
 
-
-
-  ApiResult convertApiResult(int? statusCode) {
-    switch(statusCode) {
-      case 200 : 
-      case 201 :
-      case 202 :
-        return ApiResult.Success;
-      case 403 : 
-        return ApiResult.Forbidden;
-      case 404 : 
-        return ApiResult.NotFound;
-      case 406 : 
-        return ApiResult.NotAcceptable;
-      case 409 :
-        return ApiResult.Conflict;
-      case 422 : 
-        return ApiResult.UnprocessableEntity;
-      case 500 : 
-        return ApiResult.InterverServerError;
-      default : 
-        return ApiResult.Error;
-    }
-  }
-
-
-  Map<ApiResponse, dynamic> buildResult(response) {
-    return {
-      ApiResponse.StatusCode: response.statusCode,
-      ApiResponse.Result : convertApiResult(response.statusCode),
-      ApiResponse.Data: response.data['data'] == null ? response.data['dataList'] : response.data['data'],
-      ApiResponse.StatusMessage: response.statusMessage
-    };
-  }
 }
