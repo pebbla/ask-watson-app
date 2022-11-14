@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.3
   logger: ^1.1.0
+  intl: ^0.17.0
 
   ## http 통신
   http: ^0.13.5
@@ -45,7 +46,8 @@ dependencies:
   kakao_flutter_sdk_user: ^1.2.1
   ## 네이버
   flutter_naver_login: ^1.6.0
-  intl: ^0.17.0
+  
+  
 
 
 dev_dependencies:

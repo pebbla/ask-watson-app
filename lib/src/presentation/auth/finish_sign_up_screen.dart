@@ -29,7 +29,7 @@ class FinishSignUpScreen extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  width: 250,
+                  width: 180,
                   child: Image.asset('assets/character/watson_yeah.png'),
                 ),
                 Padding(padding: EdgeInsets.all(12)),

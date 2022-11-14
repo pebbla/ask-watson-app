@@ -5,6 +5,7 @@ import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_
 import 'package:ask_watson_app/src/data/model/user.dart';
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
+import 'package:ask_watson_app/src/presentation/auth/finish_sign_up_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:ask_watson_app/src/presentation/widget/outline_input_border.dart';
 import 'package:ask_watson_app/util/date_time.dart';
@@ -181,9 +182,11 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
                   marketingAgreeYn: false,
                   gender: _gender.convertString);
 
-              Map<ApiResponse, dynamic> response =await _useCase.createUser(user);
-              if (ApiResponse.Status == ApiStatus.Success) {
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
+              Map<ApiResponse, dynamic> response = await _useCase.createUser(user);
+              print(response);
+              if (response[ApiResponse.Status] == ApiStatus.Success) {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
+                
               } else {
                 print('회원가입 도중 에러가 발생하였습니다.');
                 throw Error();
@@ -191,6 +194,4 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
             })
         : ButtonDisabledWidget(text: '다음으로');
   }
-
-
 }
