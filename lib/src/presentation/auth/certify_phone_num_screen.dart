@@ -124,8 +124,8 @@ class _CertifyPhoneNumScreenState extends State<CertifyPhoneNumScreen> {
   // 인증번호 입력 text field
   Widget _inputCertifyNumWidget() {
     return 
-        AnimatedContainer(
-            duration: Duration(milliseconds: 500),
+        AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
             child: insertCertifyNum == true ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
