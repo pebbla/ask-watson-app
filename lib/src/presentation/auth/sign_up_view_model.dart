@@ -3,6 +3,8 @@ import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
 import 'package:ask_watson_app/src/presentation/auth/accept_term_screen.dart';
+import 'package:ask_watson_app/src/presentation/main/main_screen.dart';
+import 'package:ask_watson_app/src/presentation/tab/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -45,8 +47,9 @@ class SignUpViewModel extends ChangeNotifier {
    */
   void signInByKakaoToken(BuildContext context, String kakaoToken) async {
     var response = await userUseCase.signInByKakaoToken(kakaoToken);
+    
     if (response[ApiResponse.Status] == ApiStatus.Success) {
-      // TODO : 메인 화면으로 이동
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyStatefulWidget()), (route) => false);
       print('메인화면으로 이동');
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
@@ -64,14 +67,14 @@ class SignUpViewModel extends ChangeNotifier {
   void tabSignUpNaverBtn(BuildContext context) async {  
     // 정보 가져오기
     NaverLoginResult loginResult = await FlutterNaverLogin.logIn();
-
-    print(loginResult.account.email);
-    print(loginResult.account.birthday);
-    print(loginResult.account.nickname);
-    print(loginResult.account.mobile);
-
-    // 토근 가져오기 
     NaverAccessToken accessToken = await FlutterNaverLogin.currentAccessToken;
-    print(accessToken.accessToken);
+    var response = await userUseCase.signInByNaverToken(accessToken.accessToken);
+
+    if (response[ApiResponse.Status] == ApiStatus.Success) {
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyStatefulWidget()), (route) => false);
+      
+    } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
+    }
   }
 } 
