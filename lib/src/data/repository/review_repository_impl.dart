@@ -1,8 +1,8 @@
-import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
-import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
-import 'package:ask_watson_app/src/data/data_source/remote_data_source/http_client.dart';
+import 'package:ask_watson_app/src/data/data_source/http_client.dart';
 import 'package:ask_watson_app/src/data/model/review.dart';
 import 'package:ask_watson_app/src/domain/repository/reivew_repository.dart';
+import 'package:ask_watson_app/util/enum/api_response.dart';
+import 'package:ask_watson_app/util/enum/api_status.dart';
 
 class ReivewRepositoryImpl extends ReivewRepository {
 
@@ -14,7 +14,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getReivewById(int reviewId) async {
     var response = await _httpClient.getRequest('​/reviews​/${reviewId}');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Result] == ApiResult.Success) {
       response[ApiResponse.Data] = Review.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -25,7 +25,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getReivewByThemeId(int themeId) async {
     var response = await _httpClient.getRequest('​/reviews​/theme​/${themeId}');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Result] == ApiResult.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Review>((json) => Review.fromJson(json)).toList();
     }
     return response;
@@ -36,7 +36,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getReivewByUserId(int userId) async {
     var response = await _httpClient.getRequest('​/user​/${userId}​/reviews');
-    if(response[ApiResponse.Result] == ApiStatus.Success) {
+    if(response[ApiResponse.Result] == ApiResult.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Review>((json) => Review.fromJson(json)).toList();
     }
     return response;

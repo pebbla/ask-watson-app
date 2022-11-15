@@ -1,10 +1,10 @@
-import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/repository/cafe_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/category_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/theme_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/cafe_use_case.dart';
 import 'package:ask_watson_app/src/domain/use_case/theme_use_case.dart';
+import 'package:ask_watson_app/util/enum/api_response.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/use_case/category_use_case.dart';
