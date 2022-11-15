@@ -23,7 +23,7 @@ class UserRepositoryImpl extends UserRepository {
   // 네이버 토큰으로 로그인
   @override
   Future<Map<ApiResponse, dynamic>> singInByNaverToken(String token) async {
-    var response = await _httpClient.postRequest('/signin/naver', {"accessToken" : token});
+    var response = await _httpClient.postRequest('/signin/naver', {"accessToken" : "$token"});
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }

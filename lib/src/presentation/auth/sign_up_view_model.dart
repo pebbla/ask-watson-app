@@ -3,7 +3,6 @@ import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';
 import 'package:ask_watson_app/src/presentation/auth/accept_term_screen.dart';
-import 'package:ask_watson_app/src/presentation/main/main_screen.dart';
 import 'package:ask_watson_app/src/presentation/tab/tab_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
