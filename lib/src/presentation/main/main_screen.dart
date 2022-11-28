@@ -199,10 +199,6 @@ class MainView extends StatelessWidget {
     var viewModelWatch = Provider.of<MainViewModel>(context, listen: false);
     Random random = new Random();
 
-    void onHeartTap() {
-      
-    }
-
     return list.isEmpty
         ? Container()
         : Container(
