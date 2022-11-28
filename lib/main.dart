@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             radioTheme: RadioThemeData(
               fillColor: MaterialStateColor.resolveWith((states) => MyColor.black)
             )),
-        home: MyStatefulWidget(),
+        home: MyTabBarScreen(),
       ),
     );
   }

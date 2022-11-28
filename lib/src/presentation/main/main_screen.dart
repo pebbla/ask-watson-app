@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
@@ -48,8 +50,8 @@ class MainView extends StatelessWidget {
                 children: [
                   _buildSearchBar(context),
                   _buildCategoryList(context),
-                  _buildCafeList(context),
-                  _buildThemeList(context),
+                  _buildCafeList(context, viewModel.cafeList),
+                  _buildThemeList(context, viewModel.themeList),
                 ],
               ),
             ),
@@ -154,71 +156,84 @@ class MainView extends StatelessWidget {
   
 
   // 카페 리스트
-  Widget _buildCafeList(BuildContext context) {
-    Cafe cafe = Cafe();
-    return Container(
-      width: double.maxFinite,
-      padding: EdgeInsets.only(top: 12, bottom: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('카페', style: MyTextStyle.black18w600),
-              TextButton(
-                onPressed: () {
-                  //TODO : 카페리스트 페이지로 이동
-                },
-                child: Text('더보기 >', style: MyTextStyle.black12w500),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              CafeWidget(cafe : cafe),
-              Padding(padding: EdgeInsets.all(4)),
-              CafeWidget(cafe : cafe),
-            ],
-          ),
-        ],
-      ),
-    );
+  Widget _buildCafeList(BuildContext context, List<Cafe> list) {
+    Random random = new Random();
+    int randomNumber = random.nextInt(list.isEmpty ? 0 : list.length);
+
+    return list.isEmpty
+        ? Container()
+        : Container(
+            width: double.maxFinite,
+            padding: const EdgeInsets.only(top: 12, bottom: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('카페', style: MyTextStyle.black18w600),
+                    TextButton(
+                      onPressed: () {
+                        //TODO : 카페리스트 페이지로 이동
+                      },
+                      child:
+                          const Text('더보기 >', style: MyTextStyle.black12w500),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    CafeWidget(cafe: list[random.nextInt(list.length)]),
+                    const Padding(padding: EdgeInsets.all(4)),
+                    CafeWidget(cafe: list[random.nextInt(list.length)]),
+                  ],
+                ),
+              ],
+            ),
+          );
   }
 
 
   // 테마 리스트
-  Widget _buildThemeList(BuildContext context) {
-    m.Theme theme = m.Theme();
-    return Container(
-      width: double.maxFinite,
-      padding: EdgeInsets.only(top: 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('테마', style: MyTextStyle.black18w600),
-              TextButton(
-                onPressed: () {
-                  //TODO : 카페리스트 페이지로 이동
-                },
-                child: Text('더보기 >', style: MyTextStyle.black12w500),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Flexible(child: ThemeGridWidget(theme : theme)),
-              Padding(padding: EdgeInsets.all(4)),
-              Flexible(child: ThemeGridWidget(theme : theme)),
-            ],
-          )
-        ],
-      ),
-    );
+  Widget _buildThemeList(BuildContext context, List<m.Theme> list) {
+    Random random = new Random();
+    int randomNumber = random.nextInt(list.isEmpty ? 0 : list.length);
+
+    return list.isEmpty
+        ? Container()
+        : Container(
+            width: double.maxFinite,
+            padding: const EdgeInsets.only(top: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('테마', style: MyTextStyle.black18w600),
+                    TextButton(
+                      onPressed: () {
+                        //TODO : 카페리스트 페이지로 이동
+                      },
+                      child:
+                          const Text('더보기 >', style: MyTextStyle.black12w500),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Flexible(child: ThemeGridWidget(theme: list[random.nextInt(list.length)], onLikeTap: (){
+                    },)),
+                    const Padding(padding: EdgeInsets.all(4)),
+                    Flexible(child: ThemeGridWidget(theme: list[random.nextInt(list.length)], onLikeTap: (){
+
+                    },)),
+                  ],
+                )
+              ],
+            ),
+          );
   }
 }

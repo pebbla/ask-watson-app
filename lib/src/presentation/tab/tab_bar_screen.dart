@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 //TODO : view model 수정
 //TODO : router 적용
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+class MyTabBarScreen extends StatefulWidget {
+  const MyTabBarScreen({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<MyTabBarScreen> createState() => _MyTabBarScreenState();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _MyTabBarScreenState extends State<MyTabBarScreen> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[

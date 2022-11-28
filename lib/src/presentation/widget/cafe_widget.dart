@@ -14,9 +14,8 @@ class CafeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Flexible(
       child: Container(
-        padding: EdgeInsets.only(bottom: 8),
-        decoration:
-            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
+        padding: const EdgeInsets.only(bottom: 8),
+        decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
         width: double.maxFinite,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -26,6 +25,7 @@ class CafeWidget extends StatelessWidget {
               height: 160,
               //TODO : 사진 넣기
               child: Container(
+                child: cafe.imageUrl == null ? Container() : Image.network(cafe.imageUrl!),
                 decoration: BoxDecoration(
                     color: MyColor.lightlightGrey,
                     borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -37,14 +37,14 @@ class CafeWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${cafe.name ?? '키이스케이프 강남점'}',
+                    '${cafe.name!}',
                     style: MyTextStyle.black16w600,
                   ),
                   Padding(padding: EdgeInsets.all(2)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      StarWidget(rating: cafe.rating ?? 4.0),
+                      StarWidget(rating: double.parse(cafe.rating.toString())),
                       Padding(padding: EdgeInsets.all(2)),
                       Text('${cafe.rating ?? 0.0}',
                           style: MyTextStyle.grey14w500)
