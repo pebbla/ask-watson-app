@@ -7,8 +7,6 @@ import 'package:ask_watson_app/src/domain/repository/reivew_repository.dart';
 class ReivewRepositoryImpl extends ReivewRepository {
 
   final HttpClient _httpClient = HttpClient();
-
-  //TODO : test
   
   // 리뷰 단건 조회
   @override
@@ -62,7 +60,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   // 리뷰 삭제
   @override
   Future<Map<ApiResponse, dynamic>> deleteReview(int reviewId) async {
-    var response = await _httpClient.deleteRequest('reviews​/${reviewId}');
+    var response = await _httpClient.deleteRequest('/reviews​/${reviewId}');
     return response;
   }
 

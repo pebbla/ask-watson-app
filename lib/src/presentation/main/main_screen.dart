@@ -196,7 +196,12 @@ class MainView extends StatelessWidget {
 
   // 테마 리스트
   Widget _buildThemeList(BuildContext context, List<m.Theme> list) {
+    var viewModelWatch = Provider.of<MainViewModel>(context, listen: false);
     Random random = new Random();
+
+    void onHeartTap() {
+      
+    }
 
     return list.isEmpty
         ? Container()
@@ -222,16 +227,28 @@ class MainView extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Flexible(child: ThemeGridWidget(theme: list[random.nextInt(list.length)], onLikeTap: (){
-                    },)),
+                    Flexible(
+                      child: ThemeGridWidget(
+                        theme: list[random.nextInt(list.length)],
+                        onHeartTap: () {
+                          
+                        },
+                      ),
+                    ),
                     const Padding(padding: EdgeInsets.all(4)),
-                    Flexible(child: ThemeGridWidget(theme: list[random.nextInt(list.length)], onLikeTap: (){
-
-                    },)),
+                    Flexible(
+                      child: ThemeGridWidget(
+                        theme: list[random.nextInt(list.length)],
+                        onHeartTap: () {},
+                      ),
+                    ),
                   ],
                 )
               ],
             ),
           );
+
   }
+
+
 }

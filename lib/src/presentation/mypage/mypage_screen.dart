@@ -144,7 +144,7 @@ class MypageView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) {
         // TODO : 좋아요 선택
-        return ThemeGridWidget(theme: theme, isItGrid: true, onLikeTap: null,);
+        return ThemeGridWidget(theme: theme, isItGrid: true, onHeartTap: null,);
       },
     );
   }
@@ -174,7 +174,7 @@ class MypageView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) {
         // TODO : 좋아요 선택
-        return ThemeGridWidget(theme: theme, isItGrid: true, onLikeTap: null,);
+        return ThemeGridWidget(theme: theme, isItGrid: true, onHeartTap: null,);
       },
     );
   }

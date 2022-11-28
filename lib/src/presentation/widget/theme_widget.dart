@@ -8,9 +8,9 @@ import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 class ThemeGridWidget extends StatelessWidget {
   final m.Theme theme;
   final bool isItGrid;
-  final Function? onLikeTap;
+  final Function? onHeartTap;
 
-  const ThemeGridWidget({super.key, required this.theme, required this.onLikeTap, this.isItGrid = false, });
+  const ThemeGridWidget({super.key, required this.theme, required this.onHeartTap, this.isItGrid = false, });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class ThemeGridWidget extends StatelessWidget {
                   height: double.maxFinite,
                   child: IconButton(
                     onPressed: () {
-                      onLikeTap?.call();
+                      onHeartTap?.call();
                     },
                     icon: Icon(Icons.heart_broken,),
                   ),

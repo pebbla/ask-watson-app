@@ -1,12 +1,12 @@
 import 'package:ask_watson_app/src/data/model/theme.dart';
 
-class heart {
+class Heart {
   int? id;
   Theme? theme;
 
-  heart({this.id, this.theme});
+  Heart({this.id, this.theme});
 
-  heart.fromJson(Map<String, dynamic> json) {
+  Heart.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     theme = json['themeDto'] != null
         ? new Theme.fromJson(json['themeDto'])
