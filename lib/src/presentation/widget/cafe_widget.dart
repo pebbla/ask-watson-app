@@ -23,11 +23,12 @@ class CafeWidget extends StatelessWidget {
             SizedBox(
               width: double.maxFinite,
               height: 160,
-              child: Container(
-                child: cafe.imageUrl == null ? Container() : Image.network(cafe.imageUrl!),
-                decoration: BoxDecoration(
-                    color: MyColor.lightlightGrey,
-                    borderRadius: BorderRadius.all(Radius.circular(12))),
+              child: ClipRRect(
+                child: Container(
+                  width: double.maxFinite,
+                  child: Image.network(cafe.imageUrl!, fit: BoxFit.cover),
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
               ),
             ),
             Container(

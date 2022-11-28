@@ -16,8 +16,8 @@ class Theme {
   int? escapeCount;
   int? reviewCount;
   num? rating;
-  int? deviceRatio;
-  int? activity;
+  num? deviceRatio;
+  num? activity;
   Cafe? cafe;
   bool? available;
 

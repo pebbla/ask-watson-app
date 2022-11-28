@@ -28,11 +28,12 @@ class ThemeGridWidget extends StatelessWidget {
             //TODO : 사진 넣기
             child: Stack(
               children: [
-                Container(
-                child: theme.imageUrl == null ? Container() : Image.network(theme.imageUrl!),
-                  decoration: BoxDecoration(
-                      color: MyColor.lightlightGrey,
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ClipRRect(
+                  child: Container(
+                    width: double.maxFinite,
+                    child: Image.network(theme.imageUrl!, fit: BoxFit.cover),
+                  ),
+                borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
                 Container(
                   alignment: Alignment.bottomRight,
