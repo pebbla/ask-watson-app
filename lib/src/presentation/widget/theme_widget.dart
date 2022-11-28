@@ -29,6 +29,7 @@ class ThemeGridWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Container(
+                child: theme.imageUrl == null ? Container() : Image.network(theme.imageUrl!),
                   decoration: BoxDecoration(
                       color: MyColor.lightlightGrey,
                       borderRadius: BorderRadius.all(Radius.circular(12))),
@@ -39,7 +40,7 @@ class ThemeGridWidget extends StatelessWidget {
                   height: double.maxFinite,
                   child: IconButton(
                     onPressed: () {
-                      // TODO : 하트 좋아요 넣기
+                      onLikeTap?.call();
                     },
                     icon: Icon(Icons.heart_broken,),
                   ),
@@ -140,7 +141,7 @@ class ThemeListWidget extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StarWidget(rating: theme.rating ?? 0.0),
+                        StarWidget(rating: double.parse(theme.rating.toString())),
                         Padding(padding: EdgeInsets.all(2)),
                         Text('${theme.rating ?? 0.0}',
                             style: MyTextStyle.grey14w500)

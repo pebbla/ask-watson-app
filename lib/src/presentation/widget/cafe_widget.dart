@@ -23,7 +23,6 @@ class CafeWidget extends StatelessWidget {
             SizedBox(
               width: double.maxFinite,
               height: 160,
-              //TODO : 사진 넣기
               child: Container(
                 child: cafe.imageUrl == null ? Container() : Image.network(cafe.imageUrl!),
                 decoration: BoxDecoration(

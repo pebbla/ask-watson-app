@@ -158,7 +158,6 @@ class MainView extends StatelessWidget {
   // 카페 리스트
   Widget _buildCafeList(BuildContext context, List<Cafe> list) {
     Random random = new Random();
-    int randomNumber = random.nextInt(list.isEmpty ? 0 : list.length);
 
     return list.isEmpty
         ? Container()
@@ -198,7 +197,6 @@ class MainView extends StatelessWidget {
   // 테마 리스트
   Widget _buildThemeList(BuildContext context, List<m.Theme> list) {
     Random random = new Random();
-    int randomNumber = random.nextInt(list.isEmpty ? 0 : list.length);
 
     return list.isEmpty
         ? Container()
