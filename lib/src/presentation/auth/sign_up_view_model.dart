@@ -71,7 +71,6 @@ class SignUpViewModel extends ChangeNotifier {
 
     if (response[ApiResponse.Status] == ApiStatus.Success) {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TabBarScreen()), (route) => false);
-      
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
     }
