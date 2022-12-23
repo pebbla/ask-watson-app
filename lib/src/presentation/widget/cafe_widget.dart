@@ -1,4 +1,3 @@
-import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';

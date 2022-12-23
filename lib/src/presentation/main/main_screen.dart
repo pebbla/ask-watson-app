@@ -6,6 +6,7 @@ import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
+import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/cafe_widget.dart';
 import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +159,6 @@ class MainView extends StatelessWidget {
   // 카페 리스트
   Widget _buildCafeList(BuildContext context, List<Cafe> list) {
     Random random = new Random();
-
     return list.isEmpty
         ? Container()
         : Container(
@@ -174,7 +174,7 @@ class MainView extends StatelessWidget {
                     const Text('카페', style: MyTextStyle.black18w600),
                     TextButton(
                       onPressed: () {
-                        //TODO : 카페리스트 페이지로 이동
+                        
                       },
                       child:
                           const Text('더보기 >', style: MyTextStyle.black12w500),
@@ -198,6 +198,7 @@ class MainView extends StatelessWidget {
   Widget _buildThemeList(BuildContext context, List<m.Theme> list) {
     var viewModelWatch = Provider.of<MainViewModel>(context, listen: false);
     Random random = new Random();
+    int? random1, rnadom2;
 
     return list.isEmpty
         ? Container()
@@ -226,15 +227,19 @@ class MainView extends StatelessWidget {
                     Flexible(
                       child: ThemeGridWidget(
                         theme: list[random.nextInt(list.length)],
-                        onHeartTap: () {
-                          
+                        onThemeTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeDetailScreen(theme: list[random.nextInt(list.length)])));
                         },
+                        onHeartTap: () {}, 
                       ),
                     ),
                     const Padding(padding: EdgeInsets.all(4)),
                     Flexible(
                       child: ThemeGridWidget(
                         theme: list[random.nextInt(list.length)],
+                        onThemeTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeDetailScreen(theme: list[random.nextInt(list.length)])));
+                        },
                         onHeartTap: () {},
                       ),
                     ),
@@ -243,8 +248,5 @@ class MainView extends StatelessWidget {
               ],
             ),
           );
-
   }
-
-
 }
