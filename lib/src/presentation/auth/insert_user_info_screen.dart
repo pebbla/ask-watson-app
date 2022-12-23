@@ -13,9 +13,9 @@ import 'package:ask_watson_app/util/enum/gender.dart';
 import 'package:flutter/material.dart';
 
 class InsertUserInfoScreen extends StatefulWidget {
-  final String phoneNum;
+  final String email;
 
-  const InsertUserInfoScreen({super.key, required this.phoneNum});
+  const InsertUserInfoScreen({super.key, required this.email});
 
   @override
   State<InsertUserInfoScreen> createState() => _InsertUserInfoScreenState();
@@ -67,7 +67,14 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
                 _inputNickNameWidget()
               ],
             ),
-            _nextBtn()
+            Column(
+              children: [
+                _skipBtn(),
+                Padding(padding: EdgeInsets.all(6)),
+                _nextBtn()
+              ],
+            ),
+            
           ],
         ),
       ),
@@ -177,7 +184,7 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
               UserUseCase _useCase = UserUseCase(UserRepositoryImpl());
               User user = User(
                   nickname: _textControllerNickName.text,
-                  phoneNum: widget.phoneNum,
+                  phoneNum: widget.email,
                   birth: _textControllerBirth.text,
                   marketingAgreeYn: false,
                   gender: _gender.convertString);
@@ -193,5 +200,22 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
               }
             })
         : ButtonDisabledWidget(text: '다음으로');
+  }
+
+  // 스킵하기 버튼
+  Widget _skipBtn() {
+    return Container(
+      width: double.maxFinite,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context,MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
+        },
+        child: Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+          child: Text("skip >>", style: TextStyle(color: MyColor.grey, fontSize: 16),),
+        ),
+      ),
+    );
   }
 }

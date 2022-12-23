@@ -40,7 +40,7 @@ class FinishSignUpScreen extends StatelessWidget {
             ButtonPrimaryWidget(
               text: '방탈출하러가기',
               onPressed: () {
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyStatefulWidget()), (route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TabBarScreen()), (route) => false);
               },
             ),
           ],
