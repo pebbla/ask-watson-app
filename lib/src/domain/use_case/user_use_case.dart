@@ -18,6 +18,7 @@ class UserUseCase {
     return result;
   }
 
+
   // 네이버 토큰으로 로그인
   @override
   Future<Map<ApiResponse, dynamic>> signInByNaverToken(String token) async {
