@@ -2,7 +2,7 @@ import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/data_source/local_data_source/accept_term.dart';
 import 'package:ask_watson_app/src/presentation/auth/accept_term_view_model.dart';
-import 'package:ask_watson_app/src/presentation/auth/certify_phone_num_screen.dart';
+import 'package:ask_watson_app/src/presentation/auth/insert_user_info_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -95,7 +95,7 @@ class AcceptTermView extends StatelessWidget {
             padding: const EdgeInsets.only(left: 12, right: 12),
             child: viewModel.checkEnableBtn()
             ? ButtonPrimaryWidget(text: '시작하기', onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => CertifyPhoneNumScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => InsertUserInfoScreen(email: "")));
             })
             : ButtonDisabledWidget(text: '시작하기'),
           )

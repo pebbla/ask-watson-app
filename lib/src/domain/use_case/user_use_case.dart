@@ -18,7 +18,8 @@ class UserUseCase {
     return result;
   }
 
-  // 카카오 토큰으로 로그인
+
+  // 네이버 토큰으로 로그인
   @override
   Future<Map<ApiResponse, dynamic>> signInByNaverToken(String token) async {
     print('### user use case naver token : $token');

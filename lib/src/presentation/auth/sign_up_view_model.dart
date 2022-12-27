@@ -48,7 +48,7 @@ class SignUpViewModel extends ChangeNotifier {
     var response = await userUseCase.signInByKakaoToken(kakaoToken);
     
     if (response[ApiResponse.Status] == ApiStatus.Success) {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabBarScreen()), (route) => false);
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TabBarScreen()), (route) => false);
       print('메인화면으로 이동');
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
@@ -70,8 +70,7 @@ class SignUpViewModel extends ChangeNotifier {
     var response = await userUseCase.signInByNaverToken(accessToken.accessToken);
 
     if (response[ApiResponse.Status] == ApiStatus.Success) {
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MyTabBarScreen()), (route) => false);
-      
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => TabBarScreen()), (route) => false);
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
     }
