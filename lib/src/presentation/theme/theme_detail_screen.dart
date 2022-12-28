@@ -1,9 +1,15 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
+import 'package:ask_watson_app/src/data/model/heart.dart';
 import 'package:ask_watson_app/src/data/model/review.dart';
+import 'package:ask_watson_app/src/data/repository/heart_repository_impl.dart';
+import 'package:ask_watson_app/src/domain/use_case/heart_use_case.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
+
+import '../../data/data_source/remote_data_source/enum/api_response.dart';
 
 class ThemeDetailScreen extends StatefulWidget {
   final m.Theme theme;
@@ -17,9 +23,10 @@ class ThemeDetailScreen extends StatefulWidget {
 class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
 
   Review review = Review(createdAt: "12.05", rating: 3, content: "안녕하세요 리뷰입니다. 리뷰리뷰!! ㅁㄴ어린멍링너리ㅏㅇ너리ㅏㅓㅇ니라ㅓㄴ이ㅏ럼ㅇ나ㅣ러ㅣㄴ아러ㅣㅁ나ㅓ링나ㅓ리ㅏㅇㄴ머리ㅏㅇㄴ머리;ㅏㅁ넝리;ㅏ넝ㄹ;ㅣㅏㅓㄴㅇ리;ㅏㅓㅁㄴ이;라ㅓㅇㄴ미;ㅏ러ㅣ;ㅇㄴ마ㅓ리;ㄴ아머링ㄴ마ㅓ리ㅏㅓㅇㄹ니ㅏ;ㅓ미나렁님;ㅏ러ㅣ;ㄴ마ㅓㅇ리;ㅇ나ㅓㅁ");
-
+  Heart? heart;
   bool _themeCheck = false;
   bool _themeHeart = false;
+  HeartUseCase _heartUseCase = HeartUseCase(HeartRepositoryImpl());
 
   @override
   Widget build(BuildContext context) {
@@ -64,10 +71,23 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _themeHeart = !_themeHeart;
-                          });
+                        onTap: () async {
+                          Map<ApiResponse, dynamic> response;
+
+                          // TODO : 1 -> useid 로 변경
+                          if(_themeHeart == false) {
+                            response = await _heartUseCase.createHeart(1, widget.theme.id);
+                            heart = response[ApiResponse.Data];
+                          } else {
+                            response = await _heartUseCase.deleteHeart(heart?.id ?? 0);
+                          }
+
+                          if (response[ApiResponse.Status] ==
+                              ApiStatus.Success) {
+                            setState(() {
+                              _themeHeart = !_themeHeart;
+                            });
+                          }
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
