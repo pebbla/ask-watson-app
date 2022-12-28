@@ -9,7 +9,7 @@ class Check {
 
   Check.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    checkDt = json['escapeCompleteDt'];
+    checkDt = json['checkDt'];
     theme = json['theme'] != null ? new Theme.fromJson(json['theme']) : null;
   }
 

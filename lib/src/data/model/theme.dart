@@ -13,7 +13,7 @@ class Theme {
   String? reservationUrl;
   String? imageUrl;
   int? heartCount;
-  int? escapeCount;
+  int? checkCount;
   int? reviewCount;
   num? rating;
   num? deviceRatio;
@@ -33,7 +33,7 @@ class Theme {
       this.reservationUrl,
       this.imageUrl,
       this.heartCount,
-      this.escapeCount,
+      this.checkCount,
       this.reviewCount,
       this.rating,
       this.deviceRatio,
@@ -55,7 +55,7 @@ class Theme {
     reservationUrl = json['reservationUrl'];
     imageUrl = json['imageUrl'];
     heartCount = json['heartCount'];
-    escapeCount = json['escapeCount'];
+    checkCount = json['checkCount'];
     reviewCount = json['reviewCount'];
     rating = json['rating'];
     deviceRatio = json['deviceRatio'];
@@ -79,7 +79,7 @@ class Theme {
     data['reservationUrl'] = this.reservationUrl;
     data['imageUrl'] = this.imageUrl;
     data['heartCount'] = this.heartCount;
-    data['escapeCount'] = this.escapeCount;
+    data['checkCount'] = this.checkCount;
     data['reviewCount'] = this.reviewCount;
     data['rating'] = this.rating;
     data['deviceRatio'] = this.deviceRatio;

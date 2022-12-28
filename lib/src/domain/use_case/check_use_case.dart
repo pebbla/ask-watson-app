@@ -4,7 +4,7 @@ import 'package:ask_watson_app/src/data/repository/check_repository_impl.dart';
 
 class CheckUseCase {
 
-  final CheckImpl _repository;
+  final CheckRepositoryImpl _repository;
 
   CheckUseCase(this._repository);
 
