@@ -1,7 +1,7 @@
 class Review {
   int? id;
   String? content;
-  int? rating;
+  num? rating;
   int? activity;
   int? deviceRatio;
   int? difficulty;

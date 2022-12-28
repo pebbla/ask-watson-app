@@ -35,8 +35,7 @@ class StarWidget extends StatelessWidget {
 
     switch (status) {
       case StarStatus.empty:
-        return const Icon(Icons.star_border_outlined,
-            color: MyColor.yellow, size: 16);
+        return Icon(Icons.star_border_outlined, color: color, size: 16);
       case StarStatus.half:
         return Icon(Icons.star_half, color: color, size: 16);
       case StarStatus.full:

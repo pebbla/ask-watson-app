@@ -15,8 +15,10 @@ class ThemeDetailScreen extends StatefulWidget {
 }
 
 class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
-  bool _themeCheck = false;
 
+  Review review = Review(createdAt: "12.05", rating: 3, content: "안녕하세요 리뷰입니다. 리뷰리뷰!! ㅁㄴ어린멍링너리ㅏㅇ너리ㅏㅓㅇ니라ㅓㄴ이ㅏ럼ㅇ나ㅣ러ㅣㄴ아러ㅣㅁ나ㅓ링나ㅓ리ㅏㅇㄴ머리ㅏㅇㄴ머리;ㅏㅁ넝리;ㅏ넝ㄹ;ㅣㅏㅓㄴㅇ리;ㅏㅓㅁㄴ이;라ㅓㅇㄴ미;ㅏ러ㅣ;ㅇㄴ마ㅓ리;ㄴ아머링ㄴ마ㅓ리ㅏㅓㅇㄹ니ㅏ;ㅓ미나렁님;ㅏ러ㅣ;ㄴ마ㅓㅇ리;ㅇ나ㅓㅁ");
+
+  bool _themeCheck = false;
   bool _themeHeart = false;
 
   @override
@@ -25,25 +27,25 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
       body: SafeArea(
         top: false,
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _themeDetailTop(),
-                _reviewList(),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _themeImage(),
+              _themeDetail(),
+              _reviewList(),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _themeDetailTop() {
+
+  Widget _themeImage() {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(bottom: 12),
+          padding: const EdgeInsets.only(bottom: 12),
           child: Column(
             children: [
               SizedBox(
@@ -51,6 +53,14 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
                 height: MediaQuery.of(context).size.width * 1.2,
                 child: Stack(
                   children: [
+                    Container(
+                      width: double.maxFinite,
+                      height: double.maxFinite,
+                      child: Image.network(
+                        widget.theme.imageUrl ?? "",
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: GestureDetector(
@@ -59,67 +69,92 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
                             _themeHeart = !_themeHeart;
                           });
                         },
-                        child: _themeHeart 
-                        ? Icon(Icons.heat_pump_rounded, color: MyColor.red)
-                        : Icon(Icons.monitor_heart_outlined, color: MyColor.red),
-                      )
-                    ),
-                    Container(
-                      width: double.maxFinite,
-                      height: double.maxFinite,
-                      color: MyColor.red,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                          child: _themeHeart
+                              ? const Icon(Icons.heat_pump_rounded, color: MyColor.red, size: 30)
+                              : const Icon(Icons.monitor_heart_outlined, color: MyColor.red, size: 30),
+                        ),
+                      ),
                     ),
                   ],
                 ),
               ),
-              Padding(padding: EdgeInsets.all(12)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  // theme 상세 설명
+  Widget _themeDetail() {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              // 테마 설명
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('${widget.theme.name}', maxLines: 1, overflow: TextOverflow.ellipsis,),
+                  Flexible(
+                    child: Text('${widget.theme.name}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: MyTextStyle.black18w600),
+                  ),
                   _checkBtn(),
                 ],
               ),
               Row(
                 children: [
-                  Text("${widget.theme.cafe?.name}", style: MyTextStyle.black14w500),
-                  Padding(padding: EdgeInsets.all(1)),
-                  Text("${widget.theme.category?.name}", style: MyTextStyle.grey14w500),
+                  Text("${widget.theme.cafe?.name}",
+                      style: MyTextStyle.black14w500),
+                  const Padding(padding: EdgeInsets.all(1)),
+                  Text(" | ${widget.theme.category?.name}",
+                      style: MyTextStyle.grey14w500),
                 ],
               ),
-              Padding(padding: EdgeInsets.all(4)),
               Row(
                 children: [
-                  StarWidget(rating: 4.5),
-                  Padding(padding: EdgeInsets.all(6)),
-                  Icon(
-                    Icons.heat_pump_sharp,
-                    color: MyColor.yellow,
-                  )
+                  StarWidget(
+                      rating: double.parse(
+                          (widget.theme.rating ?? 0.0).toString())),
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Text("${widget.theme.rating ?? 0.0}", style: MyTextStyle.grey14w500),
+                  const Padding(padding: EdgeInsets.all(8)),
+                  const Icon(Icons.heart_broken, color: MyColor.red, size: 20),
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Text("${widget.theme.heartCount ?? 0.0}", style: MyTextStyle.grey14w500),
                 ],
               ),
-              Padding(padding: EdgeInsets.all(8)),
-
-              // 테마 설명
-              Divider(thickness: 1, color: MyColor.grey),
-              Padding(padding: EdgeInsets.all(12)),
-              Text("${widget.theme.explanation}"),
-              Padding(padding: EdgeInsets.all(12)),
-              Divider(thickness: 1, color: MyColor.grey),
             ],
           ),
-        )
+        ),
+        const Padding(padding: EdgeInsets.all(8)),
+        const Divider(thickness: 1, color: MyColor.grey),
+        const Padding(padding: EdgeInsets.all(12)),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          width: double.maxFinite,
+          child: Text("${widget.theme.explanation}"),
+        ),
+        const Padding(padding: EdgeInsets.all(12)),
+        const Divider(thickness: 1, color: MyColor.grey),
       ],
     );
   }
 
+
   // 리뷰 리스트
   Widget _reviewList() {
-    List<Review> reviews = [];
-    Review review = Review();
+    List<Review> reviews = [review, review, review];
+
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
       child: Column(
         children: [
           Row(
@@ -127,17 +162,18 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("리뷰수 ${reviews.length}", style: MyTextStyle.black18w600),
-              Text("더보기 >", style: MyTextStyle.grey14w500)
+              const Text("더보기 >", style: MyTextStyle.grey14w500),
             ],
           ),
-          Padding(padding: EdgeInsets.all(12)),
+          const Padding(padding: EdgeInsets.all(6)),
           _writeReviewBtn(),
-          _reviewItem(review),
-          Divider(thickness: 1),
-          _reviewItem(review),
-          Divider(thickness: 1),
-          _reviewItem(review),
-          Divider(thickness: 1),
+          const Padding(padding: EdgeInsets.all(6)),
+          ListView.separated(
+              padding:const EdgeInsets.all(0),
+              shrinkWrap: true,
+              itemBuilder: (context, index) => _reviewItem(review),
+              separatorBuilder: (_, __) => const Divider(thickness: 1),
+              itemCount: reviews.length)
         ],
       ),
     );
@@ -146,7 +182,7 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
   // 리뷰 아이템
   Widget _reviewItem(Review review) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 6),
       width: double.maxFinite,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,22 +191,29 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text("칸쵸"),
-              Icon(Icons.warning, color: MyColor.red),
+              Text("${review.usedHintNum ?? "익명"}", style: MyTextStyle.black16w600),
+              const Icon(
+                Icons.warning,
+                color: MyColor.red,
+                size: 18,
+              ),
             ],
           ),
+          const Padding(padding: EdgeInsets.all(2)),
           Row(
             children: [
               StarWidget(
-                  rating: 4.5,
+                  rating: double.parse((widget.theme.rating ?? 0.0).toString()),
                   color: MyColor.black),
+              const Padding(padding: EdgeInsets.all(2)),
               Text("${review.createdAt}"),
             ],
           ),
+          const Padding(padding: EdgeInsets.all(4)),
           Text(
             "${review.content}",
             maxLines: 3,
-            style: TextStyle(overflow: TextOverflow.ellipsis),
+            style: const TextStyle(overflow: TextOverflow.ellipsis),
           ),
         ],
       ),
@@ -188,13 +231,12 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
         height: 48,
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: MyColor.grey),
-          borderRadius: BorderRadius.all(Radius.circular(12)),
-        ),
-        child: Center(child: Text("리뷰 작성하기", style: MyTextStyle.grey16w500)),
+          borderRadius: const BorderRadius.all(Radius.circular(12))),
+        child:
+            const Center(child: Text("리뷰 작성하기", style: MyTextStyle.grey16w500)),
       ),
     );
   }
-
 
   // 탈출 완료 버튼
   Widget _checkBtn() {
@@ -208,8 +250,8 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
         decoration: BoxDecoration(
             color: _themeCheck ? MyColor.green : MyColor.white,
             border: Border.all(width: 1, color: MyColor.green),
-            borderRadius: BorderRadius.all(Radius.circular(12))),
-        padding: EdgeInsets.symmetric(vertical: 4, horizontal: 6),
+            borderRadius: const BorderRadius.all(Radius.circular(12))),
+        padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
         child: Text("탈출 완료",
             style:
                 TextStyle(color: _themeCheck ? MyColor.white : MyColor.green)),
