@@ -1,6 +1,7 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
+import 'package:ask_watson_app/src/data/model/check.dart';
 import 'package:ask_watson_app/src/data/model/heart.dart';
 import 'package:ask_watson_app/src/data/model/review.dart';
 import 'package:ask_watson_app/src/data/repository/heart_repository_impl.dart';
@@ -27,6 +28,7 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
   bool _themeCheck = false;
   bool _themeHeart = false;
   HeartUseCase _heartUseCase = HeartUseCase(HeartRepositoryImpl());
+
 
   @override
   Widget build(BuildContext context) {

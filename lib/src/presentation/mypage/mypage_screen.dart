@@ -118,8 +118,8 @@ class MypageView extends StatelessWidget {
             child: TabBarView(
               children: [
                 grideView
-                    ? _buildEscapeCompleteTab()
-                    : _buildEscapeCompleteListTab(),
+                    ? _buildCheckTab()
+                    : _buildCheckListTab(),
                 grideView
                     ? _buildHeartGridTab()
                     : _buildHeartListTab(),
@@ -133,7 +133,7 @@ class MypageView extends StatelessWidget {
 
 
   // 탈출 완료 그리드 탭
-  Widget _buildEscapeCompleteTab() {
+  Widget _buildCheckTab() {
     m.Theme theme = m.Theme();
     return GridView.builder(
       shrinkWrap: true,
@@ -154,7 +154,7 @@ class MypageView extends StatelessWidget {
   }
 
   // 탈출 완료 리스트 탭
-  Widget _buildEscapeCompleteListTab() {
+  Widget _buildCheckListTab() {
     m.Theme theme = m.Theme();
     return ListView.builder(
       itemCount: 5,
