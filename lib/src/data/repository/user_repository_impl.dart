@@ -12,7 +12,7 @@ class UserRepositoryImpl extends UserRepository {
   // 카카오 토큰으로 로그인
   @override
   Future<Map<ApiResponse, dynamic>> singInByKakaoToken(String token) async {
-    var response = await _httpClient.postRequest('/signin/kakao', {"accessToken" : token});
+    var response = await _httpClient.postRequest('/signin/kakao', {"accessToken" : "$token"});
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }

@@ -3,12 +3,9 @@ import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/repository/cafe_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/category_repository_impl.dart';
-import 'package:ask_watson_app/src/data/repository/heart_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/theme_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/cafe_use_case.dart';
-import 'package:ask_watson_app/src/domain/use_case/heart_use_case.dart';
 import 'package:ask_watson_app/src/domain/use_case/theme_use_case.dart';
-import 'package:ask_watson_app/src/presentation/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 
@@ -27,7 +24,6 @@ class MainViewModel extends ChangeNotifier {
 
   final CafeUseCase _cafeUseCase = CafeUseCase(CafeRepositoryImpl());
   final ThemeUseCase _themeUseCase = ThemeUseCase(ThemeRepositoryImpl());
-  final HeartUseCase _heartUseCase = HeartUseCase(HeartRepositoryImpl());
 
 
   List<Category> _categoryList = [];
@@ -71,41 +67,4 @@ class MainViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  /**
-   * 좋아요 등록
-   */
-  void createHeart(BuildContext context, int themeId) async {
-    // TODO : 기기에서 userId 조회
-    int? userId = 1;
-
-    if(userId == null) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpScreen()));
-      return;
-    }
-    var response = await _heartUseCase.createHeart(userId, themeId);
-    _themeList = response[ApiResponse.Data];
-    notifyListeners();
-  }
-
-
-  /**
-   * 좋아요 해제
-   */
-  void deleteHeart(int heartId) async {
-    var response = await _heartUseCase.deleteHeart(heartId);
-    
-
-  }
-
-
-
-  void onChanged(){
-    // TODO : debounce 적용
-    _cafeUseCase.getCafeListBySearch(controller.text);
-    _themeUseCase.getThemeListBySearch(controller.text);
-
-    //TODO : 데이터 전달받아서 검색 결과 페이지에 넘기기
-    print(controller.text);
-  }
 }

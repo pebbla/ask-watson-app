@@ -6,6 +6,7 @@ import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
+import 'package:ask_watson_app/src/presentation/search/search_screen.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/cafe_widget.dart';
 import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
@@ -75,33 +76,26 @@ class MainView extends StatelessWidget {
             child: Image.asset('assets/character/watson_raise_left_hand.png')
           ),
           Flexible(
-            child: Container(
-              height: 56,
-              child: TextField(
-                onChanged: (text) => viewModelWatch.onChanged(),
-                controller: viewModel.controller,
-                focusNode: viewModel.focusNode,
-                cursorColor: MyColor.grey,
-                decoration: InputDecoration(
-                    isDense: true,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: MyColor.grey,
-                    ),
-                    hintText: '검색어를 입력하세요',
-                    hintStyle: MyTextStyle.grey14w500,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: MyColor.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: MyColor.grey)),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        borderSide: BorderSide(color: MyColor.grey))),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                decoration: BoxDecoration(
+                    border: Border.all(color: MyColor.grey),
+                    borderRadius: const BorderRadius.all(Radius.circular(8))),
+                height: 56,
+                child: Row(
+                  children: [
+                    Icon(Icons.search, color: MyColor.grey),
+                    Padding(padding: EdgeInsets.all(4)),
+                    Text("검색어를 입력하세요", style: MyTextStyle.grey14w500),
+                  ],
+                ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
