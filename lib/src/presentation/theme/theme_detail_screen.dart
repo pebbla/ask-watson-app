@@ -97,8 +97,8 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
                           child: _themeHeart
-                              ? const Icon(Icons.heat_pump_rounded, color: MyColor.red, size: 30)
-                              : const Icon(Icons.monitor_heart_outlined, color: MyColor.red, size: 30),
+                              ? const Icon(Icons.favorite, color: MyColor.red, size: 30)
+                              : const Icon(Icons.favorite_border_outlined, color: MyColor.red, size: 30),
                         ),
                       ),
                     ),
