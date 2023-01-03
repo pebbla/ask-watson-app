@@ -20,7 +20,7 @@ class SearchViewModel extends ChangeNotifier {
   List<m.Theme> _themeList = [];
   List<m.Theme> get themeList => _themeList;
 
-  final _debouncer = Debouncer(milliseconds: 500);
+  final _debouncer = Debouncer(milliseconds: 400);
 
   void onChanged(String text) {
     _debouncer.run(() async {

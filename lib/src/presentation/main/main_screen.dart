@@ -177,9 +177,9 @@ class MainView extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    CafeWidget(cafe: list[random.nextInt(list.length)]),
+                    CafeGridWidget(cafe: list[random.nextInt(list.length)], onTap: null,),
                     const Padding(padding: EdgeInsets.all(4)),
-                    CafeWidget(cafe: list[random.nextInt(list.length)]),
+                    CafeGridWidget(cafe: list[random.nextInt(list.length)], onTap: null,),
                   ],
                 ),
               ],
