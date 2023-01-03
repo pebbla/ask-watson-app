@@ -11,27 +11,25 @@ import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../widget/app_bar.dart';
+
 class SearchScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    final viewModelWatch = context.watch<SearchViewModel>();
-    final viewModel = context.read<SearchViewModel>();
+    final viewModel = context.watch<SearchViewModel>();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: MyColor.white,
-        elevation: 0,
-      ),
+      appBar: MyAppBar("", () => Navigator.pop(context)),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _searchTextField(viewModelWatch),
+                _searchTextField(viewModel),
                 _cafeList(viewModel.cafeList),
                 _themeList(viewModel.themeList),
                 _noneWidget(viewModel),
