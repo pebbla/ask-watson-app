@@ -8,80 +8,94 @@ import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 class ThemeGridWidget extends StatelessWidget {
   final m.Theme theme;
   final bool isItGrid;
+  final Function? onHeartTap;
+  final Function? onThemeTap;
 
-  const ThemeGridWidget({super.key, required this.theme, this.isItGrid = false});
+  const ThemeGridWidget(
+      {super.key,
+      required this.theme,
+      required this.onHeartTap,
+      required this.onThemeTap,
+      this.isItGrid = false});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 8),
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
-      width: double.maxFinite,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            width: double.maxFinite,
-            height: isItGrid ? 110 : 160,
-            //TODO : 사진 넣기
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: MyColor.lightlightGrey,
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
-                ),
-                Container(
-                  alignment: Alignment.bottomRight,
-                  width: double.maxFinite,
-                  height: double.maxFinite,
-                  child: IconButton(
-                    onPressed: () {
-                      // TODO : 하트 좋아요 넣기
-                    },
-                    icon: Icon(Icons.heart_broken,),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Flexible(
-                      child: Text(
-                        '${theme.name ?? '학교 탈출'}',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: MyTextStyle.black14w600
-                      ),
+    return GestureDetector(
+      onTap: (){
+        onThemeTap?.call();
+      },
+      child: Container(
+        padding: EdgeInsets.only(bottom: 8),
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
+        width: double.maxFinite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: double.maxFinite,
+              height: isItGrid ? 110 : 160,
+              //TODO : 사진 넣기
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    child: Container(
+                      width: double.maxFinite,
+                      child: Image.network(theme.imageUrl!, fit: BoxFit.cover),
                     ),
-                  ],
-                ),
-                Padding(padding: EdgeInsets.all(2)),
-                Text('${theme.cafe?.name ?? '포인트 나인 안양점'}',
-                    style: MyTextStyle.black12w500),
-                Padding(padding: EdgeInsets.all(2)),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text('내별점', style: MyTextStyle.black12w500),
-
-                    Icon(Icons.star, color : MyColor.yellow, size: 16),
-
-                    Padding(padding: EdgeInsets.all(2)),
-                    Text('${theme.rating ?? 0.0}', style: MyTextStyle.black12w500)
-                  ],
-                ),
-              ],
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    width: double.maxFinite,
+                    height: double.maxFinite,
+                    child: IconButton(
+                      onPressed: () {
+                        onHeartTap?.call();
+                      },
+                      icon: Icon(Icons.heart_broken,),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          '${theme.name ?? '학교 탈출'}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: MyTextStyle.black14w600
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(padding: EdgeInsets.all(2)),
+                  Text('${theme.cafe?.name ?? '포인트 나인 안양점'}',
+                      style: MyTextStyle.black12w500),
+                  Padding(padding: EdgeInsets.all(2)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text('내별점', style: MyTextStyle.black12w500),
+
+                      Icon(Icons.star, color : MyColor.yellow, size: 16),
+
+                      Padding(padding: EdgeInsets.all(2)),
+                      Text('${theme.rating ?? 0.0}', style: MyTextStyle.black12w500)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -139,7 +153,7 @@ class ThemeListWidget extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        StarWidget(rating: theme.rating ?? 0.0),
+                        StarWidget(rating: double.parse(theme.rating.toString())),
                         Padding(padding: EdgeInsets.all(2)),
                         Text('${theme.rating ?? 0.0}',
                             style: MyTextStyle.grey14w500)

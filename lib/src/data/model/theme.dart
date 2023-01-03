@@ -2,94 +2,92 @@ import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 
 class Theme {
-  num? activity;
-  Category? category;
-  Cafe? cafe;
-  String? createdAt;
-  num? deviceRatio;
-  num? difficulty;
-  num? escapeCount;
-  num? heartCount;
-  num? id;
-  num? minNumPeople;
-  String? modifiedAt;
-  num? price;
-  double? rating;
-  String? reservationUrl;
-  num? reviewCount;
-  String? explanation;
+  int? id;
   String? name;
-  num? timeLimit;
+  String? explanation;
+  Category? category;
+  double? difficulty;
+  int? timeLimit;
+  int? minNumPeople;
+  int? price;
+  String? reservationUrl;
+  String? imageUrl;
+  int? heartCount;
+  int? checkCount;
+  int? reviewCount;
+  num? rating;
+  num? deviceRatio;
+  num? activity;
+  Cafe? cafe;
+  bool? available;
 
   Theme(
-      {this.activity,
-      this.category,
-      this.cafe,
-      this.createdAt,
-      this.deviceRatio,
-      this.difficulty,
-      this.escapeCount,
-      this.heartCount,
-      this.id,
-      this.minNumPeople,
-      this.modifiedAt,
-      this.price,
-      this.rating,
-      this.reservationUrl,
-      this.reviewCount,
-      this.explanation,
+      {this.id,
       this.name,
-      this.timeLimit});
+      this.explanation,
+      this.category,
+      this.difficulty,
+      this.timeLimit,
+      this.minNumPeople,
+      this.price,
+      this.reservationUrl,
+      this.imageUrl,
+      this.heartCount,
+      this.checkCount,
+      this.reviewCount,
+      this.rating,
+      this.deviceRatio,
+      this.activity,
+      this.cafe,
+      this.available});
 
   Theme.fromJson(Map<String, dynamic> json) {
-    activity = json['activity'];
+    id = json['id'];
+    name = json['themeName'];
+    explanation = json['themeExplanation'];
     category = json['category'] != null
         ? new Category.fromJson(json['category'])
         : null;
-     cafe = json['cafe'] != null
-        ? new Cafe.fromJson(json['cafe'])
-        : null;
-    createdAt = json['createdAt'];
-    deviceRatio = json['deviceRatio'];
     difficulty = json['difficulty'];
-    escapeCount = json['escapeCount'];
-    heartCount = json['heartCount'];
-    id = json['id'];
-    minNumPeople = json['minNumPeople'];
-    modifiedAt = json['modifiedAt'];
-    price = json['price'];
-    rating = json['rating'];
-    reservationUrl = json['reservationUrl'];
-    reviewCount = json['reviewCount'];
-    explanation = json['themeExplanation'];
-    name = json['themeName'];
     timeLimit = json['timeLimit'];
+    minNumPeople = json['minNumPeople'];
+    price = json['price'];
+    reservationUrl = json['reservationUrl'];
+    imageUrl = json['imageUrl'];
+    heartCount = json['heartCount'];
+    checkCount = json['checkCount'];
+    reviewCount = json['reviewCount'];
+    rating = json['rating'];
+    deviceRatio = json['deviceRatio'];
+    activity = json['activity'];
+    cafe = json['cafe'] != null ? new Cafe.fromJson(json['cafe']) : null;
+    available = json['available'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['activity'] = this.activity;
+    data['id'] = this.id;
+    data['themeName'] = this.name;
+    data['themeExplanation'] = this.explanation;
     if (this.category != null) {
       data['category'] = this.category!.toJson();
     }
+    data['difficulty'] = this.difficulty;
+    data['timeLimit'] = this.timeLimit;
+    data['minNumPeople'] = this.minNumPeople;
+    data['price'] = this.price;
+    data['reservationUrl'] = this.reservationUrl;
+    data['imageUrl'] = this.imageUrl;
+    data['heartCount'] = this.heartCount;
+    data['checkCount'] = this.checkCount;
+    data['reviewCount'] = this.reviewCount;
+    data['rating'] = this.rating;
+    data['deviceRatio'] = this.deviceRatio;
+    data['activity'] = this.activity;
     if (this.cafe != null) {
       data['cafe'] = this.cafe!.toJson();
     }
-    data['createdAt'] = this.createdAt;
-    data['deviceRatio'] = this.deviceRatio;
-    data['difficulty'] = this.difficulty;
-    data['escapeCount'] = this.escapeCount;
-    data['heartCount'] = this.heartCount;
-    data['id'] = this.id;
-    data['minNumPeople'] = this.minNumPeople;
-    data['modifiedAt'] = this.modifiedAt;
-    data['price'] = this.price;
-    data['rating'] = this.rating;
-    data['reservationUrl'] = this.reservationUrl;
-    data['reviewCount'] = this.reviewCount;
-    data['themeExplanation'] = this.explanation;
-    data['themeName'] = this.name;
-    data['timeLimit'] = this.timeLimit;
+    data['available'] = this.available;
     return data;
   }
 }

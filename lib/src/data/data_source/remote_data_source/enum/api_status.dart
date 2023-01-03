@@ -4,6 +4,7 @@ enum ApiStatus {
   Forbidden,
   NotFound,
   NotAcceptable,
+  MethodNotAllowed,
   Conflict,
   UnprocessableEntity,
   InterverServerError,
@@ -23,6 +24,8 @@ class ApiStatusHelper {
         return ApiStatus.NotFound;
       case 406:
         return ApiStatus.NotAcceptable;
+      case 405:
+        return ApiStatus.MethodNotAllowed;
       case 409:
         return ApiStatus.Conflict;
       case 422:

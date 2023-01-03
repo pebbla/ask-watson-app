@@ -5,8 +5,9 @@ enum StarStatus { empty, half, full }
 
 class StarWidget extends StatelessWidget {
   final double rating;
+  Color color;
 
-  const StarWidget({super.key, required this.rating});
+  StarWidget({super.key, required this.rating, this.color = MyColor.yellow});
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +35,11 @@ class StarWidget extends StatelessWidget {
 
     switch (status) {
       case StarStatus.empty:
-        return const Icon(Icons.star_border_outlined,
-            color: MyColor.yellow, size: 16);
+        return Icon(Icons.star_border_outlined, color: color, size: 16);
       case StarStatus.half:
-        return const Icon(Icons.star_half, color: MyColor.yellow, size: 16);
+        return Icon(Icons.star_half, color: color, size: 16);
       case StarStatus.full:
-        return const Icon(Icons.star, color: MyColor.yellow, size: 16);
+        return Icon(Icons.star, color: color, size: 16);
     }
   }
 }

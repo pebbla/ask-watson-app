@@ -8,7 +8,7 @@ import 'enum/content_type.dart';
 
 class HttpClient {
 
-  static final baseUrl = 'http://b6c3-2001-2d8-ef1c-de4f-54ec-ca46-dfd-a8c2.ngrok.io/v1';
+  static final baseUrl = 'http://d5d7-2001-2d8-f112-4793-f55d-7f85-c041-2f89.ngrok.io/v1';
   // static final baseUrl = 'http://localhost:8080/v1';
   Logger _logger = Logger();
 

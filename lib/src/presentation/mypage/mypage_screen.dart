@@ -3,6 +3,7 @@ import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/presentation/mypage/mypage_view_model.dart';
 import 'package:ask_watson_app/src/presentation/provider/app_set_up.dart';
 import 'package:ask_watson_app/src/presentation/setting/setting_screen.dart';
+import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:flutter/material.dart';
@@ -117,8 +118,8 @@ class MypageView extends StatelessWidget {
             child: TabBarView(
               children: [
                 grideView
-                    ? _buildEscapeCompleteTab()
-                    : _buildEscapeCompleteListTab(),
+                    ? _buildCheckTab()
+                    : _buildCheckListTab(),
                 grideView
                     ? _buildHeartGridTab()
                     : _buildHeartListTab(),
@@ -130,8 +131,9 @@ class MypageView extends StatelessWidget {
     );
   }
 
+
   // 탈출 완료 그리드 탭
-  Widget _buildEscapeCompleteTab() {
+  Widget _buildCheckTab() {
     m.Theme theme = m.Theme();
     return GridView.builder(
       shrinkWrap: true,
@@ -143,13 +145,16 @@ class MypageView extends StatelessWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return ThemeGridWidget(theme: theme, isItGrid: true);
+        // TODO : 좋아요 선택
+        return ThemeGridWidget(theme: theme, isItGrid: true, onHeartTap: null, onThemeTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeDetailScreen(theme: theme)));
+        },);
       },
     );
   }
 
   // 탈출 완료 리스트 탭
-  Widget _buildEscapeCompleteListTab() {
+  Widget _buildCheckListTab() {
     m.Theme theme = m.Theme();
     return ListView.builder(
       itemCount: 5,
@@ -172,7 +177,10 @@ class MypageView extends StatelessWidget {
         crossAxisSpacing: 10,
       ),
       itemBuilder: (BuildContext context, int index) {
-        return ThemeGridWidget(theme: theme, isItGrid: true);
+        // TODO : 좋아요 선택
+        return ThemeGridWidget(theme: theme, isItGrid: true, onHeartTap: null, onThemeTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeDetailScreen(theme: theme)));
+        },);
       },
     );
   }

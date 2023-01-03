@@ -17,6 +17,7 @@ class MyTextStyle {
 
   // 회색
   static const TextStyle grey14w500 = TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: MyColor.grey);
+  static const TextStyle grey16w500 = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: MyColor.grey);
 
   
   // 밝은 회색
