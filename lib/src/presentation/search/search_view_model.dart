@@ -11,7 +11,7 @@ class SearchViewModel extends ChangeNotifier {
   CafeUseCase _cafeUseCase = CafeUseCase(CafeRepositoryImpl());
   ThemeUseCase _themeUseCase = ThemeUseCase(ThemeRepositoryImpl());
 
-  List<Cafe> _cafeList = [Cafe(), Cafe(),Cafe(),Cafe(),Cafe(),Cafe(),];
+  List<Cafe> _cafeList = [];
   List<Cafe> get cafeList => _cafeList;
 
   List<m.Theme> _themeList = [];
