@@ -15,7 +15,8 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<SearchViewModel>();
+    final viewModelWatch = context.watch<SearchViewModel>();
+    final viewModel = context.read<SearchViewModel>();
 
     return Scaffold(
       appBar: AppBar(
@@ -30,11 +31,10 @@ class SearchScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _searchTextField(viewModel),
+                _searchTextField(viewModelWatch),
                 _cafeList(viewModel.cafeList),
-                
                 _themeList(viewModel.themeList),
-                _noneWidget(viewModel)
+                _noneWidget(viewModel),
               ],
             ),
           ),
@@ -164,9 +164,9 @@ class SearchScreen extends StatelessWidget {
             height: 160,
           ),
           const Padding(padding: EdgeInsets.all(2)),
-          Text("${theme.name ?? "HomeComming"}", style: MyTextStyle.black16w500),
+          Text("${theme.name}", style: MyTextStyle.black16w500),
           const Padding(padding: EdgeInsets.all(1)),
-          Text("${theme.cafe?.name ?? "포인트 나인 강남점"}"),
+          Text("${theme.cafe?.name}"),
           StarWidget(rating: double.parse((theme.rating ?? 0).toString()))
         ],
       ),
@@ -198,7 +198,7 @@ class SearchScreen extends StatelessWidget {
                   style: MyTextStyle.black16w500),
               Padding(padding: EdgeInsets.all(1)),
               StarWidget(
-                  rating: double.parse((cafe.name ?? 0).toString()),
+                  rating: double.parse((cafe.rating ?? 0).toString()),
                   color: MyColor.black),
               Padding(padding: EdgeInsets.all(2)),
               // TODO 현재 위치로부터 떨어져 있는 거리
