@@ -7,7 +7,7 @@ import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 // grid 버전
 class ThemeGridWidget extends StatelessWidget {
   final m.Theme theme;
-  final bool isItGrid;
+  final bool isCrossCnt3;
   final Function? onHeartTap;
   final Function? onThemeTap;
 
@@ -16,7 +16,7 @@ class ThemeGridWidget extends StatelessWidget {
       required this.theme,
       required this.onHeartTap,
       required this.onThemeTap,
-      this.isItGrid = false});
+      this.isCrossCnt3 = false});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +34,7 @@ class ThemeGridWidget extends StatelessWidget {
           children: [
             SizedBox(
               width: double.maxFinite,
-              height: isItGrid ? 110 : 160,
-              //TODO : 사진 넣기
+              height: isCrossCnt3 ? 110 : 160,
               child: Stack(
                 children: [
                   ClipRRect(
@@ -77,16 +76,14 @@ class ThemeGridWidget extends StatelessWidget {
                     ],
                   ),
                   Padding(padding: EdgeInsets.all(2)),
-                  Text('${theme.cafe?.name ?? '포인트 나인 안양점'}',
+                  Text('${theme.cafe?.name}',
                       style: MyTextStyle.black12w500),
                   Padding(padding: EdgeInsets.all(2)),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text('내별점', style: MyTextStyle.black12w500),
-
                       Icon(Icons.star, color : MyColor.yellow, size: 16),
-
                       Padding(padding: EdgeInsets.all(2)),
                       Text('${theme.rating ?? 0.0}', style: MyTextStyle.black12w500)
                     ],

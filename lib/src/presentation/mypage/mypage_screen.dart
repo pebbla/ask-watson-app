@@ -146,7 +146,7 @@ class MypageView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) {
         // TODO : 좋아요 선택
-        return ThemeGridWidget(theme: theme, isItGrid: true, onHeartTap: null, onThemeTap: (){
+        return ThemeGridWidget(theme: theme, isCrossCnt3: true, onHeartTap: null, onThemeTap: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeDetailScreen(theme: theme)));
         },);
       },
@@ -178,7 +178,7 @@ class MypageView extends StatelessWidget {
       ),
       itemBuilder: (BuildContext context, int index) {
         // TODO : 좋아요 선택
-        return ThemeGridWidget(theme: theme, isItGrid: true, onHeartTap: null, onThemeTap: (){
+        return ThemeGridWidget(theme: theme, isCrossCnt3: true, onHeartTap: null, onThemeTap: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeDetailScreen(theme: theme)));
         },);
       },

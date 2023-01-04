@@ -1,4 +1,5 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
+import 'package:ask_watson_app/src/di/provider_setup.dart';
 import 'package:ask_watson_app/src/presentation/auth/sign_up_screen.dart';
 import 'package:ask_watson_app/src/presentation/provider/app_set_up.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,10 @@ import 'package:provider/provider.dart';
 
 void main() {
   KakaoSdk.init(nativeAppKey: '8c7b05953960c527e38fabb76c758817');
-  runApp(const MyApp());
+  runApp( MultiProvider(
+      providers: globalProviders,
+      child: const MyApp(),
+    ),);
 }
 
 class MyApp extends StatelessWidget {
