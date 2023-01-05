@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
@@ -29,11 +31,15 @@ class MainViewModel extends ChangeNotifier {
   List<Category> _categoryList = [];
   List<Category> get categoryList => _categoryList;
 
+  // cafe, theme provider에서 정보 받아오기
   List<Cafe> _cafeList = [];
-  List<Cafe> get cafeList => _cafeList;
-
   List<m.Theme> _themeList = [];
-  List<m.Theme> get themeList => _themeList;
+
+  List<Cafe> _twoRandomCafe = [];
+  List<Cafe> get twoRandomCafe => _twoRandomCafe;
+
+  List<m.Theme> _twoRandomTheme = [];
+  List<m.Theme> get twoRandomTheme => _twoRandomTheme;
 
 
   /**
@@ -53,6 +59,11 @@ class MainViewModel extends ChangeNotifier {
   void getCafeList() async {
     var response = await _cafeUseCase.getCafeList();
     _cafeList = response[ApiResponse.Data];
+    if(_cafeList.isNotEmpty) {
+      List<int> randomNum;
+      randomNum = getRandomNum(_cafeList.length - 1);
+      _twoRandomCafe = [_cafeList[randomNum[0]], _cafeList[randomNum[1]]];
+    }
     notifyListeners();
   }
 
@@ -63,8 +74,30 @@ class MainViewModel extends ChangeNotifier {
   void getThemeList() async {
     var response = await _themeUseCase.getThemeList();
     _themeList = response[ApiResponse.Data];
-    print('view model type : ${_themeList[0].runtimeType.toString()}');
+    if(_themeList.isNotEmpty) {
+      List<int> randomNum;
+      randomNum = getRandomNum(_themeList.length - 1);
+      _twoRandomTheme = [_themeList[randomNum[0]], _themeList[randomNum[1]]];
+    }
     notifyListeners();
   }
+
+
+  /**
+   * 난수 생성
+   */
+  List<int> getRandomNum(int max) {
+    if(max == 0) {
+      return [0, 0];
+    }
+    int num1 = Random().nextInt(max);
+    int num2 = Random().nextInt(max);
+    while(num1 == num2) {
+      num2 = Random().nextInt(max);
+    }
+    return [num1, num2];
+  }
+
+
 
 }
