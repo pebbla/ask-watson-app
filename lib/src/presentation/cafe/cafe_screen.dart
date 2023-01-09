@@ -98,13 +98,12 @@ class CafeScreen extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomRight,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 12),
+        padding: EdgeInsets.symmetric(horizontal: 0),
         child: DropdownButton(
           value: viewModel.sortingCondition,
           icon: const Icon(Icons.arrow_drop_down_sharp),
           elevation: 16,
           style: const TextStyle(color: Colors.black),
-
           borderRadius: BorderRadius.all(Radius.circular(16)),
           onChanged: (String? value) {
             viewModel.onChanged(value!);
