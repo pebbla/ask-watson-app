@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
@@ -29,7 +31,7 @@ class CafeScreen extends StatelessWidget {
               _searchBar(context),
               _selectConditionWidget(),
               const Divider(color: MyColor.lightGrey, thickness: 1),
-              _sortingConditionBtn(),
+              _sortingConditionBtn(context),
               _cafeListWidget(viewModel.cafeList),
             ],
           ),
@@ -90,21 +92,45 @@ class CafeScreen extends StatelessWidget {
 
 
   // 정렬 조건 선택 위젯
-  Widget _sortingConditionBtn() {
-    return GestureDetector(
-      onTap: () {
-        // TODO : 정렬 조건 drawer 나타내기
-      },
+  Widget _sortingConditionBtn(BuildContext context) {
+    final viewModel = context.watch<CafeViewModel>();
+
+    return Align(
+      alignment: Alignment.bottomRight,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            Icon(Icons.list),
-            Padding(padding: EdgeInsets.all(1)),
-            Text("정렬"),
-            Icon(Icons.arrow_drop_down_sharp, size: 16),
-          ],
+        padding: EdgeInsets.symmetric(horizontal: 12),
+        child: DropdownButton(
+          value: viewModel.sortingCondition,
+          icon: const Icon(Icons.arrow_drop_down_sharp),
+          elevation: 16,
+          style: const TextStyle(color: Colors.black),
+
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+          onChanged: (String? value) {
+            viewModel.onChanged(value!);
+          },
+            items: const [
+              DropdownMenuItem(child: Text("정렬"), value: "정렬", enabled: false),
+              DropdownMenuItem(child: Text("평점순"), value: "평점"),
+              DropdownMenuItem(child: Text("거리순"), value: "거리"),
+              DropdownMenuItem(child: Text("리뷰순"), value: "리뷰"),
+            ],
+          selectedItemBuilder: (context) {
+            return [
+              DropdownMenuItem(
+                  child: Row(children: [Icon(Icons.list), Padding(padding: EdgeInsets.all(4)), Text("정렬")]),
+                  value: "정렬"),
+              DropdownMenuItem(
+                  child: Row(children: [Icon(Icons.check), Padding(padding: EdgeInsets.all(4)), Text("평점순")]),
+                  value: "평점"),
+              DropdownMenuItem(
+                  child: Row(children: [Icon(Icons.check), Padding(padding: EdgeInsets.all(4)), Text("거리순")]),
+                  value: "거리"),
+              DropdownMenuItem(
+                  child: Row(children: [Icon(Icons.check), Padding(padding: EdgeInsets.all(4)), Text("리뷰순")]),
+                  value: "리뷰"),
+            ];
+          },
         ),
       ),
     );
