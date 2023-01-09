@@ -21,7 +21,6 @@ class MainViewModel extends ChangeNotifier {
     getThemeList();
   }
 
-  final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
   final CafeUseCase _cafeUseCase = CafeUseCase(CafeRepositoryImpl());

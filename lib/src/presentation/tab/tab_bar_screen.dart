@@ -1,5 +1,6 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/presentation/auth/sign_up_screen.dart';
+import 'package:ask_watson_app/src/presentation/cafe/cafe_screen.dart';
 import 'package:ask_watson_app/src/presentation/main/main_screen.dart';
 import 'package:ask_watson_app/src/presentation/mypage/mypage_screen.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _TabBarScreenState extends State<TabBarScreen> {
   static const TextStyle optionStyle =TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
     MainScreen(),
-    MainScreen(),
+    CafeScreen(searchCafeList : []),
     MainScreen(),
     SignUpScreen(),
     MypageScreen()
