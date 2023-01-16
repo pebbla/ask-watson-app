@@ -15,7 +15,9 @@ PreferredSizeWidget MyAppBar(String title, VoidCallback? onTap) {
       style: MyTextStyle.black16w500,
       textAlign: TextAlign.center,
     ),
-    leading: GestureDetector(
+    leading: onTap == null 
+    ? Container()
+    : GestureDetector(
       onTap: onTap,
       child: Container(
         width: 100,

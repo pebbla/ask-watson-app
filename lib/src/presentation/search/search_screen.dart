@@ -4,6 +4,7 @@ import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
+import 'package:ask_watson_app/src/presentation/cafe/cafe_screen.dart';
 import 'package:ask_watson_app/src/presentation/search/search_view_model.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/cafe_widget.dart';
@@ -30,7 +31,7 @@ class SearchScreen extends StatelessWidget {
             child: Column(
               children: [
                 _searchTextField(viewModel),
-                _cafeList(viewModel.cafeList),
+                _cafeList(context, viewModel.cafeList),
                 _themeList(viewModel.themeList),
                 _noneWidget(viewModel),
               ],
@@ -52,10 +53,7 @@ class SearchScreen extends StatelessWidget {
         cursorColor: MyColor.grey,
         decoration: InputDecoration(
             isDense: true,
-            prefixIcon: Icon(
-              Icons.search,
-              color: MyColor.grey,
-            ),
+            prefixIcon: Icon(Icons.search, color: MyColor.grey),
             hintText: '검색어를 입력하세요',
             hintStyle: MyTextStyle.grey14w500,
             enabledBorder: OutlineInputBorder(
@@ -72,7 +70,7 @@ class SearchScreen extends StatelessWidget {
   }
 
   // 카페 리스트
-  Widget _cafeList(List<Cafe> cafeList) {
+  Widget _cafeList(BuildContext context, List<Cafe> cafeList) {
     return cafeList.length == 0
     ? Container()
     : Column(
@@ -88,7 +86,12 @@ class SearchScreen extends StatelessWidget {
                   Text("카페 검색결과 ${cafeList.length}",
                       style: MyTextStyle.black18w600),
                   cafeList.length > 3
-                      ? const Text("더보기 >", style: MyTextStyle.grey14w500)
+                      ? GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CafeScreen(searchCafeList: cafeList)));
+                                },
+                                child: Text("더보기 >", style: MyTextStyle.grey14w500),
+                              )
                       : Container(),
                 ],
               ),

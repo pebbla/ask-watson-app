@@ -72,7 +72,7 @@ class CafeListWidget extends StatelessWidget {
 
   const CafeListWidget({super.key, required this.cafe, required this.onTap});
 
-  @override
+@override
 Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8),
