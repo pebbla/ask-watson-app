@@ -41,9 +41,7 @@ class SignUpView extends StatelessWidget {
     );
   }
 
-  /**
-   * 메인 이미지
-   */
+  /// 메인 이미지
   Widget _mainImage(){
     return Container(
       padding: const EdgeInsets.all(24),
@@ -52,18 +50,16 @@ class SignUpView extends StatelessWidget {
   }
 
 
-  /**
-   * 카카오 로그인하기 버튼
-   */
+  /// 카카오 로그인하기 버튼
   Widget _signUpKakaoBtn(BuildContext context) {
     return GestureDetector(
       onTap: () => Provider.of<SignUpViewModel>(context, listen: false).tabSignUpKakaoBtn(context),
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           boxShadow: [basicShadow],
-          color: Color.fromRGBO(255, 234, 0, 1),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          color: const Color.fromRGBO(255, 234, 0, 1),
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         child: Image.asset('assets/auth/kakao_logo_icon.png'),
@@ -73,18 +69,16 @@ class SignUpView extends StatelessWidget {
 
 
 
-  /**
-   * 네이버 로그인하기 버튼
-   */
+  /// 네이버 로그인하기 버튼
   Widget _signUpNaverBtn(BuildContext context) {
     return GestureDetector(
       onTap: () => Provider.of<SignUpViewModel>(context, listen: false).tabSignUpNaverBtn(context),
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           boxShadow: [basicShadow],
-          color: Color.fromRGBO(3, 199, 90, 1),
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          color: const Color.fromRGBO(3, 199, 90, 1),
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 6),
         child: SizedBox(
@@ -95,18 +89,16 @@ class SignUpView extends StatelessWidget {
     );
   }
 
-  /**
-   * 구글 로그인하기 버튼
-   */
+  /// 구글 로그인하기 버튼
   Widget _signUpGoogleBtn(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => Provider.of<SignUpViewModel>(context, listen: false).tabSignUpGoogleBtn(context),
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           boxShadow: [basicShadow],
           color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: const BorderRadius.all(Radius.circular(50)),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
         child: SizedBox(

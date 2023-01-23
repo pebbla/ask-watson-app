@@ -11,8 +11,8 @@ class UserRepositoryImpl extends UserRepository {
 
   // 카카오 토큰으로 로그인
   @override
-  Future<Map<ApiResponse, dynamic>> singInByKakaoToken(String token) async {
-    var response = await _httpClient.postRequest('/signin/kakao', {"accessToken" : "$token"});
+  Future<Map<ApiResponse, dynamic>> signInByKakaoToken(String token) async {
+    var response = await _httpClient.postRequest('/signin/kakao', {"accessToken" : token});
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
@@ -22,8 +22,19 @@ class UserRepositoryImpl extends UserRepository {
 
   // 네이버 토큰으로 로그인
   @override
-  Future<Map<ApiResponse, dynamic>> singInByNaverToken(String token) async {
-    var response = await _httpClient.postRequest('/signin/naver', {"accessToken" : "$token"});
+  Future<Map<ApiResponse, dynamic>> signInByNaverToken(String token) async {
+    var response = await _httpClient.postRequest('/signin/naver', {"accessToken" : token});
+    if(response[ApiResponse.Status] == ApiStatus.Success) {
+      response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
+    }
+    return response;
+  }
+
+
+  // 구글 토큰으로 로그인
+  @override
+  Future<Map<ApiResponse, dynamic>> signInByGoogleToken(String token) async {
+    var response = await _httpClient.postRequest('/signin/google', {"accessToken" : token});
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
