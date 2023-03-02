@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
@@ -29,7 +27,7 @@ class CafeScreen extends StatelessWidget {
           child: Column(
             children: [
               _searchBar(context),
-              _selectConditionWidget(),
+              _selectConditionWidget(context),
               const Divider(color: MyColor.lightGrey, thickness: 1),
               _sortingConditionBtn(context),
               _cafeListWidget(viewModel.cafeList),
@@ -66,11 +64,16 @@ class CafeScreen extends StatelessWidget {
 
 
   // 조건 선택 위젯
-  Widget _selectConditionWidget() {
+  Widget _selectConditionWidget(BuildContext context) {
     return Row(
       children: [
-        // TODO : onTap -> 위치 모달, 외국어 가능 모달
-        _condition("위치"),
+        GestureDetector(
+          onTap: () {
+            showModalBottomSheet(context: context, builder: (context) {
+              return _conditionModal(context);
+            });
+          },
+          child: _condition("위치")),
         _condition("외국어 가능"),
       ],
     );
@@ -83,10 +86,83 @@ class CafeScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
+        color: MyColor.white,
         border: Border.all(color: MyColor.lightlightGrey),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
       child: Text(text, style: MyTextStyle.black14w500),
+    );
+  }
+
+  // 조건 모달
+  Widget _conditionModal(BuildContext context) {
+    
+    return Container(
+      padding: const EdgeInsets.all(12),
+      height: 500,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              _condition("위치"),
+              _condition("외국어 가능"),
+            ],
+          ),
+          const Divider(thickness: 0.5),
+          const Padding(padding: EdgeInsets.all(2)),
+          // TODO : 외국어 가능 스와이프로 넘기기
+          locationModalWidget(context)
+        ],
+      ),
+    );
+  }
+
+
+  // 위치 모달 위젯
+  Widget locationModalWidget(BuildContext context) {
+    final viewModel = context.watch<CafeViewModel>();
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Row(
+        children: [
+          Flexible(
+            flex: 1,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: viewModel.stateList.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () => viewModel.changeCityListByState(viewModel.stateList[index]),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: MyColor.lightlightGrey),
+                      color: viewModel.selectedState == viewModel.stateList[index]
+                              ? MyColor.lightlightGrey
+                              : MyColor.white),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  child: Text(viewModel.stateList[index]),
+                ),
+              ),
+            ),
+          ),
+          Flexible(
+            flex: 2,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: viewModel.cityList.length,
+              itemBuilder: (context, index) => InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: MyColor.lightlightGrey),
+                      color: MyColor.white),
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  child: Text(viewModel.cityList[index].city),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

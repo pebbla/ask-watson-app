@@ -40,6 +40,7 @@ class ThemeGridWidget extends StatelessWidget {
                   ClipRRect(
                     child: Container(
                       width: double.maxFinite,
+                      // TODO : Null value 관리
                       child: Image.network(theme.imageUrl!, fit: BoxFit.cover),
                     ),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
