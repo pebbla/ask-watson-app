@@ -8,70 +8,62 @@ import 'enum/content_type.dart';
 
 class HttpClient {
 
-  static final baseUrl = 'http://d5d7-2001-2d8-f112-4793-f55d-7f85-c041-2f89.ngrok.io/v1';
-  // static final baseUrl = 'http://localhost:8080/v1';
-  Logger _logger = Logger();
+  static const baseUrl = 'http://d5d7-2001-2d8-f112-4793-f55d-7f85-c041-2f89.ngrok.io/v1';
+  // static const baseUrl = 'http://localhost:8080/v1';
+  final Logger _logger = Logger();
 
 
 
-  /**
-   * get method 
-   */
+  /// get method 
   Future<Map<ApiResponse, dynamic>> getRequest(String url,
       {DioType dioType = DioType.None,
         ContentType contentType = ContentType.Json}) async {
-    var _dio = await myDio(dioType);
-    var response = await _dio.get('${baseUrl}${url}');
+    var dio = await myDio(dioType);
+    var response = await dio.get('$baseUrl$url');
 
-    _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
+    _logger.e('$baseUrl $url + ${response.statusCode} + ${response.data} ');
 
     return ApiResponseHelper.buildResult(response);
   }
 
 
 
-  /**
-   * post method 
-   */
+  /// post method 
   Future<Map<ApiResponse, dynamic>> postRequest(String url, dynamic data,
       {DioType dioType = DioType.None,
         ContentType contentType = ContentType.Json}) async {
-    var _dio = await myDio(dioType);
-    var response = await _dio.post('${baseUrl}${url}', data: data);
+    var dio = await myDio(dioType);
+    var response = await dio.post('$baseUrl$url', data: data);
 
-    _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
+    _logger.e('$baseUrl $url + ${response.statusCode} + ${response.data} ');
 
     return ApiResponseHelper.buildResult(response);
   }
 
 
 
-  /**
-   * put method 
-   */
+  /// put method 
   Future<Map<ApiResponse, dynamic>> putRequest(String url, dynamic data,
       {DioType dioType = DioType.None,
         ContentType contentType = ContentType.Json}) async {
-    var _dio = await myDio(dioType);
-    var response = await _dio.put('${baseUrl}${url}', data: data);
+    var dio = await myDio(dioType);
+    var response = await dio.put('$baseUrl$url', data: data);
 
-    _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
+    _logger.e('$baseUrl $url + ${response.statusCode} + ${response.data} ');
 
     return ApiResponseHelper.buildResult(response);
   }
 
 
 
-  /**
-   * delete method 
-   */
+  /// delete method 
   Future<Map<ApiResponse, dynamic>> deleteRequest(String url,
       {DioType dioType = DioType.None,
         ContentType contentType = ContentType.Json}) async {
-    var _dio = await myDio(dioType);
-    var response = await _dio.delete('${baseUrl}${url}');
+    var dio = await myDio(dioType);
+    var response = await dio.delete('$baseUrl$url');
 
-    _logger.e('${baseUrl} ${url} + ${response.statusCode} + ${response.data} ');
+    _logger.e('$baseUrl $url + ${response.statusCode} + ${response.data} ');
 
     return ApiResponseHelper.buildResult(response);
   }

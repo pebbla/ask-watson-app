@@ -14,7 +14,7 @@ class UserUseCase {
   @override
   Future<Map<ApiResponse, dynamic>> signInByKakaoToken(String token) async {
     print('### user use case kakao token : $token');
-    var result = await _repository.singInByKakaoToken(token);
+    var result = await _repository.signInByKakaoToken(token);
     return result;
   }
 
@@ -23,7 +23,16 @@ class UserUseCase {
   @override
   Future<Map<ApiResponse, dynamic>> signInByNaverToken(String token) async {
     print('### user use case naver token : $token');
-    var result = await _repository.singInByNaverToken(token);
+    var result = await _repository.signInByNaverToken(token);
+    return result;
+  }
+
+
+  // 구글 토큰으로 로그인
+  @override
+  Future<Map<ApiResponse, dynamic>> signInByGoogleToken(String token) async {
+    print('### user use case google token : $token');
+    var result = await _repository.signInByGoogleToken(token);
     return result;
   }
 

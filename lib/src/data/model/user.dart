@@ -1,7 +1,7 @@
 class User {
   int? id;
   String? nickname;
-  String? phoneNum;
+  String? email;
   String? birth;
   String? gender;
   bool? marketingAgreeYn;
@@ -11,7 +11,7 @@ class User {
   User(
       {this.id,
       this.nickname,
-      this.phoneNum,
+      this.email,
       this.birth,
       this.gender,
       this.marketingAgreeYn,
@@ -21,7 +21,7 @@ class User {
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     nickname = json['userNickname'];
-    phoneNum = json['userPhoneNum'];
+    email = json['userEmail'];
     birth = json['userBirth'];
     gender = json['userGender'];
     marketingAgreeYn = json['marketingAgreeYn'];
@@ -30,15 +30,15 @@ class User {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['userNickname'] = this.nickname;
-    data['userPhoneNum'] = this.phoneNum;
-    data['userBirth'] = this.birth;
-    data['userGender'] = this.gender;
-    data['marketingAgreeYn'] = this.marketingAgreeYn;
-    data['createdAt'] = this.createdAt;
-    data['modifiedAt'] = this.modifiedAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['userNickname'] = nickname;
+    data['userEmail'] = email;
+    data['userBirth'] = birth;
+    data['userGender'] = gender;
+    data['marketingAgreeYn'] = marketingAgreeYn;
+    data['createdAt'] = createdAt;
+    data['modifiedAt'] = modifiedAt;
     return data;
   }
 }

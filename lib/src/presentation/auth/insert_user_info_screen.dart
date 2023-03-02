@@ -39,7 +39,7 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
         appBar: AppBar(
           leading: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(Icons.arrow_back, color: MyColor.grey)),
+              child: const Icon(Icons.arrow_back, color: MyColor.grey)),
           backgroundColor: Colors.white,
           elevation: 0,
         ),
@@ -51,26 +51,26 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
   Widget _buildBody(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('셜록, 당신에 대해 알려주세요', style: MyTextStyle.black21w600),
-                Padding(padding: EdgeInsets.all(24)),
+                const Text('셜록, 당신에 대해 알려주세요', style: MyTextStyle.black21w600),
+                const Padding(padding: EdgeInsets.all(24)),
                 _insertGenderWidget(context),
-                Padding(padding: EdgeInsets.all(18)),
+                const Padding(padding: EdgeInsets.all(18)),
                 _inputBirthWidget(),
-                Padding(padding: EdgeInsets.all(18)),
+                const Padding(padding: EdgeInsets.all(18)),
                 _inputNickNameWidget()
               ],
             ),
             Column(
               children: [
                 _skipBtn(),
-                Padding(padding: EdgeInsets.all(6)),
+                const Padding(padding: EdgeInsets.all(6)),
                 _nextBtn()
               ],
             ),
@@ -83,21 +83,21 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
 
   // 성별 입력
   Widget _insertGenderWidget(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: double.maxFinite,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('성별', style: MyTextStyle.black17w500),
+          const Text('성별', style: MyTextStyle.black17w500),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Flexible(
                 flex: 3,
                 child: RadioListTile(
-                  contentPadding: EdgeInsets.all(0),
+                  contentPadding: const EdgeInsets.all(0),
                   selectedTileColor: MyColor.black,
-                  title: Text('여자'),
+                  title: const Text('여자'),
                   value: Gender.women,
                   groupValue: _gender,
                   onChanged: (value) {
@@ -110,8 +110,8 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
               Flexible(
                 flex: 3,
                 child: RadioListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    title: Text('남자'),
+                    contentPadding: const EdgeInsets.all(0),
+                    title: const Text('남자'),
                     value: Gender.men,
                     groupValue: _gender,
                     onChanged: (value) {
@@ -181,15 +181,15 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
         ? ButtonPrimaryWidget(
             text: '다음으로',
             onPressed: () async {
-              UserUseCase _useCase = UserUseCase(UserRepositoryImpl());
+              UserUseCase useCase = UserUseCase(UserRepositoryImpl());
               User user = User(
                   nickname: _textControllerNickName.text,
-                  phoneNum: widget.email,
+                  email: widget.email,
                   birth: _textControllerBirth.text,
                   marketingAgreeYn: false,
                   gender: _gender.convertString);
 
-              Map<ApiResponse, dynamic> response = await _useCase.createUser(user);
+              Map<ApiResponse, dynamic> response = await useCase.createUser(user);
               print(response);
               if (response[ApiResponse.Status] == ApiStatus.Success) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
@@ -204,7 +204,7 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
 
   // 스킵하기 버튼
   Widget _skipBtn() {
-    return Container(
+    return SizedBox(
       width: double.maxFinite,
       child: GestureDetector(
         onTap: () {
@@ -212,8 +212,8 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
         },
         child: Container(
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          child: Text("skip >>", style: TextStyle(color: MyColor.grey, fontSize: 16),),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+          child: const Text("skip >>", style: TextStyle(color: MyColor.grey, fontSize: 16),),
         ),
       ),
     );

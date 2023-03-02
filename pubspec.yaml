@@ -46,6 +46,8 @@ dependencies:
   kakao_flutter_sdk_user: ^1.2.1
   ## 네이버
   flutter_naver_login: ^1.6.0
+  ## 구글
+  google_sign_in: ^5.4.2
   
   
 
