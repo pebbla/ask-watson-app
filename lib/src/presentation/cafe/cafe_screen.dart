@@ -94,9 +94,9 @@ class CafeScreen extends StatelessWidget {
     );
   }
 
+
   // 조건 모달
   Widget _conditionModal(BuildContext context) {
-    
     return Container(
       padding: const EdgeInsets.all(12),
       height: 500,
@@ -111,7 +111,8 @@ class CafeScreen extends StatelessWidget {
           const Divider(thickness: 0.5),
           const Padding(padding: EdgeInsets.all(2)),
           // TODO : 외국어 가능 스와이프로 넘기기
-          locationModalWidget(context)
+          // locationModalWidget(context)
+          foreignModalWidget(context)
         ],
       ),
     );
@@ -160,6 +161,43 @@ class CafeScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+  // 외국어 가능 선택
+  Widget foreignModalWidget(BuildContext context) {
+    final viewModel = context.watch<CafeViewModel>();
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Checkbox(
+                value: viewModel.foreignYn['영어'],
+                onChanged: (value) {
+                  viewModel.changeForeignYn('영어', value!);
+                },
+                activeColor: MyColor.black,
+              ),
+              const Text('영어')
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: viewModel.foreignYn['중국어'],
+                onChanged: (value) {
+                  viewModel.changeForeignYn('중국어', value!);
+                },
+                activeColor: MyColor.black,
+              ),
+              const Text('중국어')
+            ],
           ),
         ],
       ),

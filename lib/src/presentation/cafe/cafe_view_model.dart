@@ -25,6 +25,9 @@ class CafeViewModel extends ChangeNotifier {
   List<Location> _cityList = [];
   List<Location> get cityList => _cityList;
 
+  Map<String, bool> _foreignYn = {"영어": false, "중국어": false};
+  Map<String, bool> get foreignYn => _foreignYn;
+
   final LocationUseCase _locationUseCase = LocationUseCase(LocationRepositoryImpl());
 
   String _sortingCondition = "정렬";
@@ -46,7 +49,7 @@ class CafeViewModel extends ChangeNotifier {
       } else {
         temp = _totalLocationList[i].state;
       }
-      stateList.add(temp);
+      _stateList.add(temp);
     }
     notifyListeners();
   }
@@ -54,15 +57,20 @@ class CafeViewModel extends ChangeNotifier {
 
   // location.city 데이터 불러오기
   void changeCityListByState(String state) {
-    print('city 가 바뀌었습니다.  ${state}');
     _cityList = [];
     _selectedState = state;
     for(int i = 0; i < _totalLocationList.length; i++) {
-      print('state: ${state}, ${_totalLocationList[i].state}');
       if(_totalLocationList[i].state == state) {
         _cityList.add(_totalLocationList[i]);
       }
     }
+    notifyListeners();
+  }
+
+
+  // 외국어 가능 변경
+  void changeForeignYn(String str, bool yn) {
+    _foreignYn.update(str, (value) => yn);
     notifyListeners();
   }
 
