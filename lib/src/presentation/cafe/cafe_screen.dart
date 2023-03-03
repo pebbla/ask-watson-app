@@ -73,20 +73,27 @@ class CafeScreen extends StatelessWidget {
               return _conditionModal(context);
             });
           },
-          child: _condition("위치")),
-        _condition("외국어 가능"),
+          child: _condition(context, "위치")),
+        GestureDetector(
+          onTap: () {
+            showModalBottomSheet(context: context, builder: (context) {
+              return _conditionModal(context);
+            });
+          },
+          child: _condition(context, "외국어 가능")),
       ],
     );
   }
 
   
   // 조건 위젯
-  Widget _condition(String text) {
+  Widget _condition(BuildContext context, String text, {bool changeable = false}) {
+    final viewModel = context.watch<CafeViewModel>();
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: MyColor.white,
+        color: viewModel.focusConditionYn[text]! && changeable ? MyColor.lightlightGrey : MyColor.white,
         border: Border.all(color: MyColor.lightlightGrey),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
@@ -97,6 +104,15 @@ class CafeScreen extends StatelessWidget {
 
   // 조건 모달
   Widget _conditionModal(BuildContext context) {
+    final viewModel = context.watch<CafeViewModel>();
+    ScrollController _controller = ScrollController();
+    _controller.addListener(() {
+      if(_controller.offset <  300) {
+        viewModel.changeFocusConditionYn('위치');
+      } else {
+        viewModel.changeFocusConditionYn('외국어 가능');
+      }
+    });
     return Container(
       padding: const EdgeInsets.all(12),
       height: 500,
@@ -104,15 +120,26 @@ class CafeScreen extends StatelessWidget {
         children: [
           Row(
             children: [
-              _condition("위치"),
-              _condition("외국어 가능"),
+              _condition(context, "위치", changeable: true),
+              _condition(context, "외국어 가능", changeable: true),
             ],
           ),
           const Divider(thickness: 0.5),
           const Padding(padding: EdgeInsets.all(2)),
           // TODO : 외국어 가능 스와이프로 넘기기
-          // locationModalWidget(context)
-          foreignModalWidget(context)
+          Expanded(
+            child: SingleChildScrollView(
+              controller: _controller,
+              physics: const PageScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  locationModalWidget(context),
+                  foreignModalWidget(context),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -123,6 +150,7 @@ class CafeScreen extends StatelessWidget {
   Widget locationModalWidget(BuildContext context) {
     final viewModel = context.watch<CafeViewModel>();
     return Container(
+      width: MediaQuery.of(context).size.width-24,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
         children: [
@@ -172,6 +200,7 @@ class CafeScreen extends StatelessWidget {
   Widget foreignModalWidget(BuildContext context) {
     final viewModel = context.watch<CafeViewModel>();
     return Container(
+      width: MediaQuery.of(context).size.width-24,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         children: [

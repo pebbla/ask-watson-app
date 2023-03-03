@@ -28,6 +28,9 @@ class CafeViewModel extends ChangeNotifier {
   Map<String, bool> _foreignYn = {"영어": false, "중국어": false};
   Map<String, bool> get foreignYn => _foreignYn;
 
+  Map<String, bool> _focusConditionYn = {"위치": false, "외국어 가능": false};
+  Map<String, bool> get focusConditionYn => _focusConditionYn;
+
   final LocationUseCase _locationUseCase = LocationUseCase(LocationRepositoryImpl());
 
   String _sortingCondition = "정렬";
@@ -71,6 +74,14 @@ class CafeViewModel extends ChangeNotifier {
   // 외국어 가능 변경
   void changeForeignYn(String str, bool yn) {
     _foreignYn.update(str, (value) => yn);
+    notifyListeners();
+  }
+
+
+  // 조건 선택 변경
+  void changeFocusConditionYn(String str) {
+    _focusConditionYn.updateAll((key, value) => false);
+    _focusConditionYn.update(str, (value) => true);
     notifyListeners();
   }
 
