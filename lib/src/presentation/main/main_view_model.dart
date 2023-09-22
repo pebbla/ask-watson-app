@@ -96,7 +96,4 @@ class MainViewModel extends ChangeNotifier {
     }
     return [num1, num2];
   }
-
-
-
 }

@@ -10,8 +10,15 @@ class CafeRepositoryImpl extends CafeRepository {
 
   // 카페 리스트 조회
   @override
-  Future<Map<ApiResponse, dynamic>> getCafeList() async {
-    var response = await _httpClient.getRequest('/cafes');
+  Future<Map<ApiResponse, dynamic>> getCafeList({bool isEnglishPossible = false, int locaitonId = 0}) async {
+    String url = '/cafes';
+    if(isEnglishPossible == true) {
+      url += '?isEnglishPossible=true';
+    }
+    if(locaitonId > 0) {
+        url += '&locationId=$locaitonId';
+    }
+    var response = await _httpClient.getRequest(url);
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
     }

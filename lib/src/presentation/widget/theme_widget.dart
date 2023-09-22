@@ -41,7 +41,11 @@ class ThemeGridWidget extends StatelessWidget {
                     child: Container(
                       width: double.maxFinite,
                       // TODO : Null value 관리
-                      child: Image.network(theme.imageUrl!, fit: BoxFit.cover),
+                      child: theme.imageUrl == null
+                        ? Container(
+                          color: Colors.white,
+                        )
+                        : Image.network(theme.imageUrl!, fit: BoxFit.cover),
                     ),
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),

@@ -13,7 +13,8 @@ class ThemeRepositoryImpl extends ThemeRepository {
   // TODO : 조건 설정 구현!
   @override
   Future<Map<ApiResponse, dynamic>> getThemeList() async {
-    var response = await _httpClient.getRequest('/themes');
+    // TODO : user 아이디 빼야한다.
+    var response = await _httpClient.getRequest('/user/1/themes');
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
     }
@@ -24,7 +25,8 @@ class ThemeRepositoryImpl extends ThemeRepository {
   // 카페별 테마 조회
   @override
   Future<Map<ApiResponse, dynamic>> getThemeListByCafeId(int cafeId) async {
-    var response = await _httpClient.getRequest('/cafes/${cafeId}/themes');
+    // TODO : user 아이디 빼아한다.
+    var response = await _httpClient.getRequest('/user/1/cafes/${cafeId}/themes');
     if(response[ApiResponse.Status] == ApiStatus.Success) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Theme>((json) => Theme.fromJson(json)).toList();
     }
