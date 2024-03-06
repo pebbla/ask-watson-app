@@ -11,7 +11,7 @@ class Cafe {
   String? imageUrl;
   Geography? geography;
   int? reviewCount;
-  num? rating;
+  double? rating;
   bool? isEnglishPossible;
   bool? available;
 
