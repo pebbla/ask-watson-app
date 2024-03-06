@@ -13,7 +13,7 @@ class LocationRepositoryImpl extends LocationRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getLocationList() async {
     var response = await _httpClient.getRequest('/locations');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Location>((json) => Location.fromJson(json)).toList();
     }
     return response;

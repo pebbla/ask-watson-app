@@ -1,3 +1,6 @@
+import 'package:ask_watson_app/src/data/data_source/local_data_source/SharedPrefer.dart';
+import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
+import 'package:ask_watson_app/src/data/model/oauth.dart';
 import 'package:ask_watson_app/src/data/model/user.dart';
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
@@ -6,8 +9,9 @@ import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_
 class UserUseCase {
 
   final UserRepositoryImpl _repository;
-
   UserUseCase(this._repository);
+
+  final SharedPrefer prefer = SharedPrefer();
 
 
   // 카카오 토큰으로 로그인
@@ -33,14 +37,6 @@ class UserUseCase {
   Future<Map<ApiResponse, dynamic>> signInByGoogleToken(String token) async {
     print('### user use case google token : $token');
     var result = await _repository.signInByGoogleToken(token);
-    return result;
-  }
-
-
-  // 회원 가입
-  @override
-  Future<Map<ApiResponse, dynamic>> createUser(User user) async {
-    var result = await _repository.createUser(user);
     return result;
   }
 

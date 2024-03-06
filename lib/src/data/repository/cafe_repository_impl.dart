@@ -19,7 +19,7 @@ class CafeRepositoryImpl extends CafeRepository {
         url += '&locationId=$locaitonId';
     }
     var response = await _httpClient.getRequest(url);
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
     }
     return response;
@@ -30,7 +30,7 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeById(int cafeId) async {
     var response = await _httpClient.getRequest('/cafes/$cafeId');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = Cafe.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -40,7 +40,7 @@ class CafeRepositoryImpl extends CafeRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getCafeListBySearch(String word) async {
     var response = await _httpClient.getRequest('/cafes?searchWord=$word');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Cafe>((json) => Cafe.fromJson(json)).toList();
     }
     return response;

@@ -1,5 +1,6 @@
 enum ApiStatus {
-  Success,
+  OK,
+  Created,
   Error,
   Forbidden,
   NotFound,
@@ -15,9 +16,9 @@ class ApiStatusHelper {
   static ApiStatus convertApiStatus(int statusCode) {
     switch (statusCode) {
       case 200:
+        return ApiStatus.OK;
       case 201:
-      case 202:
-        return ApiStatus.Success;
+        return ApiStatus.Created;
       case 403:
         return ApiStatus.Forbidden;
       case 404:

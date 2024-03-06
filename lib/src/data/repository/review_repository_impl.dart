@@ -12,7 +12,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getReivewById(int reviewId) async {
     var response = await _httpClient.getRequest('​/reviews​/${reviewId}');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = Review.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -23,7 +23,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getReivewByThemeId(int themeId) async {
     var response = await _httpClient.getRequest('​/reviews​/theme​/${themeId}');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Review>((json) => Review.fromJson(json)).toList();
     }
     return response;
@@ -34,7 +34,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getReivewByUserId(int userId) async {
     var response = await _httpClient.getRequest('​/user​/${userId}​/reviews');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Review>((json) => Review.fromJson(json)).toList();
     }
     return response;

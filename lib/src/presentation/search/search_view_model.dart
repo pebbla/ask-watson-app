@@ -26,12 +26,12 @@ class SearchViewModel extends ChangeNotifier {
     _debouncer.run(() async {
       print("on Changed 함수가 불렸습니다.");
       Map<ApiResponse, dynamic> responseCafe = await _cafeUseCase.getCafeListBySearch(text);
-      if(responseCafe[ApiResponse.Status] == ApiStatus.Success){
+      if(responseCafe[ApiResponse.Status] == ApiStatus.OK){
         _cafeList = responseCafe[ApiResponse.Data];
       }
 
       Map<ApiResponse, dynamic> responseTheme = await _themeUseCase.getThemeListBySearch(text);
-        if(responseTheme[ApiResponse.Status] == ApiStatus.Success){
+        if(responseTheme[ApiResponse.Status] == ApiStatus.OK){
         _themeList = responseTheme[ApiResponse.Data];
       }
       notifyListeners();

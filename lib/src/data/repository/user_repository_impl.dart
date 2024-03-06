@@ -1,6 +1,7 @@
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/http_client.dart';
+import 'package:ask_watson_app/src/data/model/oauth.dart';
 import 'package:ask_watson_app/src/data/model/user.dart';
 import 'package:ask_watson_app/src/domain/repository/user_repository.dart';
 
@@ -57,7 +58,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> modifyUser(User user) async {
     var response = await _httpClient.putRequest('/users/${user.id}', user);
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;

@@ -43,7 +43,7 @@ class SignUpViewModel extends ChangeNotifier {
   void signInByKakaoToken(BuildContext context, String kakaoToken) async {
     var response = await userUseCase.signInByKakaoToken(kakaoToken);
     
-    if (response[ApiResponse.Status] == ApiStatus.Success) {
+    if (response[ApiResponse.Status] == ApiStatus.OK) {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const TabBarScreen()), (route) => false);
       print('메인화면으로 이동');
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
@@ -59,7 +59,7 @@ class SignUpViewModel extends ChangeNotifier {
     NaverAccessToken accessToken = await FlutterNaverLogin.currentAccessToken;
     var response = await userUseCase.signInByNaverToken(accessToken.accessToken);
 
-    if (response[ApiResponse.Status] == ApiStatus.Success) {
+    if (response[ApiResponse.Status] == ApiStatus.OK) {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const TabBarScreen()), (route) => false);
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));
@@ -75,7 +75,7 @@ class SignUpViewModel extends ChangeNotifier {
 
     var response = await userUseCase.signInByGoogleToken(authentication.accessToken!);
 
-    if (response[ApiResponse.Status] == ApiStatus.Success) {
+    if (response[ApiResponse.Status] == ApiStatus.OK) {
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const TabBarScreen()), (route) => false);
     } else if (response[ApiResponse.Status] == ApiStatus.NotFound) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => AcceptTermScreen()));

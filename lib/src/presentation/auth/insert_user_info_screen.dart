@@ -189,9 +189,9 @@ class _InsertUserInfoScreenState extends State<InsertUserInfoScreen> {
                   marketingAgreeYn: false,
                   gender: _gender.convertString);
 
-              Map<ApiResponse, dynamic> response = await useCase.createUser(user);
+              Map<ApiResponse, dynamic> response = await useCase.modifyUser(user);
               print(response);
-              if (response[ApiResponse.Status] == ApiStatus.Success) {
+              if (response[ApiResponse.Status] == ApiStatus.OK) {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => FinishSignUpScreen()));
                 
               } else {
