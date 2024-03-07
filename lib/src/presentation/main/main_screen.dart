@@ -3,6 +3,8 @@ import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
+import 'package:ask_watson_app/src/data/repository/theme_repository_impl.dart';
+import 'package:ask_watson_app/src/domain/use_case/theme_use_case.dart';
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
 import 'package:ask_watson_app/src/presentation/search/search_screen.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
@@ -12,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatelessWidget {
+
+  final _tmUseCase = ThemeRepositoryImpl();
 
   @override
   Widget build(BuildContext context) {

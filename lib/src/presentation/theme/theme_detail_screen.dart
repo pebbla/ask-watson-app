@@ -88,7 +88,7 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
                             response = await _heartUseCase.deleteHeart(heart?.id ?? 0);
                           }
 
-                          if (response[ApiResponse.Status] == ApiStatus.Success) {
+                          if (response[ApiResponse.Status] == ApiStatus.OK) {
                             setState(() {
                               _themeHeart = !_themeHeart;
                             });
@@ -277,7 +277,7 @@ class _ThemeDetailScreenState extends State<ThemeDetailScreen> {
           response = await _checkUseCase.deleteCheck(check?.id ?? 0);
         }
 
-        if(response[ApiResponse.Status] == ApiStatus.Success) {
+        if(response[ApiResponse.Status] == ApiStatus.OK) {
           setState(() {
             _themeCheck = !_themeCheck;
           });

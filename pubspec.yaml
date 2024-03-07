@@ -49,6 +49,8 @@ dependencies:
   ## 구글
   google_sign_in: ^5.4.2
   
+  shared_preferences: ^2.0.1
+  
   
 
 

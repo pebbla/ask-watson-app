@@ -1,9 +1,9 @@
 class Location {
-  int? id;
-  String? state;
-  String? city;
+  late int id;
+  late String state;
+  late String city;
 
-  Location({this.id, this.state, this.city});
+  Location({required this.id, required this.state, required this.city});
 
   Location.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,9 +13,9 @@ class Location {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['state'] = this.state;
-    data['city'] = this.city;
+    data['id'] = id;
+    data['state'] = state;
+    data['city'] = city;
     return data;
   }
 }

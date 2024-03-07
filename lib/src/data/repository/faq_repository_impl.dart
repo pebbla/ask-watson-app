@@ -13,7 +13,7 @@ class FaqRepositoryImpl extends FaqRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getFaqList() async {
     var response = await _httpClient.getRequest('/faqs');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Faq>((json) => Faq.fromJson(json)).toList();
     }
     return response;
@@ -24,7 +24,7 @@ class FaqRepositoryImpl extends FaqRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getFaqById(int faqId) async {
     var response = await _httpClient.getRequest('/faqs/$faqId');
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = Faq.fromJson(response[ApiResponse.Data]);
     }
     return response;

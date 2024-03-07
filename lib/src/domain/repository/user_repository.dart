@@ -13,9 +13,6 @@ abstract class UserRepository {
   // 구글 토큰으로 로그인
   Future<Map<ApiResponse, dynamic>> signInByGoogleToken(String token);
 
-  // 회원 가입
-  Future<Map<ApiResponse, dynamic>> createUser(User user);
-
   // 회원 정보 수정
   Future<Map<ApiResponse, dynamic>> modifyUser(User user);
 

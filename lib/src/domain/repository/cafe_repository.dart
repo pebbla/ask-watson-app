@@ -3,7 +3,7 @@ import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_
 abstract class CafeRepository {
 
   // 카페 리스트 조회
-  Future<Map<ApiResponse, dynamic>> getCafeList();
+  Future<Map<ApiResponse, dynamic>> getCafeList({bool isEnglishPossible = false, int locaitonId = 0});
 
   // 카페 개별 조회
   Future<Map<ApiResponse, dynamic>> getCafeById(int cafeId);

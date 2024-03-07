@@ -13,7 +13,7 @@ class HeartRepositoryImpl extends HeartRepository {
   @override
   Future<Map<ApiResponse, dynamic>> getHeartList(int userId) async {
     var response = await _httpClient.getRequest("user/$userId/hearts");
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = Heart.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -24,7 +24,7 @@ class HeartRepositoryImpl extends HeartRepository {
   @override
   Future<Map<ApiResponse, dynamic>> createHeart(int userId, themeId) async {
     var response = await _httpClient.postRequest("/user/$userId/themes/$themeId/hearts", null);
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = Heart.fromJson(response[ApiResponse.Data]);
     }
     return response;

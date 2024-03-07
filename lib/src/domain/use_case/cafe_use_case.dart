@@ -9,8 +9,8 @@ class CafeUseCase {
   CafeUseCase(this._repository);
 
   // 카페 리스트 조회
-  Future<Map<ApiResponse, dynamic>> getCafeList() async {
-    var result = await _repository.getCafeList();
+  Future<Map<ApiResponse, dynamic>> getCafeList({bool isEnglishPossible = false, int locaitonId = 0}) async {
+    var result = await _repository.getCafeList(isEnglishPossible: isEnglishPossible, locaitonId: locaitonId);
     return result;
   }
 
