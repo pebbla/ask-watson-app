@@ -2,10 +2,12 @@ class User {
   int? id;
   String? email;
   String? nickname;
-  String? email;
   String? birth;
   String? gender;
   List<int>? userBirth;
+  bool? marketingAgreeYn;
+  String? createdAt;
+  String? modifiedAt;
 
   User(
       {this.id,

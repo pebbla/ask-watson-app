@@ -1,26 +1,46 @@
-import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
+import 'package:ask_watson_app/src/presentation/cafe_detail/cafe_detail_view_model.dart';
+import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
+import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:ask_watson_app/src/data/model/theme.dart' as m;
+import 'package:provider/provider.dart';
 
 class CafeDetailScreen extends StatelessWidget {
   final Cafe cafe;
-
   const CafeDetailScreen({super.key, required this.cafe});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("${cafe.name}", style: MyTextStyle.black18w600),
+    return ChangeNotifierProvider<CafeDetailViewModel>(
+      create: (context) => CafeDetailViewModel(cafe.id),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("${cafe.name}", style: MyTextStyle.black18w600),
+        ),
+        body: CafeDetailView(cafe: cafe),
       ),
-      body: SafeArea(child: Column(
-        children: [
-          _buildCafeInfo(context),
-          _buildThemeList(context),
-        ],
-      ), ),
+    );
+  }
+}
+
+class CafeDetailView extends StatelessWidget {
+  final Cafe cafe;
+  const CafeDetailView({super.key, required this.cafe});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildCafeInfo(context),
+            _buildThemeList(context),
+          ],
+        ),
+      ),
     );
   }
 
@@ -58,9 +78,35 @@ class CafeDetailScreen extends StatelessWidget {
     );
   }
 
+
   Widget _buildThemeList(BuildContext context) {
-    return Column(
-      
+    final viewModel = context.watch<CafeDetailViewModel>();
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: viewModel.themeList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio : 0.70,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return ThemeGrid2Widget(
+            theme: viewModel.themeList[index],
+            onHeartTap: null,
+            onThemeTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          ThemeDetailScreen(theme: viewModel.themeList[index])));
+            },
+          );
+        },
+      ),
     );
   }
 }

@@ -14,7 +14,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> signInByKakaoToken(String token) async {
     var response = await _httpClient.postRequest('/signin/kakao', {"accessToken" : token});
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -25,7 +25,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> signInByNaverToken(String token) async {
     var response = await _httpClient.postRequest('/signin/naver', {"accessToken" : token});
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -36,7 +36,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> signInByGoogleToken(String token) async {
     var response = await _httpClient.postRequest('/signin/google', {"accessToken" : token});
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;
@@ -47,7 +47,7 @@ class UserRepositoryImpl extends UserRepository {
   @override
   Future<Map<ApiResponse, dynamic>> createUser(User user) async {
     var response = await _httpClient.postRequest('/users', user);
-    if(response[ApiResponse.Status] == ApiStatus.Success) {
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = User.fromJson(response[ApiResponse.Data]);
     }
     return response;
