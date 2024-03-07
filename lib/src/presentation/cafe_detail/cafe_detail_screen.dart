@@ -2,11 +2,13 @@ import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/presentation/cafe_detail/cafe_detail_view_model.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
+import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
 import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CafeDetailScreen extends StatelessWidget {
   final Cafe cafe;
@@ -19,9 +21,26 @@ class CafeDetailScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text("${cafe.name}", style: MyTextStyle.black18w600),
+          automaticallyImplyLeading: false,
         ),
         body: CafeDetailView(cafe: cafe),
+        floatingActionButton: _buildCafeUrlBtn(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
+    );
+  }
+
+  Widget _buildCafeUrlBtn() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ButtonPrimaryWidget(
+          onPressed: () async {
+            Uri url = Uri.parse(cafe.website ?? '');
+            if (!await launchUrl(url)) {
+              throw Exception('Could not launch $url');
+            }
+          },
+          text: '예약하러가기'),
     );
   }
 }
@@ -38,6 +57,7 @@ class CafeDetailView extends StatelessWidget {
           children: [
             _buildCafeInfo(context),
             _buildThemeList(context),
+            const Padding(padding: EdgeInsets.all(24))
           ],
         ),
       ),
@@ -78,7 +98,6 @@ class CafeDetailView extends StatelessWidget {
     );
   }
 
-
   Widget _buildThemeList(BuildContext context) {
     final viewModel = context.watch<CafeDetailViewModel>();
     return Container(
@@ -89,7 +108,7 @@ class CafeDetailView extends StatelessWidget {
         itemCount: viewModel.themeList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio : 0.70,
+          childAspectRatio: 0.70,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
         ),
@@ -101,8 +120,8 @@ class CafeDetailView extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          ThemeDetailScreen(theme: viewModel.themeList[index])));
+                      builder: (context) => ThemeDetailScreen(
+                          theme: viewModel.themeList[index])));
             },
           );
         },
