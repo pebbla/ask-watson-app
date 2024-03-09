@@ -23,8 +23,8 @@ class MyTextStyle {
   // 밝은 회색
   static const TextStyle lightGrey14w500 = TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: MyColor.lightGrey, overflow: TextOverflow.ellipsis);
 
-
-
+  // 흰색
+  static const TextStyle white16w600 = TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: MyColor.white);
 
   
 }

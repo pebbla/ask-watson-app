@@ -15,7 +15,7 @@ class Theme {
   int? heartCount;
   int? checkCount;
   int? reviewCount;
-  num? rating;
+  double? rating;
   num? deviceRatio;
   num? activity;
   Cafe? cafe;

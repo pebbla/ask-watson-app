@@ -1,7 +1,7 @@
-import 'package:ask_watson_app/src/config/theme/colors.dart';
-import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
+import 'package:ask_watson_app/src/config/theme/colors.dart';
+import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/user.dart';
 import 'package:ask_watson_app/src/data/repository/user_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/user_use_case.dart';

@@ -5,6 +5,7 @@ import 'package:ask_watson_app/src/data/model/category.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:ask_watson_app/src/data/repository/theme_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/theme_use_case.dart';
+import 'package:ask_watson_app/src/presentation/cafe_detail/cafe_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/main/main_view_model.dart';
 import 'package:ask_watson_app/src/presentation/search/search_screen.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
@@ -31,6 +32,7 @@ class MainScreen extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
+
                   _buildSearchBar(context),
                   _buildCategoryList(viewModel.categoryList),
                   _buildCafeList(context, viewModel.twoRandomCafe),
@@ -148,7 +150,7 @@ class MainScreen extends StatelessWidget {
                     const Text('카페', style: MyTextStyle.black18w600),
                     TextButton(
                       onPressed: () {
-                        // TODO : 카페 더보기 화면으로 이동
+                        // TODO: 카페 리스트 화면으로 이동
                       },
                       child: const Text('더보기 >', style: MyTextStyle.black12w500),
                     ),

@@ -103,6 +103,105 @@ class ThemeGridWidget extends StatelessWidget {
   }
 }
 
+
+
+// grid 버전
+class ThemeGrid2Widget extends StatelessWidget {
+  final m.Theme theme;
+  final Function? onHeartTap;
+  final Function? onThemeTap;
+
+  const ThemeGrid2Widget(
+      {super.key,
+      required this.theme,
+      required this.onHeartTap,
+      required this.onThemeTap,
+      });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        onThemeTap?.call();
+      },
+      child: Container(
+        padding: EdgeInsets.only(bottom: 8),
+        decoration:
+            BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(12))),
+        width: double.maxFinite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              width: 120,
+              height: 160,
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    child: Container(
+                      width: double.maxFinite,
+                      child: theme.imageUrl == null
+                        ? Container(
+                          color: Colors.white,
+                        )
+                        : Image.network(theme.imageUrl!, fit: BoxFit.cover),
+                    ),
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  ),
+                  Container(
+                    alignment: Alignment.bottomRight,
+                    width: double.maxFinite,
+                    height: double.maxFinite,
+                    child: IconButton(
+                      onPressed: () {
+                        onHeartTap?.call();
+                      },
+                      icon: Icon(Icons.heart_broken,),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text('${theme.name}',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: MyTextStyle.black14w600
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Text('${theme.cafe?.name}',
+                      style: MyTextStyle.black12w500),
+                  const Padding(padding: EdgeInsets.all(2)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      StarWidget(rating: theme.rating ?? 0.0),
+                      const Padding(padding: EdgeInsets.all(2)),
+                      Text('${theme.rating ?? 0.0}', style: MyTextStyle.black12w500)
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
 // list 버전
 class ThemeListWidget extends StatelessWidget {
   final m.Theme theme;

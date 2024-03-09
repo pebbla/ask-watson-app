@@ -50,6 +50,8 @@ dependencies:
   google_sign_in: ^5.4.2
   
   shared_preferences: ^2.0.1
+  url_launcher: ^6.2.5
+
   
   
 
