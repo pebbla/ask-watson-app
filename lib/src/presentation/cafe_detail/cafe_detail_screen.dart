@@ -1,6 +1,7 @@
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/cafe.dart';
 import 'package:ask_watson_app/src/presentation/cafe_detail/cafe_detail_view_model.dart';
+import 'package:ask_watson_app/src/presentation/cafe_detail/modify_dialog_widget.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_screen.dart';
 import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
@@ -18,32 +19,11 @@ class CafeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<CafeDetailViewModel>(
       create: (context) => CafeDetailViewModel(cafe.id),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("${cafe.name}", style: MyTextStyle.black18w600),
-          automaticallyImplyLeading: false,
-        ),
-        body: CafeDetailView(cafe: cafe),
-        floatingActionButton: _buildCafeUrlBtn(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      ),
-    );
-  }
-
-  Widget _buildCafeUrlBtn() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: ButtonPrimaryWidget(
-          onPressed: () async {
-            Uri url = Uri.parse(cafe.website ?? '');
-            if (!await launchUrl(url)) {
-              throw Exception('Could not launch $url');
-            }
-          },
-          text: '예약하러가기'),
+      child: CafeDetailView(cafe: cafe),
     );
   }
 }
+
 
 class CafeDetailView extends StatelessWidget {
   final Cafe cafe;
@@ -51,19 +31,36 @@ class CafeDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildCafeInfo(context),
-            _buildThemeList(context),
-            const Padding(padding: EdgeInsets.all(24))
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${cafe.name}", style: MyTextStyle.black18w600),
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () => _showDialog(context),
+              icon: const Icon(Icons.settings)),
+        ],
+      ),
+      floatingActionButton: _buildCafeUrlBtn(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildCafeInfo(context),
+              _buildThemeList(context),
+              const Padding(padding: EdgeInsets.all(24))
+            ],
+          ),
         ),
       ),
     );
   }
 
+
+  /**
+   * 카페 정보 노출 UI
+   */
   Widget _buildCafeInfo(BuildContext context) {
     return Column(
       children: [
@@ -89,7 +86,18 @@ class CafeDetailView extends StatelessWidget {
               const Padding(padding: EdgeInsets.all(3)),
               StarWidget(rating: cafe.rating ?? 0.0),
               const Padding(padding: EdgeInsets.all(3)),
-              Text("${cafe.phoneNum}"),
+              GestureDetector(
+                onTap: () {
+                  launchUrl(Uri.parse('tel://${cafe.phoneNum}'));
+                },
+                child: Row(
+                  children: [
+                    const Icon(Icons.phone, size: 16),
+                    const Padding(padding: EdgeInsets.all(4)),
+                    Text("${cafe.phoneNum}"),
+                  ],
+                ),
+              ),
               const Divider()
             ],
           ),
@@ -98,6 +106,9 @@ class CafeDetailView extends StatelessWidget {
     );
   }
 
+  /**
+   * theme list UI
+   */
   Widget _buildThemeList(BuildContext context) {
     final viewModel = context.watch<CafeDetailViewModel>();
     return Container(
@@ -118,14 +129,43 @@ class CafeDetailView extends StatelessWidget {
             onHeartTap: null,
             onThemeTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
+                  context,MaterialPageRoute(
                       builder: (context) => ThemeDetailScreen(
                           theme: viewModel.themeList[index])));
             },
           );
         },
       ),
+    );
+  }
+
+  /**
+   * cafe website 이동 UI
+   */
+  Widget _buildCafeUrlBtn() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ButtonPrimaryWidget(
+        text: '예약하러가기',
+        onPressed: () async {
+          Uri url = Uri.parse(cafe.website ?? '');
+          if (!await launchUrl(url)) {
+            throw Exception('Could not launch $url');
+          }
+        },
+      ),
+    );
+  }
+
+  /**
+   * 카페 정보 수정 요청 dialog 
+   */
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return ModifyDialogWidget();
+      },
     );
   }
 }
