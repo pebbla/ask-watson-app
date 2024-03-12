@@ -15,7 +15,7 @@ class CheckUseCase {
   }
 
   // 탈출 완료 등록
-  Future<Map<ApiResponse, dynamic>> createCheck(int userId, int themeId) async {
+  Future<Map<ApiResponse, dynamic>> createCheck(int userId, themeId) async {
     var result = await _repository.createCheck(userId, themeId);
     return result;
   }

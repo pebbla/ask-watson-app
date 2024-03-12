@@ -20,6 +20,8 @@ class Theme {
   num? activity;
   Cafe? cafe;
   bool? available;
+  bool? hearted;
+  bool? checked;
 
   Theme(
       {this.id,
@@ -39,7 +41,10 @@ class Theme {
       this.deviceRatio,
       this.activity,
       this.cafe,
-      this.available});
+      this.available,
+      this.hearted,
+      this.checked,
+      });
 
   Theme.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -62,6 +67,8 @@ class Theme {
     activity = json['activity'];
     cafe = json['cafe'] != null ? new Cafe.fromJson(json['cafe']) : null;
     available = json['available'];
+    hearted = json['hearted'];
+    checked = json['checked'];
   }
 
   Map<String, dynamic> toJson() {
@@ -88,6 +95,8 @@ class Theme {
       data['cafe'] = this.cafe!.toJson();
     }
     data['available'] = this.available;
+    data['hearted'] = this.hearted;
+    data['checked'] = this.checked;
     return data;
   }
 }

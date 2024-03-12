@@ -21,9 +21,6 @@ class CheckRepositoryImpl extends CheckRepository {
   // 탈출 완료 등록
   Future<Map<ApiResponse, dynamic>> createCheck(int userId, int themeId) async {
     var response = await _httpClient.postRequest('/user/$userId/themes/$themeId/checks', null);
-    if(response[ApiResponse.Status] == ApiStatus.OK) {
-      response[ApiResponse.Data] = Check.fromJson(response[ApiResponse.Data]);
-    }
     return response;
   }
 
