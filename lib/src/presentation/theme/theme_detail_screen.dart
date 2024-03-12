@@ -118,7 +118,7 @@ class ThemeDetailView extends StatelessWidget {
                   const Padding(padding: EdgeInsets.all(2)),
                   Text("${viewModel.theme.rating ?? 0.0}", style: MyTextStyle.grey14w500),
                   const Padding(padding: EdgeInsets.all(8)),
-                  const Icon(Icons.heart_broken, color: MyColor.red, size: 20),
+                  const Icon(Icons.favorite, color: MyColor.red, size: 20),
                   const Padding(padding: EdgeInsets.all(2)),
                   Text("${viewModel.theme.heartCount ?? 0.0}", style: MyTextStyle.grey14w500),
                 ],
