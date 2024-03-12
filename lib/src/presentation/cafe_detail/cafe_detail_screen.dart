@@ -7,7 +7,6 @@ import 'package:ask_watson_app/src/presentation/widget/button.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
 import 'package:ask_watson_app/src/presentation/widget/theme_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -161,10 +160,11 @@ class CafeDetailView extends StatelessWidget {
    * 카페 정보 수정 요청 dialog 
    */
   void _showDialog(BuildContext context) {
+    final viewModel = context.read<CafeDetailViewModel>();
     showDialog(
       context: context,
       builder: (BuildContext ctx) {
-        return ModifyDialogWidget();
+        return ModifyDialogWidget(controller: viewModel.controller, onPressed: () => {viewModel.createSuggestion(context)});
       },
     );
   }
