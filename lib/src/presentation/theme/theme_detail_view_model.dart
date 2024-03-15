@@ -4,9 +4,11 @@ import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_
 import 'package:ask_watson_app/src/data/model/review.dart';
 import 'package:ask_watson_app/src/data/repository/check_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/heart_repository_impl.dart';
+import 'package:ask_watson_app/src/data/repository/report_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/review_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/check_use_case.dart';
 import 'package:ask_watson_app/src/domain/use_case/heart_use_case.dart';
+import 'package:ask_watson_app/src/domain/use_case/report_use_case.dart';
 import 'package:ask_watson_app/src/domain/use_case/review_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
@@ -28,10 +30,12 @@ class ThemeDetailViewModel extends ChangeNotifier {
   List<Review> _reviews = [];
   List<Review> get reviews => _reviews;
 
+  TextEditingController controller = TextEditingController();
 
   HeartUseCase _heartUseCase = HeartUseCase(HeartRepositoryImpl());
   CheckUseCase _checkUseCase = CheckUseCase(CheckRepositoryImpl());
   ReviewUseCase _reviewUseCase = ReviewUseCase(ReivewRepositoryImpl());
+  ReportUseCase _reportUseCase = ReportUseCase(ReportRepositoryImpl());
   
 
   void onHeartTap() async {
@@ -71,13 +75,19 @@ class ThemeDetailViewModel extends ChangeNotifier {
 
 
   void getReviewList() async {
-
     Map<ApiResponse, dynamic> response = await _reviewUseCase.getReivewByThemeId(theme.id!);
     if(response[ApiResponse.Status] == ApiStatus.OK) {
       _reviews = response[ApiResponse.Data];
     }
-
     notifyListeners();
+  }
+
+    void createReport(BuildContext context, themeId) async {
+    var response = await _reportUseCase.createReport(2, themeId, controller.text);
+    if(response[ApiResponse.Status] == ApiStatus.OK || response[ApiResponse.Status] == ApiStatus.Created) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('접수 완료되었습니다. 빠른시일안에 수정하겠습니다.')));
+    }
+    Navigator.pop(context);
   }
 
 }

@@ -1,8 +1,9 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/review.dart';
-import 'package:ask_watson_app/src/di/provider_setup.dart';
+import 'package:ask_watson_app/src/presentation/theme/delete_dialog_widget.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_view_model.dart';
+import 'package:ask_watson_app/src/presentation/widget/fire_widget.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
@@ -155,7 +156,7 @@ class ThemeDetailView extends StatelessWidget {
           const Padding(padding: EdgeInsets.all(6)),
           _writeReviewBtn(),
           ListView.separated(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             shrinkWrap: true,
             itemCount: _reviews.length,
             itemBuilder: (context, idx) {
@@ -169,7 +170,7 @@ class ThemeDetailView extends StatelessWidget {
   }
 
   // 리뷰 아이템
-  Widget _reviewItem(context, Review review) {
+  Widget _reviewItem(BuildContext context, Review review) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 6),
       width: double.maxFinite,
@@ -180,24 +181,20 @@ class ThemeDetailView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text("${review.usedHintNum ?? "익명"}", style: MyTextStyle.black16w600),
-              const Icon(
-                Icons.warning,
-                color: MyColor.red,
-                size: 18,
+              Text(review.user!.nickname ?? "익명", style: MyTextStyle.black16w600),
+              // 신고하기
+              IconButton(
+                icon: Icon(Icons.warning, color: MyColor.grey, size: 18),
+                onPressed: () {
+                  _showDialog(context, review.id);
+                },
               ),
             ],
           ),
           const Padding(padding: EdgeInsets.all(2)),
-          Row(
-            children: [
-              StarWidget(
-                  rating: double.parse((review.rating ?? 0.0).toString()),
-                  color: MyColor.black),
-              const Padding(padding: EdgeInsets.all(2)),
-              Text("${review.createdAt}"),
-            ],
-          ),
+          StarWidget(rating: (review.rating ?? 0.0).toDouble()),
+          const Padding(padding: EdgeInsets.all(2)),
+          FireWidget(rating: (review.difficulty ?? 0.0).toDouble()),
           const Padding(padding: EdgeInsets.all(4)),
           Text(
             "${review.content}",
@@ -240,6 +237,18 @@ class ThemeDetailView extends StatelessWidget {
         child: Text("탈출 완료",
             style: TextStyle(color: checked ? MyColor.white : MyColor.green)),
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context, themeId) {
+    final viewModel = context.read<ThemeDetailViewModel>();
+    showDialog(
+      context: context,
+      builder: (BuildContext ctx) {
+        return DeleteDialogWidget(
+            controller: viewModel.controller,
+            onPressed: () => {viewModel.createReport(context, themeId)});
+      },
     );
   }
 }
