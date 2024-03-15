@@ -2,11 +2,11 @@ class Review {
   int? id;
   String? content;
   num? rating;
-  int? activity;
-  int? deviceRatio;
-  int? difficulty;
-  int? timeTaken;
-  int? usedHintNum;
+  num? activity;
+  num? deviceRatio;
+  num? difficulty;
+  num? timeTaken;
+  num? usedHintNum;
   String? createdAt;
   String? modifiedAt;
 

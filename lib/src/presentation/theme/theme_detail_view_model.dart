@@ -1,10 +1,13 @@
 
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_response.dart';
 import 'package:ask_watson_app/src/data/data_source/remote_data_source/enum/api_status.dart';
+import 'package:ask_watson_app/src/data/model/review.dart';
 import 'package:ask_watson_app/src/data/repository/check_repository_impl.dart';
 import 'package:ask_watson_app/src/data/repository/heart_repository_impl.dart';
+import 'package:ask_watson_app/src/data/repository/review_repository_impl.dart';
 import 'package:ask_watson_app/src/domain/use_case/check_use_case.dart';
 import 'package:ask_watson_app/src/domain/use_case/heart_use_case.dart';
+import 'package:ask_watson_app/src/domain/use_case/review_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:ask_watson_app/src/data/model/theme.dart' as m;
 import 'package:flutter/services.dart';
@@ -12,17 +15,24 @@ import 'package:logger/logger.dart';
 
 class ThemeDetailViewModel extends ChangeNotifier {
 
+  ThemeDetailViewModel(this.theme, this._hearted, this._checked) {
+    getReviewList();
+  }
+
   final m.Theme theme;
   bool _hearted;
   bool get hearted => _hearted;
   bool _checked;
   bool get checked => _checked;
 
+  List<Review> _reviews = [];
+  List<Review> get reviews => _reviews;
+
 
   HeartUseCase _heartUseCase = HeartUseCase(HeartRepositoryImpl());
   CheckUseCase _checkUseCase = CheckUseCase(CheckRepositoryImpl());
-  ThemeDetailViewModel(this.theme, this._hearted, this._checked);
-
+  ReviewUseCase _reviewUseCase = ReviewUseCase(ReivewRepositoryImpl());
+  
 
   void onHeartTap() async {
     HapticFeedback.lightImpact();
@@ -56,6 +66,17 @@ class ThemeDetailViewModel extends ChangeNotifier {
     if(response[ApiResponse.Status] == ApiStatus.OK) {
       _checked = !_checked;
     }
+    notifyListeners();
+  }
+
+
+  void getReviewList() async {
+
+    Map<ApiResponse, dynamic> response = await _reviewUseCase.getReivewByThemeId(theme.id!);
+    if(response[ApiResponse.Status] == ApiStatus.OK) {
+      _reviews = response[ApiResponse.Data];
+    }
+
     notifyListeners();
   }
 

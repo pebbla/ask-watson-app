@@ -1,6 +1,7 @@
 import 'package:ask_watson_app/src/config/theme/colors.dart';
 import 'package:ask_watson_app/src/config/theme/text_style.dart';
 import 'package:ask_watson_app/src/data/model/review.dart';
+import 'package:ask_watson_app/src/di/provider_setup.dart';
 import 'package:ask_watson_app/src/presentation/theme/theme_detail_view_model.dart';
 import 'package:ask_watson_app/src/presentation/widget/star_widget.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class ThemeDetailView extends StatelessWidget {
             children: [
               _themeImage(context),
               _themeDetail(context),
-              // _reviewList(),
+              _reviewList(context),
             ],
           ),
         ),
@@ -143,30 +144,25 @@ class ThemeDetailView extends StatelessWidget {
 
 
   // 리뷰 리스트
-  Widget _reviewList() {
-    List<Review> reviews = [];
-
+  Widget _reviewList(BuildContext context) {
+    final _reviews = context.watch<ThemeDetailViewModel>().reviews;
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("리뷰수 ${reviews.length}", style: MyTextStyle.black18w600),
-              const Text("더보기 >", style: MyTextStyle.grey14w500),
-            ],
-          ),
+          Text("리뷰수 ${_reviews.length}", style: MyTextStyle.black18w600),
           const Padding(padding: EdgeInsets.all(6)),
           _writeReviewBtn(),
-          const Padding(padding: EdgeInsets.all(6)),
           ListView.separated(
-              padding:const EdgeInsets.all(0),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => _reviewItem(context, reviews[index]),
-              separatorBuilder: (_, __) => const Divider(thickness: 1),
-              itemCount: reviews.length)
+            padding: EdgeInsets.all(4),
+            shrinkWrap: true,
+            itemCount: _reviews.length,
+            itemBuilder: (context, idx) {
+            return _reviewItem(context, _reviews[idx]);
+            },
+            separatorBuilder: (_, __) => const Divider(thickness: 1),
+          )
         ],
       ),
     );
@@ -174,7 +170,6 @@ class ThemeDetailView extends StatelessWidget {
 
   // 리뷰 아이템
   Widget _reviewItem(context, Review review) {
-    final viewModel = context.read<ThemeDetailViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 6),
       width: double.maxFinite,
@@ -197,7 +192,7 @@ class ThemeDetailView extends StatelessWidget {
           Row(
             children: [
               StarWidget(
-                  rating: double.parse((viewModel.theme.rating ?? 0.0).toString()),
+                  rating: double.parse((review.rating ?? 0.0).toString()),
                   color: MyColor.black),
               const Padding(padding: EdgeInsets.all(2)),
               Text("${review.createdAt}"),
