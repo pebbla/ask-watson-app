@@ -11,7 +11,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   // 리뷰 단건 조회
   @override
   Future<Map<ApiResponse, dynamic>> getReivewById(int reviewId) async {
-    var response = await _httpClient.getRequest('​/reviews​/${reviewId}');
+    var response = await _httpClient.getRequest('/reviews/${reviewId}');
     if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = Review.fromJson(response[ApiResponse.Data]);
     }
@@ -22,7 +22,7 @@ class ReivewRepositoryImpl extends ReivewRepository {
   // 테마별 리뷰 조회
   @override
   Future<Map<ApiResponse, dynamic>> getReivewByThemeId(int themeId) async {
-    var response = await _httpClient.getRequest('​/reviews​/theme​/${themeId}');
+    var response = await _httpClient.getRequest('/themes/${themeId}/reviews');
     if(response[ApiResponse.Status] == ApiStatus.OK) {
       response[ApiResponse.Data] = response[ApiResponse.Data].map<Review>((json) => Review.fromJson(json)).toList();
     }
