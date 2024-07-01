@@ -67,24 +67,29 @@ class CafeConditionModalWidget extends StatelessWidget {
       width: MediaQuery.of(context).size.width-24,
       child: ListView(
         children: [
-          Container(
-            height: 60,
-            width: 230,
+          viewModel.selectedLocationList.length == 0 ? Container() :  Container(
+            height: 50,
+            width: double.infinity,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: viewModel.selectedLocationList.length,
-              itemBuilder: (context, index) => Container(
-                color: MyColor.green,
+              itemBuilder: (context, index) => Container( // 선택된 Location item
+                decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(8)),
+                margin: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
                 height: 20,
-                width: 60,
+                width: 100,
                 child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(viewModel.selectedLocationList[index].city),
                     IconButton(
                         onPressed: () {
-                          viewModel.removeCity(index);
+                          viewModel.removeCity(viewModel.selectedLocationList[index]);
                         },
-                        icon: Icon(Icons.abc))
+                        icon: Icon(Icons.close))
                   ],
                 ),
               ),
@@ -118,7 +123,7 @@ class CafeConditionModalWidget extends StatelessWidget {
                   itemCount: viewModel.cityList.length,
                   itemBuilder: (context, index) => InkWell(
                     onTap: () {
-                      viewModel.putCity(viewModel.cityList[index]);
+                      viewModel.putCity(viewModel.cityList[index], context);
                     },
                     child: Container(
                       decoration: BoxDecoration(

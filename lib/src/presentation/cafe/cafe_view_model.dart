@@ -59,12 +59,19 @@ class CafeViewModel extends ChangeNotifier {
     notifyListeners();
   }
   // 검색 조건 - 위치 : 선택한 city list에 넣기
-  void putCity(Location item) {
+  void putCity(Location item, BuildContext context) {
+    if (_selectedLocationList.length >= 3) {
+      // TODO : 3개까지만 선택가능하도록 알림
+      return;
+    }
+    if (_selectedLocationList.contains(item)) {
+      return;
+    }
     _selectedLocationList.add(item);
     notifyListeners();
   }
-  void removeCity(int index) {
-    _selectedLocationList.remove(index);
+  void removeCity(Location item) {
+    _selectedLocationList.remove(item);
     notifyListeners();
   }
 
